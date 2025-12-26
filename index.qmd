@@ -1,0 +1,11 @@
+---
+title: "Hidden Markov Models — Rigorous Course"
+format:
+  html:
+    toc: false
+    smooth-scroll: true
+  pdf:
+    toc: true
+---
+
+{{< include HMM.md >}}
