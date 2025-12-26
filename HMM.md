@@ -13,7 +13,7 @@ The materials are organized into **12 sections (0–11)**. Each section lives in
 
 ---
 
-## Primary References
+## Primary References (Used for Notation and Examples)
 
 The exposition and notation lean heavily on:
 
