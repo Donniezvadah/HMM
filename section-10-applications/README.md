@@ -17,14 +17,14 @@ Zucchini et al. provide many application examples (e.g. animal movement, environ
 
 In classical **speech recognition**, an HMM is used to model the mapping from hidden linguistic units to acoustic features:
 
-- Hidden states \(S_t\): phonetic units (phones), context-dependent phones, or sub-phonetic states;
-- Observations \(Y_t\): short-time acoustic feature vectors (e.g. MFCCs) in \(\mathbb{R}^d\);
-- Transition matrix \(\boldsymbol{\Gamma}\): encodes allowed transitions between phones (including self-transitions for duration modeling);
-- Emission distributions \(f_i(y)\): often Gaussian mixtures or more complex distributions over acoustic features.
+- Hidden states $S_t$: phonetic units (phones), context-dependent phones, or sub-phonetic states;
+- Observations $Y_t$: short-time acoustic feature vectors (e.g. MFCCs) in $\mathbb{R}^d$;
+- Transition matrix $\boldsymbol{\Gamma}$: encodes allowed transitions between phones (including self-transitions for duration modeling);
+- Emission distributions $f_i(y)$: often Gaussian mixtures or more complex distributions over acoustic features.
 
 ### 10.1.2 Inference Tasks
 
-- **Likelihood computation:** \(p_\theta(Y_{1:T})\) for a given sequence of acoustic features and a candidate word sequence;
+- **Likelihood computation:** $p_\theta(Y_{1:T})$ for a given sequence of acoustic features and a candidate word sequence;
 - **Decoding:** find the most likely sequence of phones or words given observations (Viterbi);
 - **Training:** MLE of HMM parameters via EM/Baum–Welch, often embedded inside larger systems (e.g. with language models).
 
@@ -38,8 +38,8 @@ Rabiner (1989) remains a classic reference for this application, describing HMMs
 
 In genomics, HMMs can model regions with different **nucleotide composition**, such as **CpG islands**.
 
-- Hidden states: \(S_t \in \{\text{island}, \text{non-island}\}\);
-- Observations: nucleotides \(Y_t \in \{\text{A},\text{C},\text{G},\text{T}\}\);
+- Hidden states: $S_t \in \{\text{island}, \text{non-island}\}$;
+- Observations: nucleotides $Y_t \in \{\text{A},\text{C},\text{G},\text{T}\}$;
 - Emissions: state-dependent multinomial distributions over nucleotides;
 - Transitions: probabilities governing the length and frequency of CpG islands.
 
@@ -66,16 +66,16 @@ While structurally more complex, they are still HMMs with specialized topology.
 
 In finance, HMMs model **regime changes** in returns (e.g. bull vs bear markets):
 
-- Hidden states: \(S_t \in \{1,\dots,K\}\) representing regimes (e.g. low-volatility vs high-volatility);
-- Observations: asset returns \(Y_t \in \mathbb{R}\) or \(\mathbb{R}^d\);
-- Emissions: state-dependent distributions, often Gaussian with mean \(\mu_i\) and variance \(\sigma_i^2\) per state \(i\);
+- Hidden states: $S_t \in \{1,\dots,K\}$ representing regimes (e.g. low-volatility vs high-volatility);
+- Observations: asset returns $Y_t \in \mathbb{R}$ or $\mathbb{R}^d$;
+- Emissions: state-dependent distributions, often Gaussian with mean $\mu_i$ and variance $\sigma_i^2$ per state $i$;
 - Transitions: Markov matrix encoding persistence of regimes.
 
 The model is
-\[
+$$
 Y_t \mid S_t = i \sim \mathcal{N}(\mu_i, \sigma_i^2),
-\]
-with \((S_t)\) as in Section 1.
+$$
+with $(S_t)$ as in Section 1.
 
 Inference tasks:
 
@@ -86,9 +86,9 @@ Inference tasks:
 ### 10.3.2 Markov-Switching Autoregressions
 
 More generally, one can have **Markov-switching AR models** where
-\[
+$$
 Y_t = \mu_{S_t} + \phi_{S_t} Y_{t-1} + \varepsilon_t,
-\]
+$$
 with regime-dependent AR coefficients. This is an HMM in an extended state space and is closely related to **switching state-space models** (Section 7.3).
 
 ---
@@ -105,8 +105,8 @@ In epidemiology and biostatistics, HMMs can model **disease progression** where 
 
 The HMM structure is:
 
-- \(S_t\) evolves as a Markov chain with transition matrix possibly depending on covariates;
-- \(Y_t\) arises from state-dependent emission distributions (e.g. logistic regression for test outcomes).
+- $S_t$ evolves as a Markov chain with transition matrix possibly depending on covariates;
+- $Y_t$ arises from state-dependent emission distributions (e.g. logistic regression for test outcomes).
 
 Inference tasks:
 
@@ -119,7 +119,7 @@ Inference tasks:
 
 Zucchini et al. emphasize a common pattern across applications:
 
-1. **Choose a number of states** \(K\) and interpret them substantively (e.g. behavior modes, regimes);
+1. **Choose a number of states** $K$ and interpret them substantively (e.g. behavior modes, regimes);
 2. Specify a **state process** (transition matrix, possibly with covariates);
 3. Choose **emission distributions** compatible with the data type (discrete, continuous, circular, multivariate);
 4. Fit the model via **MLE/EM** and evaluate via likelihood-based criteria and diagnostics;
@@ -131,7 +131,7 @@ Zucchini et al. emphasize a common pattern across applications:
 
 This section highlighted how the **abstract HMM framework** is instantiated in:
 
-- **Speech recognition** (linguistic units \(\to\) acoustic features);
+- **Speech recognition** (linguistic units $\to$ acoustic features);
 - **Bioinformatics** (genomic regions, alignment profiles);
 - **Finance** (market regimes and volatility states);
 - **Epidemiology** (latent disease progression).

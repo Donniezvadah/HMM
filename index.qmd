@@ -1,11 +1,102 @@
 ---
-title: "Hidden Markov Models — Rigorous Course"
+title: "Hidden Markov Models (HMMs)"
+subtitle: "From Probability Foundations to Advanced Theory"
 format:
   html:
     toc: false
-    smooth-scroll: true
   pdf:
     toc: true
 ---
 
-{{< include HMM.md >}}
+Welcome to the **Hidden Markov Models Course**.
+
+This site presents a **calm, rigorous, graduate-level treatment of HMMs**:
+
+- From measure-theoretic probability and Markov chains
+- Through inference algorithms (forward–backward, Viterbi, EM)
+- To asymptotic theory and advanced variants (switching, nonparametric, state-space models)
+
+::: {.callout-note}
+## Start learning
+
+<a class="btn btn-primary" href="section-0-mathematical-prerequisites/README.html">Start with foundations</a>
+<a class="btn btn-outline-secondary" href="HMM.html" style="margin-left:0.75rem;">View full curriculum</a>
+
+This course is designed for students who want **proofs and derivations**, not just code snippets. Use the buttons
+above to either dive straight into the notes or skim the overall structure first.
+:::
+
+## Course modules at a glance
+
+::: {.module-grid}
+
+::: {.module-card}
+### Module A – Foundations (Sections 0–1)
+
+Mathematical background for a rigorous HMM course:
+
+- Probability spaces, conditional expectations, basic measure-theoretic language.
+- Stochastic matrices, Perron–Frobenius theory, spectral gap and mixing.
+- Finite-state Markov chains: ergodicity, stationary laws, reversibility, and non-homogeneous chains.
+:::
+
+::: {.module-card}
+### Module B – Building HMMs (Sections 2–3)
+
+Construction of HMMs as probabilistic graphical models:
+
+- Conditional independence structure and joint factorization of $S_{1:T}, Y_{1:T}$.
+- Observation models: discrete, continuous, and exponential-family emissions.
+- Formal HMM definition $(\boldsymbol{\delta}, \boldsymbol{\Gamma}, f_1,\dots,f_K)$ and likelihood in matrix form.
+:::
+
+::: {.module-card}
+### Module C – Inference Algorithms (Section 4)
+
+Core algorithms for posterior computation and decoding:
+
+- Forward filtering and numerically stable log / scaled implementations.
+- Forward–backward smoothing and pairwise state probabilities.
+- Viterbi decoding, dynamic programming optimality, and max-product semiring.
+:::
+
+::: {.module-card}
+### Module D – Parameter Estimation & Identifiability (Section 5)
+
+How to fit HMMs from data:
+
+- Maximum likelihood estimation and non-convex log-likelihood geometry.
+- EM / Baum–Welch as coordinate ascent on an evidence lower bound.
+- Identifiability up to label switching and structural pathologies.
+:::
+
+::: {.module-card}
+### Module E – Statistical Theory & Advanced Models (Sections 6–9)
+
+Asymptotics and extensions beyond basic finite-state HMMs:
+
+- Consistency and asymptotic normality of the MLE; Fisher information for dependent data.
+- Continuous-state / state-space models and the Kalman filter as an HMM.
+- Nonparametric and infinite-state HMMs; online and decision-theoretic perspectives.
+:::
+
+::: {.module-card}
+### Module F – Applications & Proof-Based Problems (Sections 10–11)
+
+Connecting theory to practice and consolidating understanding:
+
+- Applications in speech recognition, bioinformatics, finance, epidemiology, and more.
+- Proof-based problem sets covering Markov chains, inference algorithms, EM, identifiability, and asymptotics.
+:::
+
+:::
+
+## Get Started with HMMs Today!
+
+<a class="btn btn-primary" href="section-0-mathematical-prerequisites/README.html">Start with foundations</a>
+<a class="btn btn-outline-secondary" href="HMM.html" style="margin-left:0.75rem;">View full curriculum</a>
+
+Use the **sidebar** to jump directly to individual sections (0–11), or read them linearly as a graduate course.
+Mathematics is rendered directly in the browser, and all derivations are written to be compatible with the notation
+in Zucchini, MacDonald & Langrock and the more theoretical treatments of Capp\'e–Moulines–Ryd\'en and
+Douc–Moulines–Stoffer.

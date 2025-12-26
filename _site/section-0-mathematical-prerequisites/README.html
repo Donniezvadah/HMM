@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="A rigorous, mathematically heavy course on Hidden Markov Models: probability foundations, inference algorithms, asymptotics, and advanced variants.">
+
+<title>Section 0 – Mathematical Prerequisites for Hidden Markov Models – Hidden Markov Models (HMMs)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../section-1-markov-chains/README.html" rel="next">
+<link href="../HMM.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d4ddd70199c5344cde2833b50fd7d7ac.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section-0-mathematical-prerequisites/README.html">Foundations</a></li><li class="breadcrumb-item"><a href="../section-0-mathematical-prerequisites/README.html"><span class="chapter-title">Section 0 – Mathematical Prerequisites for Hidden Markov Models</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Hidden Markov Models (HMMs)</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Hidden Markov Models (HMMs)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Overview</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../HMM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Hidden Markov Models (HMMs): A Rigorous, Mathematically Heavy Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-0-mathematical-prerequisites/README.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Section 0 – Mathematical Prerequisites for Hidden Markov Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-1-markov-chains/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 1 – Markov Chains (Fully Rigorous)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Model &amp; Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-2-observation-models/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 2 – Observation Models and Emission Processes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-3-hmm-formal-definition/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 3 – Hidden Markov Models: Formal Definition and Likelihood</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-4-inference/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 4 – Inference in Hidden Markov Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-5-parameter-estimation/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 5 – Parameter Estimation in Hidden Markov Models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Theory &amp; Advanced Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-6-asymptotics/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 6 – Asymptotics and Statistical Theory for HMMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-7-advanced-hmms/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 7 – Non-Standard and Advanced Hidden Markov Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-8-computational-issues/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 8 – Computational and Numerical Issues in HMMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-9-alternative-foundations/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 9 – Alternative Foundations for HMMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications &amp; Problem Sets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-10-applications/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 10 – Applications of Hidden Markov Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section-11-proof-problem-sets/README.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Section 11 – Proof-Based Problem Sets for HMMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources &amp; Help</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About This HMM Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../faq.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">HMM Course FAQ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contact.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contact &amp; Feedback</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#measure-theoretic-probability-light-but-precise" id="toc-measure-theoretic-probability-light-but-precise" class="nav-link active" data-scroll-target="#measure-theoretic-probability-light-but-precise">0.1 Measure-Theoretic Probability (Light but Precise)</a></li>
+  <li><a href="#linear-algebra-and-spectral-theory" id="toc-linear-algebra-and-spectral-theory" class="nav-link" data-scroll-target="#linear-algebra-and-spectral-theory">0.2 Linear Algebra and Spectral Theory</a></li>
+  <li><a href="#optimization-and-information-geometry" id="toc-optimization-and-information-geometry" class="nav-link" data-scroll-target="#optimization-and-information-geometry">0.3 Optimization and Information Geometry</a></li>
+  <li><a href="#summary-and-connection-to-later-sections" id="toc-summary-and-connection-to-later-sections" class="nav-link" data-scroll-target="#summary-and-connection-to-later-sections">0.4 Summary and Connection to Later Sections</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section-0-mathematical-prerequisites/README.html">Foundations</a></li><li class="breadcrumb-item"><a href="../section-0-mathematical-prerequisites/README.html"><span class="chapter-title">Section 0 – Mathematical Prerequisites for Hidden Markov Models</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Section 0 – Mathematical Prerequisites for Hidden Markov Models</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This section collects the <strong>mathematical foundations</strong> required for a rigorous treatment of Hidden Markov Models (HMMs). The goal is <strong>not</strong> to teach full measure-theoretic probability from scratch, but to make precise the pieces that will be used repeatedly later.</p>
+<p>Throughout, we aim to be compatible with the notation and level of <strong>Zucchini, MacDonald, Langrock</strong> (“Zucchini et al.”) while pushing the theory somewhat further when needed for Sections 4–6.</p>
+<hr>
+<section id="measure-theoretic-probability-light-but-precise" class="level2">
+<h2 class="anchored" data-anchor-id="measure-theoretic-probability-light-but-precise">0.1 Measure-Theoretic Probability (Light but Precise)</h2>
+<section id="probability-spaces" class="level3">
+<h3 class="anchored" data-anchor-id="probability-spaces">0.1.1 Probability Spaces</h3>
+<p>A <strong>probability space</strong> is a triple <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> where</p>
+<ul>
+<li><span class="math inline">\(\Omega\)</span> is the <strong>sample space</strong> (set of outcomes);</li>
+<li><span class="math inline">\(\mathcal{F} \subseteq 2^{\Omega}\)</span> is a <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> of events (closed under complements and countable unions);</li>
+<li><span class="math inline">\(\mathbb{P} : \mathcal{F} \to [0,1]\)</span> is a <strong>probability measure</strong> with <span class="math inline">\(\mathbb{P}(\Omega)=1\)</span> and countable additivity.</li>
+</ul>
+<p>For HMMs we usually work with products of measurable spaces, e.g.&nbsp;sequences of states and observations. The relevant product <span class="math inline">\(\sigma\)</span>-algebras and measures are:</p>
+<ul>
+<li>For a measurable space <span class="math inline">\((S, \mathcal{S})\)</span>, the <strong>countable product</strong> <span class="math inline">\((S^{\mathbb{N}}, \mathcal{S}^{\otimes \mathbb{N}})\)</span> is defined via the smallest <span class="math inline">\(\sigma\)</span>-algebra making all coordinate projections measurable.</li>
+<li>For a Markov chain <span class="math inline">\((S_t)_{t \ge 1}\)</span>, the joint law of the whole sequence lives on such a product space.</li>
+</ul>
+<p>In finite-state HMMs, <span class="math inline">\(S = \{1,\dots,K\}\)</span> with the <strong>discrete <span class="math inline">\(\sigma\)</span>-algebra</strong> (all subsets), so measurability is trivial; nevertheless, the measure-theoretic formulation clarifies <strong>conditional expectations</strong> and <strong>ergodic theorems</strong> later.</p>
+</section>
+<section id="random-variables-and-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="random-variables-and-distributions">0.1.2 Random Variables and Distributions</h3>
+<p>A <strong>random variable</strong> with values in a measurable space <span class="math inline">\((S, \mathcal{S})\)</span> is a measurable map <span class="math display">\[
+X : (\Omega, \mathcal{F}) \to (S, \mathcal{S}).
+\]</span></p>
+<p>The <strong>distribution</strong> (or law) of <span class="math inline">\(X\)</span> is the pushforward measure <span class="math inline">\(\mathbb{P}_X\)</span> on <span class="math inline">\((S, \mathcal{S})\)</span>: <span class="math display">\[
+\mathbb{P}_X(A) = \mathbb{P}(X \in A), \quad A \in \mathcal{S}.
+\]</span></p>
+<p>In HMMs we will consider random variables <span class="math inline">\(S_t\)</span> (hidden states) and <span class="math inline">\(Y_t\)</span> (observations). Their joint distribution factorizes in a special way due to the <strong>Markov property</strong> and <strong>conditional independence</strong>, which we will formalize later.</p>
+</section>
+<section id="expectation-and-conditional-expectation" class="level3">
+<h3 class="anchored" data-anchor-id="expectation-and-conditional-expectation">0.1.3 Expectation and Conditional Expectation</h3>
+<p>For an integrable real-valued random variable <span class="math inline">\(X\)</span>, its <strong>expectation</strong> is <span class="math display">\[
+\mathbb{E}[X] = \int_{\Omega} X(\omega) \, \mathbb{P}(d\omega),
+\]</span></p>
+<p>or equivalently, if <span class="math inline">\(X\)</span> takes values in <span class="math inline">\(\mathbb{R}\)</span> with distribution <span class="math inline">\(\mu = \mathbb{P}_X\)</span>, <span class="math display">\[
+\mathbb{E}[X] = \int_{\mathbb{R}} x \, \mu(dx).
+\]</span></p>
+<p>For a sub-<span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{G} \subseteq \mathcal{F}\)</span>, the <strong>conditional expectation</strong> of <span class="math inline">\(X\)</span> given <span class="math inline">\(\mathcal{G}\)</span> is a <span class="math inline">\(\mathcal{G}\)</span>-measurable random variable <span class="math inline">\(\mathbb{E}[X\mid \mathcal{G}]\)</span> such that <span class="math display">\[
+\int_G \mathbb{E}[X\mid\mathcal{G}] \, d\mathbb{P} = \int_G X \, d\mathbb{P}, \quad \forall G \in \mathcal{G}.
+\]</span></p>
+<p>Key properties (used constantly in HMM derivations):</p>
+<ul>
+<li><strong>Linearity:</strong> <span class="math inline">\(\mathbb{E}[aX + bY \mid \mathcal{G}] = a\,\mathbb{E}[X\mid\mathcal{G}] + b\,\mathbb{E}[Y\mid\mathcal{G}]\)</span>.</li>
+<li><strong>Tower property:</strong> If <span class="math inline">\(\mathcal{H} \subseteq \mathcal{G} \subseteq \mathcal{F}\)</span>, then <span class="math display">\[
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]\mid \mathcal{H}] = \mathbb{E}[X\mid\mathcal{H}].
+\]</span></li>
+<li><strong>Taking out what is known:</strong> If <span class="math inline">\(Z\)</span> is <span class="math inline">\(\mathcal{G}\)</span>-measurable and integrable, <span class="math display">\[
+\mathbb{E}[ZX\mid\mathcal{G}] = Z\,\mathbb{E}[X\mid\mathcal{G}].
+\]</span></li>
+</ul>
+<p>In HMMs, filtering and smoothing can be viewed as <strong>computing conditional expectations</strong> like <span class="math inline">\(\mathbb{E}[g(S_t) \mid Y_{1:T}]\)</span> for suitable functions <span class="math inline">\(g\)</span>. The forward–backward algorithms are efficient implementations of these operations.</p>
+</section>
+<section id="regular-conditional-probabilities" class="level3">
+<h3 class="anchored" data-anchor-id="regular-conditional-probabilities">0.1.4 Regular Conditional Probabilities</h3>
+<p>Given random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> on a probability space, a <strong>regular conditional probability</strong> of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y=y\)</span> is a family of probability measures <span class="math inline">\(\{\mathbb{P}(X \in \cdot \mid Y=y)\}\)</span> such that</p>
+<ul>
+<li>For each measurable <span class="math inline">\(A\)</span>, the map <span class="math inline">\(y \mapsto \mathbb{P}(X \in A \mid Y=y)\)</span> is measurable;</li>
+<li>For each measurable <span class="math inline">\(B\)</span>, <span class="math display">\[
+\mathbb{P}(X \in B, Y \in C) = \int_C \mathbb{P}(X \in B \mid Y=y) \, \mathbb{P}_Y(dy).
+\]</span></li>
+</ul>
+<p>On <strong>standard Borel spaces</strong> (Polish spaces with their Borel <span class="math inline">\(\sigma\)</span>-algebra), regular conditional probabilities always exist and are unique up to <span class="math inline">\(\mathbb{P}_Y\)</span>-null sets. This justifies writing objects like <span class="math display">\[
+\mathbb{P}(S_t = i \mid Y_{1:T}=y_{1:T})
+\]</span> rigorously, which is what the forward–backward algorithms compute.</p>
+</section>
+<section id="modes-of-convergence" class="level3">
+<h3 class="anchored" data-anchor-id="modes-of-convergence">0.1.5 Modes of Convergence</h3>
+<p>We briefly recall three notions of convergence for a sequence of random variables <span class="math inline">\((X_n)\)</span>:</p>
+<ul>
+<li><strong>Almost sure (a.s.) convergence:</strong> <span class="math inline">\(X_n \to X\)</span> a.s. if <span class="math display">\[
+\mathbb{P}\bigl(\{\omega : X_n(\omega) \to X(\omega)\}\bigr) = 1.
+\]</span></li>
+<li><strong>Convergence in probability:</strong> <span class="math inline">\(X_n \to X\)</span> in probability if, for all <span class="math inline">\(\varepsilon &gt; 0\)</span>, <span class="math display">\[
+\lim_{n\to\infty} \mathbb{P}(|X_n - X| &gt; \varepsilon) = 0.
+\]</span></li>
+<li><strong><span class="math inline">\(L^p\)</span> convergence:</strong> <span class="math inline">\(X_n \to X\)</span> in <span class="math inline">\(L^p\)</span> (for <span class="math inline">\(p \ge 1\)</span>) if <span class="math display">\[
+\lim_{n\to\infty} \mathbb{E}[|X_n - X|^p] = 0.
+\]</span></li>
+</ul>
+<p>For asymptotic theory in HMMs (Section 6), we will need <strong>laws of large numbers</strong> and <strong>central limit theorems</strong> for functionals of an ergodic Markov chain. These are typically stated in terms of convergence in probability or distribution, and proved using almost sure convergence plus dominated convergence.</p>
+<hr>
+</section>
+</section>
+<section id="linear-algebra-and-spectral-theory" class="level2">
+<h2 class="anchored" data-anchor-id="linear-algebra-and-spectral-theory">0.2 Linear Algebra and Spectral Theory</h2>
+<section id="probability-vectors-and-the-simplex" class="level3">
+<h3 class="anchored" data-anchor-id="probability-vectors-and-the-simplex">0.2.1 Probability Vectors and the Simplex</h3>
+<p>For a finite state space of size <span class="math inline">\(K\)</span>, a <strong>probability vector</strong> is <span class="math display">\[
+\boldsymbol{\mu} = (\mu_1, \dots, \mu_K)^\top, \quad \mu_i \ge 0, \quad \sum_{i=1}^K \mu_i = 1.
+\]</span></p>
+<p>The set of all such vectors is the <strong>probability simplex</strong> <span class="math display">\[
+\Delta^{K-1} = \Bigl\{ \boldsymbol{\mu} \in \mathbb{R}^K : \mu_i \ge 0, \sum_i \mu_i = 1 \Bigr\}.
+\]</span></p>
+<p>We measure distances on <span class="math inline">\(\Delta^{K-1}\)</span> using norms:</p>
+<ul>
+<li><strong><span class="math inline">\(\ell^1\)</span> norm:</strong> <span class="math inline">\(\lVert \mu - \nu \rVert_1 = \sum_i |\mu_i - \nu_i|\)</span> (twice the total variation distance);</li>
+<li><strong><span class="math inline">\(\ell^2\)</span> norm:</strong> <span class="math inline">\(\lVert \mu - \nu \rVert_2 = (\sum_i (\mu_i - \nu_i)^2)^{1/2}\)</span>.</li>
+</ul>
+<p>Both will appear in mixing-time and stability results for Markov chains and filters.</p>
+</section>
+<section id="stochastic-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="stochastic-matrices">0.2.2 Stochastic Matrices</h3>
+<p>A <strong>row-stochastic matrix</strong> is a <span class="math inline">\(K \times K\)</span> matrix <span class="math inline">\(\boldsymbol{\Gamma} = (\gamma_{ij})\)</span> with <span class="math display">\[
+\gamma_{ij} \ge 0, \quad \sum_{j=1}^K \gamma_{ij} = 1 \quad \text{for all } i.
+\]</span></p>
+<p>In finite-state HMMs (following Zucchini et al.), <span class="math inline">\(\boldsymbol{\Gamma}\)</span> denotes the <strong>transition matrix</strong> of the hidden Markov chain <span class="math inline">\((S_t)\)</span>: <span class="math display">\[
+\gamma_{ij} = \mathbb{P}(S_{t+1} = j \mid S_t = i).
+\]</span></p>
+<p>Given a probability vector <span class="math inline">\(\boldsymbol{\mu}\)</span>, the product <span class="math inline">\(\boldsymbol{\mu}^\top \boldsymbol{\Gamma}\)</span> is again a probability vector, representing the distribution of <span class="math inline">\(S_{t+1}\)</span> if <span class="math inline">\(\boldsymbol{\mu}\)</span> is the distribution of <span class="math inline">\(S_t\)</span>.</p>
+</section>
+<section id="perronfrobenius-theory" class="level3">
+<h3 class="anchored" data-anchor-id="perronfrobenius-theory">0.2.3 Perron–Frobenius Theory</h3>
+<p>For a <strong>non-negative matrix</strong> <span class="math inline">\(A \in \mathbb{R}^{K \times K}\)</span> (i.e.&nbsp;<span class="math inline">\(A_{ij} \ge 0\)</span>), the Perron–Frobenius theorem gives powerful spectral properties. In particular, if <span class="math inline">\(A\)</span> is <strong>irreducible</strong>, then</p>
+<ul>
+<li>There exists a <strong>positive eigenvalue</strong> <span class="math inline">\(\rho(A) &gt; 0\)</span> (the spectral radius) with a corresponding <strong>positive eigenvector</strong> <span class="math inline">\(v &gt; 0\)</span>.</li>
+<li><span class="math inline">\(\rho(A)\)</span> is <strong>simple</strong> (algebraic multiplicity 1), and no other eigenvector with non-negative entries exists for a different eigenvalue.</li>
+</ul>
+<p>For a <strong>stochastic matrix</strong> <span class="math inline">\(\boldsymbol{\Gamma}\)</span>:</p>
+<ul>
+<li>Its spectral radius satisfies <span class="math inline">\(\rho(\boldsymbol{\Gamma}) = 1\)</span>, since <span class="math inline">\(\boldsymbol{\Gamma}\mathbf{1} = \mathbf{1}\)</span>.</li>
+<li>If <span class="math inline">\(\boldsymbol{\Gamma}\)</span> is irreducible and aperiodic, the <strong>left eigenvector</strong> corresponding to eigenvalue 1, normalized to sum to 1, is the <strong>unique stationary distribution</strong> <span class="math inline">\(\boldsymbol{\pi}\)</span>: <span class="math display">\[
+\boldsymbol{\pi}^\top \boldsymbol{\Gamma} = \boldsymbol{\pi}^\top.
+\]</span></li>
+</ul>
+<p>This provides the spectral foundation for <strong>ergodicity</strong> of finite-state Markov chains, and later for stability of HMM filters.</p>
+</section>
+<section id="spectral-gap-and-convergence-rates" class="level3">
+<h3 class="anchored" data-anchor-id="spectral-gap-and-convergence-rates">0.2.4 Spectral Gap and Convergence Rates</h3>
+<p>Let the eigenvalues of a stochastic matrix <span class="math inline">\(\boldsymbol{\Gamma}\)</span> be ordered as <span class="math display">\[
+1 = \lambda_1 &gt; |\lambda_2| \ge \dots \ge |\lambda_K|.
+\]</span></p>
+<p>The <strong>spectral gap</strong> is <span class="math display">\[
+\gamma := 1 - |\lambda_2|.
+\]</span></p>
+<p>For many chains (especially reversible ones), the convergence of <span class="math inline">\(\boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t\)</span> to the stationary distribution <span class="math inline">\(\boldsymbol{\pi}^\top\)</span> in <span class="math inline">\(\ell^2\)</span> or total variation can be bounded in terms of <span class="math inline">\(\gamma\)</span>. Roughly, <span class="math display">\[
+\lVert \boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t - \boldsymbol{\pi}^\top \rVert_2 \le C (1-\gamma)^t.
+\]</span></p>
+<p>More precise inequalities follow from the spectral decomposition of <span class="math inline">\(\boldsymbol{\Gamma}\)</span> and, in the reversible case, from its self-adjointness in <span class="math inline">\(L^2(\boldsymbol{\pi})\)</span>.</p>
+<p>These ideas will underpin <strong>mixing-time</strong> and <strong>filter stability</strong> results (Sections 1.2 and 4.1).</p>
+<hr>
+</section>
+</section>
+<section id="optimization-and-information-geometry" class="level2">
+<h2 class="anchored" data-anchor-id="optimization-and-information-geometry">0.3 Optimization and Information Geometry</h2>
+<section id="convexity-on-the-probability-simplex" class="level3">
+<h3 class="anchored" data-anchor-id="convexity-on-the-probability-simplex">0.3.1 Convexity on the Probability Simplex</h3>
+<p>A function <span class="math inline">\(f : \Delta^{K-1} \to \mathbb{R}\)</span> is <strong>convex</strong> if <span class="math display">\[
+f(\theta \mu + (1-\theta)\nu) \le \theta f(\mu) + (1-\theta) f(\nu)
+\]</span> for all <span class="math inline">\(\mu, \nu \in \Delta^{K-1}\)</span> and <span class="math inline">\(\theta \in [0,1]\)</span>.</p>
+<p>Many information-theoretic functionals are convex or strictly convex on <span class="math inline">\(\Delta^{K-1}\)</span>. Examples:</p>
+<ul>
+<li>Negative entropy <span class="math inline">\(H(\mu) = -\sum_i \mu_i \log \mu_i\)</span> is <strong>strictly concave</strong>;</li>
+<li>The <strong>Kullback–Leibler divergence</strong> (KL) is jointly convex in <span class="math inline">\((p,q)\)</span>.</li>
+</ul>
+<p>Convexity is central in understanding <strong>EM updates</strong>, <strong>variational approximations</strong>, and the geometry of the <strong>log-likelihood surface</strong> in HMMs.</p>
+</section>
+<section id="kullbackleibler-divergence-as-a-bregman-divergence" class="level3">
+<h3 class="anchored" data-anchor-id="kullbackleibler-divergence-as-a-bregman-divergence">0.3.2 Kullback–Leibler Divergence as a Bregman Divergence</h3>
+<p>For two discrete distributions <span class="math inline">\(p,q \in \Delta^{K-1}\)</span> with full support (<span class="math inline">\(p_i, q_i &gt; 0\)</span>), the <strong>KL divergence</strong> is <span class="math display">\[
+\mathrm{KL}(p \Vert q) = \sum_{i=1}^K p_i \log\frac{p_i}{q_i}.
+\]</span></p>
+<p>KL divergence can be written as a <strong>Bregman divergence</strong> associated with the <strong>negative entropy</strong> function <span class="math display">\[
+\phi(p) = \sum_i p_i \log p_i.
+\]</span></p>
+<p>The Bregman divergence generated by <span class="math inline">\(\phi\)</span> is <span class="math display">\[
+D_\phi(p,q) = \phi(p) - \phi(q) - \langle \nabla \phi(q), p - q \rangle,
+\]</span> where <span class="math inline">\(\langle \cdot,\cdot \rangle\)</span> is the usual inner product on <span class="math inline">\(\mathbb{R}^K\)</span>. A straightforward calculation shows <span class="math display">\[
+D_\phi(p,q) = \mathrm{KL}(p \Vert q).
+\]</span></p>
+<p>This interpretation highlights several facts:</p>
+<ul>
+<li><span class="math inline">\(\mathrm{KL}(p \Vert q) \ge 0\)</span> with equality iff <span class="math inline">\(p=q\)</span> (strict convexity of <span class="math inline">\(\phi\)</span>);</li>
+<li>KL is <strong>asymmetric</strong>, unlike a metric, which shapes the geometry of likelihood-based optimization.</li>
+</ul>
+<p>In HMMs, KL divergence arises when analyzing <strong>consistency</strong> and <strong>information projections</strong>, and in understanding why the EM algorithm can be seen as <strong>coordinate ascent on a lower bound</strong> involving KL terms.</p>
+</section>
+<section id="duality-and-entropy-regularized-problems" class="level3">
+<h3 class="anchored" data-anchor-id="duality-and-entropy-regularized-problems">0.3.3 Duality and Entropy-Regularized Problems</h3>
+<p>Given a convex function <span class="math inline">\(\phi\)</span>, its <strong>convex conjugate</strong> <span class="math inline">\(\phi^*\)</span> is <span class="math display">\[
+\phi^*(y) = \sup_{x} \{ \langle x, y \rangle - \phi(x) \}.
+\]</span></p>
+<p>For <span class="math inline">\(\phi(p) = \sum_i p_i \log p_i\)</span> (negative entropy), <span class="math inline">\(\phi^*\)</span> is the log-partition function <span class="math display">\[
+\phi^*(\eta) = \log \sum_i e^{\eta_i}.
+\]</span></p>
+<p>This duality underlies the <strong>exponential family</strong> structure of many emission distributions (Section 2.2) and appears in <strong>variational formulations</strong> of inference in HMMs:</p>
+<ul>
+<li>Entropy-regularized objectives of the form <span class="math display">\[
+\max_{q} \Big\{ \mathbb{E}_q[\log p(Y,S)] + H(q) \Big\}
+\]</span> lead to exponential-family solutions for the optimal <span class="math inline">\(q\)</span>.</li>
+</ul>
+<p>In the context of Zucchini et al., this background explains why <strong>log-sum-exp</strong> expressions appear in marginal likelihoods and why certain optimization problems have tractable, closed-form updates.</p>
+<hr>
+</section>
+</section>
+<section id="summary-and-connection-to-later-sections" class="level2">
+<h2 class="anchored" data-anchor-id="summary-and-connection-to-later-sections">0.4 Summary and Connection to Later Sections</h2>
+<p>After this section, you should be comfortable with:</p>
+<ul>
+<li><strong>Probability spaces, random variables, and conditional expectations</strong> in a measure-theoretic language;</li>
+<li><strong>Finite-dimensional linear algebra</strong> for stochastic matrices, including Perron–Frobenius theory and spectral gaps;</li>
+<li><strong>Basic convex analysis</strong> on probability simplices, and the interpretation of <strong>KL divergence as a Bregman divergence</strong>.</li>
+</ul>
+<p>These tools will be used heavily in:</p>
+<ul>
+<li><strong>Section 1:</strong> rigorous Markov chain theory (ergodicity, mixing);</li>
+<li><strong>Section 3–4:</strong> derivation and correctness proofs of forward–backward and Viterbi algorithms;</li>
+<li><strong>Section 5–6:</strong> EM algorithm analysis, identifiability, consistency, and asymptotic normality.</li>
+</ul>
+<p>For a softer introduction, you may cross-reference:</p>
+<ul>
+<li>Zucchini et al., Chapters 1–2, for probabilistic notation and basic Markov chain ideas;</li>
+<li>Murphy (2012), Chapters 2–3, for probability and exponential families;</li>
+<li>Cappé, Moulines, Rydén (2005), Chapter 1, for a more advanced measure-theoretic setup.</li>
+</ul>
+
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../HMM.html" class="pagination-link" aria-label="Hidden Markov Models (HMMs): A Rigorous, Mathematically Heavy Course">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Hidden Markov Models (HMMs): A Rigorous, Mathematically Heavy Course</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../section-1-markov-chains/README.html" class="pagination-link" aria-label="Section 1 – Markov Chains (Fully Rigorous)">
+        <span class="nav-page-text"><span class="chapter-title">Section 1 – Markov Chains (Fully Rigorous)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Section 0 – Mathematical Prerequisites for Hidden Markov Models</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>This section collects the **mathematical foundations** required for a rigorous treatment of Hidden Markov Models (HMMs). The goal is **not** to teach full measure-theoretic probability from scratch, but to make precise the pieces that will be used repeatedly later.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Throughout, we aim to be compatible with the notation and level of **Zucchini, MacDonald, Langrock** ("Zucchini et al.") while pushing the theory somewhat further when needed for Sections 4–6.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## 0.1 Measure-Theoretic Probability (Light but Precise)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.1.1 Probability Spaces</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>A **probability space** is a triple $(\Omega, \mathcal{F}, \mathbb{P})$ where</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\Omega$ is the **sample space** (set of outcomes);</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathcal{F} \subseteq 2^{\Omega}$ is a **$\sigma$-algebra** of events (closed under complements and countable unions);</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathbb{P} : \mathcal{F} \to <span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$ is a **probability measure** with $\mathbb{P}(\Omega)=1$ and countable additivity.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>For HMMs we usually work with products of measurable spaces, e.g. sequences of states and observations. The relevant product $\sigma$-algebras and measures are:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For a measurable space $(S, \mathcal{S})$, the **countable product** $(S^{\mathbb{N}}, \mathcal{S}^{\otimes \mathbb{N}})$ is defined via the smallest $\sigma$-algebra making all coordinate projections measurable.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For a Markov chain $(S_t)_{t \ge 1}$, the joint law of the whole sequence lives on such a product space.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>In finite-state HMMs, $S = <span class="sc">\{</span>1,\dots,K<span class="sc">\}</span>$ with the **discrete $\sigma$-algebra** (all subsets), so measurability is trivial; nevertheless, the measure-theoretic formulation clarifies **conditional expectations** and **ergodic theorems** later.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.1.2 Random Variables and Distributions</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>A **random variable** with values in a measurable space $(S, \mathcal{S})$ is a measurable map</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>X : (\Omega, \mathcal{F}) \to (S, \mathcal{S}).</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>The **distribution** (or law) of $X$ is the pushforward measure $\mathbb{P}_X$ on $(S, \mathcal{S})$:</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>\mathbb{P}_X(A) = \mathbb{P}(X \in A), \quad A \in \mathcal{S}.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>In HMMs we will consider random variables $S_t$ (hidden states) and $Y_t$ (observations). Their joint distribution factorizes in a special way due to the **Markov property** and **conditional independence**, which we will formalize later.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.1.3 Expectation and Conditional Expectation</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>For an integrable real-valued random variable $X$, its **expectation** is</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">X</span><span class="co">]</span> = \int_{\Omega} X(\omega) \, \mathbb{P}(d\omega),</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>or equivalently, if $X$ takes values in $\mathbb{R}$ with distribution $\mu = \mathbb{P}_X$,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">X</span><span class="co">]</span> = \int_{\mathbb{R}} x \, \mu(dx).</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>For a sub-$\sigma$-algebra $\mathcal{G} \subseteq \mathcal{F}$, the **conditional expectation** of $X$ given $\mathcal{G}$ is a $\mathcal{G}$-measurable random variable $\mathbb{E}<span class="co">[</span><span class="ot">X\mid \mathcal{G}</span><span class="co">]</span>$ such that</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>\int_G \mathbb{E}<span class="co">[</span><span class="ot">X\mid\mathcal{G}</span><span class="co">]</span> \, d\mathbb{P} = \int_G X \, d\mathbb{P}, \quad \forall G \in \mathcal{G}.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Key properties (used constantly in HMM derivations):</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Linearity:** $\mathbb{E}<span class="co">[</span><span class="ot">aX + bY \mid \mathcal{G}</span><span class="co">]</span> = a\,\mathbb{E}<span class="co">[</span><span class="ot">X\mid\mathcal{G}</span><span class="co">]</span> + b\,\mathbb{E}<span class="co">[</span><span class="ot">Y\mid\mathcal{G}</span><span class="co">]</span>$.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tower property:** If $\mathcal{H} \subseteq \mathcal{G} \subseteq \mathcal{F}$, then</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  \mathbb{E}<span class="co">[</span><span class="ot">\mathbb{E}[X\mid\mathcal{G}]\mid \mathcal{H}</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">X\mid\mathcal{H}</span><span class="co">]</span>.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Taking out what is known:** If $Z$ is $\mathcal{G}$-measurable and integrable,</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  \mathbb{E}<span class="co">[</span><span class="ot">ZX\mid\mathcal{G}</span><span class="co">]</span> = Z\,\mathbb{E}<span class="co">[</span><span class="ot">X\mid\mathcal{G}</span><span class="co">]</span>.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>In HMMs, filtering and smoothing can be viewed as **computing conditional expectations** like $\mathbb{E}<span class="co">[</span><span class="ot">g(S_t) \mid Y_{1:T}</span><span class="co">]</span>$ for suitable functions $g$. The forward–backward algorithms are efficient implementations of these operations.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.1.4 Regular Conditional Probabilities</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>Given random variables $X$ and $Y$ on a probability space, a **regular conditional probability** of $X$ given $Y=y$ is a family of probability measures $<span class="sc">\{</span>\mathbb{P}(X \in \cdot \mid Y=y)<span class="sc">\}</span>$ such that</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For each measurable $A$, the map $y \mapsto \mathbb{P}(X \in A \mid Y=y)$ is measurable;</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For each measurable $B$,</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>  \mathbb{P}(X \in B, Y \in C) = \int_C \mathbb{P}(X \in B \mid Y=y) \, \mathbb{P}_Y(dy).</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>On **standard Borel spaces** (Polish spaces with their Borel $\sigma$-algebra), regular conditional probabilities always exist and are unique up to $\mathbb{P}_Y$-null sets. This justifies writing objects like</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(S_t = i \mid Y_{1:T}=y_{1:T})</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>rigorously, which is what the forward–backward algorithms compute.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.1.5 Modes of Convergence</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>We briefly recall three notions of convergence for a sequence of random variables $(X_n)$:</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Almost sure (a.s.) convergence:** $X_n \to X$ a.s. if</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  \mathbb{P}\bigl(<span class="sc">\{</span>\omega : X_n(\omega) \to X(\omega)<span class="sc">\}</span>\bigr) = 1.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Convergence in probability:** $X_n \to X$ in probability if, for all $\varepsilon &gt; 0$,</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  \lim_{n\to\infty} \mathbb{P}(|X_n - X| &gt; \varepsilon) = 0.</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**$L^p$ convergence:** $X_n \to X$ in $L^p$ (for $p \ge 1$) if</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  \lim_{n\to\infty} \mathbb{E}<span class="co">[</span><span class="ot">|X_n - X|^p</span><span class="co">]</span> = 0.</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>For asymptotic theory in HMMs (Section 6), we will need **laws of large numbers** and **central limit theorems** for functionals of an ergodic Markov chain. These are typically stated in terms of convergence in probability or distribution, and proved using almost sure convergence plus dominated convergence.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## 0.2 Linear Algebra and Spectral Theory</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.2.1 Probability Vectors and the Simplex</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>For a finite state space of size $K$, a **probability vector** is</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>\boldsymbol{\mu} = (\mu_1, \dots, \mu_K)^\top, \quad \mu_i \ge 0, \quad \sum_{i=1}^K \mu_i = 1.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>The set of all such vectors is the **probability simplex**</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>\Delta^{K-1} = \Bigl<span class="sc">\{</span> \boldsymbol{\mu} \in \mathbb{R}^K : \mu_i \ge 0, \sum_i \mu_i = 1 \Bigr<span class="sc">\}</span>.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>We measure distances on $\Delta^{K-1}$ using norms:</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**$\ell^1$ norm:** $\lVert \mu - \nu \rVert_1 = \sum_i |\mu_i - \nu_i|$ (twice the total variation distance);</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**$\ell^2$ norm:** $\lVert \mu - \nu \rVert_2 = (\sum_i (\mu_i - \nu_i)^2)^{1/2}$.</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>Both will appear in mixing-time and stability results for Markov chains and filters.</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.2.2 Stochastic Matrices</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>A **row-stochastic matrix** is a $K \times K$ matrix $\boldsymbol{\Gamma} = (\gamma_{ij})$ with</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>\gamma_{ij} \ge 0, \quad \sum_{j=1}^K \gamma_{ij} = 1 \quad \text{for all } i.</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>In finite-state HMMs (following Zucchini et al.), $\boldsymbol{\Gamma}$ denotes the **transition matrix** of the hidden Markov chain $(S_t)$:</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>\gamma_{ij} = \mathbb{P}(S_{t+1} = j \mid S_t = i).</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>Given a probability vector $\boldsymbol{\mu}$, the product $\boldsymbol{\mu}^\top \boldsymbol{\Gamma}$ is again a probability vector, representing the distribution of $S_{t+1}$ if $\boldsymbol{\mu}$ is the distribution of $S_t$.</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.2.3 Perron–Frobenius Theory</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>For a **non-negative matrix** $A \in \mathbb{R}^{K \times K}$ (i.e. $A_{ij} \ge 0$), the Perron–Frobenius theorem gives powerful spectral properties. In particular, if $A$ is **irreducible**, then</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There exists a **positive eigenvalue** $\rho(A) &gt; 0$ (the spectral radius) with a corresponding **positive eigenvector** $v &gt; 0$.</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\rho(A)$ is **simple** (algebraic multiplicity 1), and no other eigenvector with non-negative entries exists for a different eigenvalue.</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>For a **stochastic matrix** $\boldsymbol{\Gamma}$:</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Its spectral radius satisfies $\rho(\boldsymbol{\Gamma}) = 1$, since $\boldsymbol{\Gamma}\mathbf{1} = \mathbf{1}$.</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If $\boldsymbol{\Gamma}$ is irreducible and aperiodic, the **left eigenvector** corresponding to eigenvalue 1, normalized to sum to 1, is the **unique stationary distribution** $\boldsymbol{\pi}$:</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>  \boldsymbol{\pi}^\top \boldsymbol{\Gamma} = \boldsymbol{\pi}^\top.</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>This provides the spectral foundation for **ergodicity** of finite-state Markov chains, and later for stability of HMM filters.</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.2.4 Spectral Gap and Convergence Rates</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>Let the eigenvalues of a stochastic matrix $\boldsymbol{\Gamma}$ be ordered as</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>1 = \lambda_1 &gt; |\lambda_2| \ge \dots \ge |\lambda_K|.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>The **spectral gap** is</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>\gamma := 1 - |\lambda_2|.</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>For many chains (especially reversible ones), the convergence of $\boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t$ to the stationary distribution $\boldsymbol{\pi}^\top$ in $\ell^2$ or total variation can be bounded in terms of $\gamma$. Roughly,</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>\lVert \boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t - \boldsymbol{\pi}^\top \rVert_2 \le C (1-\gamma)^t.</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>More precise inequalities follow from the spectral decomposition of $\boldsymbol{\Gamma}$ and, in the reversible case, from its self-adjointness in $L^2(\boldsymbol{\pi})$.</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>These ideas will underpin **mixing-time** and **filter stability** results (Sections 1.2 and 4.1).</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## 0.3 Optimization and Information Geometry</span></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.3.1 Convexity on the Probability Simplex</span></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>A function $f : \Delta^{K-1} \to \mathbb{R}$ is **convex** if</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>f(\theta \mu + (1-\theta)\nu) \le \theta f(\mu) + (1-\theta) f(\nu)</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>for all $\mu, \nu \in \Delta^{K-1}$ and $\theta \in <span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$.</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>Many information-theoretic functionals are convex or strictly convex on $\Delta^{K-1}$. Examples:</span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Negative entropy $H(\mu) = -\sum_i \mu_i \log \mu_i$ is **strictly concave**;</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **Kullback–Leibler divergence** (KL) is jointly convex in $(p,q)$.</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>Convexity is central in understanding **EM updates**, **variational approximations**, and the geometry of the **log-likelihood surface** in HMMs.</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.3.2 Kullback–Leibler Divergence as a Bregman Divergence</span></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>For two discrete distributions $p,q \in \Delta^{K-1}$ with full support ($p_i, q_i &gt; 0$), the **KL divergence** is</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>\mathrm{KL}(p \Vert q) = \sum_{i=1}^K p_i \log\frac{p_i}{q_i}.</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>KL divergence can be written as a **Bregman divergence** associated with the **negative entropy** function</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>\phi(p) = \sum_i p_i \log p_i.</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>The Bregman divergence generated by $\phi$ is</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>D_\phi(p,q) = \phi(p) - \phi(q) - \langle \nabla \phi(q), p - q \rangle,</span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>where $\langle \cdot,\cdot \rangle$ is the usual inner product on $\mathbb{R}^K$. A straightforward calculation shows</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>D_\phi(p,q) = \mathrm{KL}(p \Vert q).</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>This interpretation highlights several facts:</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathrm{KL}(p \Vert q) \ge 0$ with equality iff $p=q$ (strict convexity of $\phi$);</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>KL is **asymmetric**, unlike a metric, which shapes the geometry of likelihood-based optimization.</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>In HMMs, KL divergence arises when analyzing **consistency** and **information projections**, and in understanding why the EM algorithm can be seen as **coordinate ascent on a lower bound** involving KL terms.</span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### 0.3.3 Duality and Entropy-Regularized Problems</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>Given a convex function $\phi$, its **convex conjugate** $\phi^*$ is</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>\phi^*(y) = \sup_{x} <span class="sc">\{</span> \langle x, y \rangle - \phi(x) <span class="sc">\}</span>.</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>For $\phi(p) = \sum_i p_i \log p_i$ (negative entropy), $\phi^*$ is the log-partition function</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>\phi^*(\eta) = \log \sum_i e^{\eta_i}.</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>This duality underlies the **exponential family** structure of many emission distributions (Section 2.2) and appears in **variational formulations** of inference in HMMs:</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Entropy-regularized objectives of the form</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>  \max_{q} \Big<span class="sc">\{</span> \mathbb{E}_q<span class="co">[</span><span class="ot">\log p(Y,S)</span><span class="co">]</span> + H(q) \Big<span class="sc">\}</span></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>  lead to exponential-family solutions for the optimal $q$.</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>In the context of Zucchini et al., this background explains why **log-sum-exp** expressions appear in marginal likelihoods and why certain optimization problems have tractable, closed-form updates.</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## 0.4 Summary and Connection to Later Sections</span></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>After this section, you should be comfortable with:</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Probability spaces, random variables, and conditional expectations** in a measure-theoretic language;</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Finite-dimensional linear algebra** for stochastic matrices, including Perron–Frobenius theory and spectral gaps;</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Basic convex analysis** on probability simplices, and the interpretation of **KL divergence as a Bregman divergence**.</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>These tools will be used heavily in:</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Section 1:** rigorous Markov chain theory (ergodicity, mixing);</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Section 3–4:** derivation and correctness proofs of forward–backward and Viterbi algorithms;</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Section 5–6:** EM algorithm analysis, identifiability, consistency, and asymptotic normality.</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>For a softer introduction, you may cross-reference:</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Zucchini et al., Chapters 1–2, for probabilistic notation and basic Markov chain ideas;</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Murphy (2012), Chapters 2–3, for probability and exponential families;</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cappé, Moulines, Rydén (2005), Chapter 1, for a more advanced measure-theoretic setup.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

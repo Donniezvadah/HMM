@@ -1,50 +1,61 @@
 project:
-  type: website
+  type: book
   output-dir: _site
 
-website:
-  title: "Hidden Markov Models"
-  navbar:
-    left:
-      - text: Overview
-        href: index.qmd
-      - text: Sections
-        menu:
-          - text: "0. Mathematical Prerequisites"
-            href: section-0-mathematical-prerequisites/README.md
-          - text: "1. Markov Chains (Fully Rigorous)"
-            href: section-1-markov-chains/README.md
-          - text: "2. Observation Models and Emissions"
-            href: section-2-observation-models/README.md
-          - text: "3. HMM Formal Definition"
-            href: section-3-hmm-formal-definition/README.md
-          - text: "4. Inference Algorithms"
-            href: section-4-inference/README.md
-          - text: "5. Parameter Estimation"
-            href: section-5-parameter-estimation/README.md
-          - text: "6. Asymptotics and Statistical Theory"
-            href: section-6-asymptotics/README.md
-          - text: "7. Non-Standard and Advanced HMMs"
-            href: section-7-advanced-hmms/README.md
-          - text: "8. Computational and Numerical Issues"
-            href: section-8-computational-issues/README.md
-          - text: "9. Alternative Foundations"
-            href: section-9-alternative-foundations/README.md
-          - text: "10. Applications"
-            href: section-10-applications/README.md
-          - text: "11. Proof-Based Problem Sets"
-            href: section-11-proof-problem-sets/README.md
-      - text: Problem Sets
-        href: section-11-proof-problem-sets/README.md
-      - text: References
-        href: HMM.md
+book:
+  title: "Hidden Markov Models (HMMs)"
+  description: "A rigorous, mathematically heavy course on Hidden Markov Models: probability foundations, inference algorithms, asymptotics, and advanced variants."
+  chapters:
+    - index.qmd
+    - part: "Overview"
+      chapters:
+        - HMM.md
+    - part: "Foundations"
+      chapters:
+        - section-0-mathematical-prerequisites/README.md
+        - section-1-markov-chains/README.md
+    - part: "Model & Inference"
+      chapters:
+        - section-2-observation-models/README.md
+        - section-3-hmm-formal-definition/README.md
+        - section-4-inference/README.md
+        - section-5-parameter-estimation/README.md
+    - part: "Theory & Advanced Models"
+      chapters:
+        - section-6-asymptotics/README.md
+        - section-7-advanced-hmms/README.md
+        - section-8-computational-issues/README.md
+        - section-9-alternative-foundations/README.md
+    - part: "Applications & Problem Sets"
+      chapters:
+        - section-10-applications/README.md
+        - section-11-proof-problem-sets/README.md
+    - part: "Resources & Help"
+      chapters:
+        - about.qmd
+        - faq.qmd
+        - contact.qmd
 
 format:
   html:
-    theme: darkly
-    css: style.css
+    theme: flatly
     toc: true
+    toc-depth: 2
+    number-sections: false
+    code-copy: true
     smooth-scroll: true
+    link-external-newwindow: true
+    css: style.css
+    page-layout: full
+    footer: |
+      <div class="site-footer">© 2025 Hidden Markov Models Course</div>
+    code-tools: true
+    code-fold: false
+    execute:
+      echo: true
+      warning: false
+      message: false
+      cache: false
     math: mathjax
   pdf:
     documentclass: scrartcl
@@ -54,3 +65,5 @@ format:
 metadata:
   lang: en
   geometry: margin=1in
+
+editor: visual

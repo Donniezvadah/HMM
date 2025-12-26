@@ -1,0 +1,56 @@
+---
+title: "About This HMM Course"
+number-sections: false
+---
+
+# About the Hidden Markov Models (HMMs) Course
+
+This site presents a **rigorous, proof-oriented course on Hidden Markov Models (HMMs)**. It is designed for:
+
+- Graduate students in statistics, machine learning, or applied mathematics
+- Researchers and advanced practitioners who want a mathematically honest treatment of HMMs
+- Instructors who need a reference set of lecture-style notes and problem sets
+
+The course emphasizes **calm clarity** over flash: clean typography, high-contrast math, and a modular layout so you can move between foundations, algorithms, theory, and applications without friction.
+
+## Pedagogical Philosophy
+
+- **Theory-first, but example-driven.** Core results are stated and proved, with pointers to Zucchini et al. and more advanced monographs.
+- **Separation of concerns.**
+  - Section 0–1: probability and Markov chains
+  - Section 2–3: model construction and likelihoods
+  - Section 4–5: algorithms and estimation
+  - Section 6–9: asymptotic theory and advanced variants
+  - Section 10–11: applications and proof-based problem sets
+- **Notation stability.** Notation is aligned as much as possible with Zucchini, MacDonald & Langrock to make cross-reading easy.
+
+## Who Should Use This Material
+
+You will benefit most if you:
+
+- Are comfortable with undergraduate probability and linear algebra
+- Are willing to engage with proofs and derivations (not just code)
+- Want to connect HMM algorithms to broader ideas in stochastic processes and statistical inference
+
+If your background is lighter, start with **Section 0 (Mathematical Prerequisites)** and use the references to fill any gaps.
+
+## How This Site Is Structured
+
+- **Home page:** Quick overview, value proposition, and module view of the course.
+- **Overview (HMM.md):** A textual syllabus with references and links to all sections.
+- **Sections 0–11:** Each section is a self-contained set of notes with definitions, theorems, and proof sketches.
+- **Resources & Help:**
+  - `About` (this page): context and intended audience
+  - `FAQ`: practical questions on using the notes
+  - `Contact`: how to suggest corrections or improvements
+
+## Primary References
+
+This course is intentionally compatible with:
+
+- Zucchini, MacDonald, Langrock – *Hidden Markov Models for Time Series: An Introduction Using R*.
+- Cappé, Moulines, Rydén – *Inference in Hidden Markov Models*.
+- Douc, Moulines, Stoffer – *Nonlinear Time Series: Theory, Methods and Applications*.
+- Rabiner (1989) – *A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition*.
+
+You can treat these notes as a **bridge** between the applied style of Zucchini et al. and the more measure-theoretic style of Cappé–Moulines–Rydén.

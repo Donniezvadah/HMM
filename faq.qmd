@@ -1,0 +1,67 @@
+---
+title: "HMM Course FAQ"
+number-sections: false
+---
+
+# Frequently Asked Questions
+
+## What background do I need?
+
+You should be comfortable with:
+
+- Undergraduate probability (random variables, conditional probability, basic limit theorems)
+- Linear algebra (eigenvalues, eigenvectors, basic spectral theory)
+- Basic calculus and real analysis
+
+Section 0 is designed to refresh **measure-theoretic language** just enough to make later sections precise.
+
+## Is this course focused on R code?
+
+No. While the **notation** is aligned with Zucchini et al. (who use R for examples), these notes are **language-agnostic**. The emphasis is on:
+
+- Mathematical formulation of HMMs
+- Algorithms (forward–backward, Viterbi, EM) at the level of formulas and proofs
+- Statistical theory (consistency, asymptotic normality, identifiability)
+
+You can implement the algorithms in any language (R, Python, Julia, C++, etc.).
+
+## How should I study using this site?
+
+A suggested path:
+
+1. Read the **home page** and **HMM overview** to understand the big picture.
+2. Work through **Sections 0–1** carefully if you are not fully comfortable with Markov chains.
+3. Read **Sections 2–3** to understand the formal HMM model and likelihood.
+4. Spend time with **Sections 4–5**, doing the derivations and proofs yourself.
+5. Use **Sections 6–9** on a second pass for deeper statistical theory and advanced models.
+6. Attempt problems from **Section 11** as if they were exam questions.
+
+## Are there solutions to the problem sets?
+
+No solutions are included here. The problems in Section 11 are intended for:
+
+- Graduate coursework and qualifying exams
+- Reading groups and self-study
+
+Instructors can prepare their own solution sets or ask students to present solutions.
+
+## How long does the course take?
+
+As a rough guide:
+
+- A 12–14 week semester course could spend **1–2 weeks per major block** (Foundations, Model & Inference, Estimation, Theory, Advanced Models, Applications/Problems).
+- An intensive reading course could compress the material into **8–10 weeks** for well-prepared students.
+
+## Can I use these notes for teaching?
+
+Yes, subject to whatever license you choose when publishing the repository. Typical uses:
+
+- As a core set of lecture notes, supplemented with your own examples and code.
+- As a reading list for graduate seminars.
+- As background material for research students working on time-series or latent variable models.
+
+If you use the notes in a course, consider adding a short remark in your syllabus pointing students to the site and to the primary references.
+
+## How do I report errors or suggest improvements?
+
+See the **Contact** page for how to propose corrections or enhancements once the site is hosted (e.g., via GitHub issues or a simple contact form).

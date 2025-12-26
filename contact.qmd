@@ -1,0 +1,33 @@
+---
+title: "Contact & Feedback"
+number-sections: false
+---
+
+# Contact & Feedback
+
+This HMM course site is designed as a living set of notes. Care has been taken to keep the mathematics and notation consistent, but **typos and gaps can still occur**.
+
+## How to Provide Feedback
+
+Because this project is intended to be hosted from a version-controlled repository (e.g., GitHub), the recommended feedback channels are:
+
+- **Issues:** Open an issue on the course repository describing:
+  - The section (e.g., "Section 4 – Inference"),
+  - The line or equation where the problem occurs,
+  - A brief description of the error or suggested clarification.
+- **Pull requests (advanced users):** If you are comfortable editing Markdown/Quarto, you can propose a fix directly and submit a pull request for review.
+
+If you are using these notes in a private setting (not yet on GitHub), you can adapt this page with your preferred contact method (e.g., an academic email address or institutional LMS).
+
+## What Kind of Feedback Is Most Helpful?
+
+- **Mathematical corrections:** Incorrect statements, missing assumptions, or unclear proofs.
+- **Notation issues:** Inconsistencies with Zucchini et al. or between sections.
+- **Clarity improvements:** Places where a short additional remark, example, or reference would significantly help understanding.
+- **Typos and formatting:** Misrendered equations, broken links, or layout glitches.
+
+## A Note on Response Times
+
+This site is intended as a resource rather than a commercial platform. Response times for issues or pull requests may vary. When hosted publicly, you can check the repository’s issue tracker to see the status of open items.
+
+If you are adapting these notes for your own course, feel free to fork the repository and modify them to suit your audience, while keeping appropriate attribution to the original references.

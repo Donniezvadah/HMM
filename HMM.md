@@ -30,11 +30,11 @@ The exposition and notation lean heavily on:
 
 Unless otherwise noted, **notation follows Zucchini et al.** where feasible:
 
-- Hidden state process: \((S_t)_{t\ge 1}\), taking values in a finite set \(\{1,\dots,K\}\)
-- Observation process: \((Y_t)_{t\ge 1}\)
-- Initial distribution: \(\boldsymbol{\delta} = (\delta_i)_{i=1}^K\)
-- Transition probability matrix: \(\boldsymbol{\Gamma} = (\gamma_{ij})_{i,j=1}^K\)
-- State-dependent (emission) densities or pmfs: \(f_i(\cdot)\) for state \(i\)
+- Hidden state process: $(S_t)_{t\ge 1}$, taking values in a finite set $\{1,\dots,K\}$
+- Observation process: $(Y_t)_{t\ge 1}$
+- Initial distribution: $\boldsymbol{\delta} = (\delta_i)_{i=1}^K$
+- Transition probability matrix: $\boldsymbol{\Gamma} = (\gamma_{ij})_{i,j=1}^K$
+- State-dependent (emission) densities or pmfs: $f_i(\cdot)$ for state $i$
 
 ---
 
