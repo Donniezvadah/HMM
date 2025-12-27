@@ -277,13 +277,13 @@ Construction of HMMs as probabilistic graphical models:
 \tightlist
 \item
   Conditional independence structure and joint factorization of
-  \(S_{1:T}, Y_{1:T}\).
+  $S_{1:T}, Y_{1:T}$.
 \item
   Observation models: discrete, continuous, and exponential-family
   emissions.
 \item
   Formal HMM definition
-  \((\boldsymbol{\delta}, \boldsymbol{\Gamma}, f_1,\dots,f_K)\) and
+  $(\boldsymbol{\delta}, \boldsymbol{\Gamma}, f_1,\dots,f_K)$ and
   likelihood in matrix form.
 \end{itemize}
 
@@ -435,18 +435,18 @@ feasible:
 \begin{itemize}
 \tightlist
 \item
-  Hidden state process: \((S_t)_{t\ge 1}\), taking values in a finite
-  set \(\{1,\dots,K\}\)
+  Hidden state process: $(S_t)_{t\ge 1}$, taking values in a finite
+  set $\{1,\dots,K\}$
 \item
-  Observation process: \((Y_t)_{t\ge 1}\)
+  Observation process: $(Y_t)_{t\ge 1}$
 \item
-  Initial distribution: \(\boldsymbol{\delta} = (\delta_i)_{i=1}^K\)
+  Initial distribution: $\boldsymbol{\delta} = (\delta_i)_{i=1}^K$
 \item
   Transition probability matrix:
-  \(\boldsymbol{\Gamma} = (\gamma_{ij})_{i,j=1}^K\)
+  $\boldsymbol{\Gamma} = (\gamma_{ij})_{i,j=1}^K$
 \item
-  State-dependent (emission) densities or pmfs: \(f_i(\cdot)\) for state
-  \(i\)
+  State-dependent (emission) densities or pmfs: $f_i(\cdot)$ for state
+  $i$
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -589,38 +589,38 @@ Precise)}\label{measure-theoretic-probability-light-but-precise}
 \subsection{0.1.1 Probability Spaces}\label{probability-spaces}
 
 A \textbf{probability space} is a triple
-\((\Omega, \mathcal{F}, \mathbb{P})\) where
+$(\Omega, \mathcal{F}, \mathbb{P})$ where
 
 \begin{itemize}
 \tightlist
 \item
-  \(\Omega\) is the \textbf{sample space} (set of outcomes);
+  $\Omega$ is the \textbf{sample space} (set of outcomes);
 \item
-  \(\mathcal{F} \subseteq 2^{\Omega}\) is a \textbf{\(\sigma\)-algebra}
+  $\mathcal{F} \subseteq 2^{\Omega}$ is a \textbf{$\sigma$-algebra}
   of events (closed under complements and countable unions);
 \item
-  \(\mathbb{P} : \mathcal{F} \to [0,1]\) is a \textbf{probability
-  measure} with \(\mathbb{P}(\Omega)=1\) and countable additivity.
+  $\mathbb{P} : \mathcal{F} \to [0,1]$ is a \textbf{probability
+  measure} with $\mathbb{P}(\Omega)=1$ and countable additivity.
 \end{itemize}
 
 For HMMs we usually work with products of measurable spaces,
 e.g.~sequences of states and observations. The relevant product
-\(\sigma\)-algebras and measures are:
+$\sigma$-algebras and measures are:
 
 \begin{itemize}
 \tightlist
 \item
-  For a measurable space \((S, \mathcal{S})\), the \textbf{countable
-  product} \((S^{\mathbb{N}}, \mathcal{S}^{\otimes \mathbb{N}})\) is
-  defined via the smallest \(\sigma\)-algebra making all coordinate
+  For a measurable space $(S, \mathcal{S})$, the \textbf{countable
+  product} $(S^{\mathbb{N}}, \mathcal{S}^{\otimes \mathbb{N}})$ is
+  defined via the smallest $\sigma$-algebra making all coordinate
   projections measurable.
 \item
-  For a Markov chain \((S_t)_{t \ge 1}\), the joint law of the whole
+  For a Markov chain $(S_t)_{t \ge 1}$, the joint law of the whole
   sequence lives on such a product space.
 \end{itemize}
 
-In finite-state HMMs, \(S = \{1,\dots,K\}\) with the \textbf{discrete
-\(\sigma\)-algebra} (all subsets), so measurability is trivial;
+In finite-state HMMs, $S = \{1,\dots,K\}$ with the \textbf{discrete
+$\sigma$-algebra} (all subsets), so measurability is trivial;
 nevertheless, the measure-theoretic formulation clarifies
 \textbf{conditional expectations} and \textbf{ergodic theorems} later.
 
@@ -628,37 +628,37 @@ nevertheless, the measure-theoretic formulation clarifies
 Distributions}\label{random-variables-and-distributions}
 
 A \textbf{random variable} with values in a measurable space
-\((S, \mathcal{S})\) is a measurable map \[
+$(S, \mathcal{S})$ is a measurable map \[
 X : (\Omega, \mathcal{F}) \to (S, \mathcal{S}).
 \]
 
-The \textbf{distribution} (or law) of \(X\) is the pushforward measure
-\(\mathbb{P}_X\) on \((S, \mathcal{S})\): \[
+The \textbf{distribution} (or law) of $X$ is the pushforward measure
+$\mathbb{P}_X$ on $(S, \mathcal{S})$: \[
 \mathbb{P}_X(A) = \mathbb{P}(X \in A), \quad A \in \mathcal{S}.
 \]
 
-In HMMs we will consider random variables \(S_t\) (hidden states) and
-\(Y_t\) (observations). Their joint distribution factorizes in a special
+In HMMs we will consider random variables $S_t$ (hidden states) and
+$Y_t$ (observations). Their joint distribution factorizes in a special
 way due to the \textbf{Markov property} and \textbf{conditional
 independence}, which we will formalize later.
 
 \subsection{0.1.3 Expectation and Conditional
 Expectation}\label{expectation-and-conditional-expectation}
 
-For an integrable real-valued random variable \(X\), its
+For an integrable real-valued random variable $X$, its
 \textbf{expectation} is \[
 \mathbb{E}[X] = \int_{\Omega} X(\omega) \, \mathbb{P}(d\omega),
 \]
 
-or equivalently, if \(X\) takes values in \(\mathbb{R}\) with
-distribution \(\mu = \mathbb{P}_X\), \[
+or equivalently, if $X$ takes values in $\mathbb{R}$ with
+distribution $\mu = \mathbb{P}_X$, \[
 \mathbb{E}[X] = \int_{\mathbb{R}} x \, \mu(dx).
 \]
 
-For a sub-\(\sigma\)-algebra \(\mathcal{G} \subseteq \mathcal{F}\), the
-\textbf{conditional expectation} of \(X\) given \(\mathcal{G}\) is a
-\(\mathcal{G}\)-measurable random variable
-\(\mathbb{E}[X\mid \mathcal{G}]\) such that \[
+For a sub-$\sigma$-algebra $\mathcal{G} \subseteq \mathcal{F}$, the
+\textbf{conditional expectation} of $X$ given $\mathcal{G}$ is a
+$\mathcal{G}$-measurable random variable
+$\mathbb{E}[X\mid \mathcal{G}]$ such that \[
 \int_G \mathbb{E}[X\mid\mathcal{G}] \, d\mathbb{P} = \int_G X \, d\mathbb{P}, \quad \forall G \in \mathcal{G}.
 \]
 
@@ -668,46 +668,46 @@ Key properties (used constantly in HMM derivations):
 \tightlist
 \item
   \textbf{Linearity:}
-  \(\mathbb{E}[aX + bY \mid \mathcal{G}] = a\,\mathbb{E}[X\mid\mathcal{G}] + b\,\mathbb{E}[Y\mid\mathcal{G}]\).
+  $\mathbb{E}[aX + bY \mid \mathcal{G}] = a\,\mathbb{E}[X\mid\mathcal{G}] + b\,\mathbb{E}[Y\mid\mathcal{G}]$.
 \item
   \textbf{Tower property:} If
-  \(\mathcal{H} \subseteq \mathcal{G} \subseteq \mathcal{F}\), then \[
+  $\mathcal{H} \subseteq \mathcal{G} \subseteq \mathcal{F}$, then \[
   \mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]\mid \mathcal{H}] = \mathbb{E}[X\mid\mathcal{H}].
   \]
 \item
-  \textbf{Taking out what is known:} If \(Z\) is
-  \(\mathcal{G}\)-measurable and integrable, \[
+  \textbf{Taking out what is known:} If $Z$ is
+  $\mathcal{G}$-measurable and integrable, \[
   \mathbb{E}[ZX\mid\mathcal{G}] = Z\,\mathbb{E}[X\mid\mathcal{G}].
   \]
 \end{itemize}
 
 In HMMs, filtering and smoothing can be viewed as \textbf{computing
-conditional expectations} like \(\mathbb{E}[g(S_t) \mid Y_{1:T}]\) for
-suitable functions \(g\). The forward--backward algorithms are efficient
+conditional expectations} like $\mathbb{E}[g(S_t) \mid Y_{1:T}]$ for
+suitable functions $g$. The forward--backward algorithms are efficient
 implementations of these operations.
 
 \subsection{0.1.4 Regular Conditional
 Probabilities}\label{regular-conditional-probabilities}
 
-Given random variables \(X\) and \(Y\) on a probability space, a
-\textbf{regular conditional probability} of \(X\) given \(Y=y\) is a
-family of probability measures \(\{\mathbb{P}(X \in \cdot \mid Y=y)\}\)
+Given random variables $X$ and $Y$ on a probability space, a
+\textbf{regular conditional probability} of $X$ given $Y=y$ is a
+family of probability measures $\{\mathbb{P}(X \in \cdot \mid Y=y)\}$
 such that
 
 \begin{itemize}
 \tightlist
 \item
-  For each measurable \(A\), the map
-  \(y \mapsto \mathbb{P}(X \in A \mid Y=y)\) is measurable;
+  For each measurable $A$, the map
+  $y \mapsto \mathbb{P}(X \in A \mid Y=y)$ is measurable;
 \item
-  For each measurable \(B\), \[
+  For each measurable $B$, \[
   \mathbb{P}(X \in B, Y \in C) = \int_C \mathbb{P}(X \in B \mid Y=y) \, \mathbb{P}_Y(dy).
   \]
 \end{itemize}
 
 On \textbf{standard Borel spaces} (Polish spaces with their Borel
-\(\sigma\)-algebra), regular conditional probabilities always exist and
-are unique up to \(\mathbb{P}_Y\)-null sets. This justifies writing
+$\sigma$-algebra), regular conditional probabilities always exist and
+are unique up to $\mathbb{P}_Y$-null sets. This justifies writing
 objects like \[
 \mathbb{P}(S_t = i \mid Y_{1:T}=y_{1:T})
 \] rigorously, which is what the forward--backward algorithms compute.
@@ -715,22 +715,22 @@ objects like \[
 \subsection{0.1.5 Modes of Convergence}\label{modes-of-convergence}
 
 We briefly recall three notions of convergence for a sequence of random
-variables \((X_n)\):
+variables $(X_n)$:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Almost sure (a.s.) convergence:} \(X_n \to X\) a.s. if \[
+  \textbf{Almost sure (a.s.) convergence:} $X_n \to X$ a.s. if \[
   \mathbb{P}\bigl(\{\omega : X_n(\omega) \to X(\omega)\}\bigr) = 1.
   \]
 \item
-  \textbf{Convergence in probability:} \(X_n \to X\) in probability if,
-  for all \(\varepsilon > 0\), \[
+  \textbf{Convergence in probability:} $X_n \to X$ in probability if,
+  for all $\varepsilon > 0$, \[
   \lim_{n\to\infty} \mathbb{P}(|X_n - X| > \varepsilon) = 0.
   \]
 \item
-  \textbf{\(L^p\) convergence:} \(X_n \to X\) in \(L^p\) (for
-  \(p \ge 1\)) if \[
+  \textbf{$L^p$ convergence:} $X_n \to X$ in $L^p$ (for
+  $p \ge 1$) if \[
   \lim_{n\to\infty} \mathbb{E}[|X_n - X|^p] = 0.
   \]
 \end{itemize}
@@ -749,7 +749,7 @@ Theory}\label{linear-algebra-and-spectral-theory}
 \subsection{0.2.1 Probability Vectors and the
 Simplex}\label{probability-vectors-and-the-simplex}
 
-For a finite state space of size \(K\), a \textbf{probability vector} is
+For a finite state space of size $K$, a \textbf{probability vector} is
 \[
 \boldsymbol{\mu} = (\mu_1, \dots, \mu_K)^\top, \quad \mu_i \ge 0, \quad \sum_{i=1}^K \mu_i = 1.
 \]
@@ -758,17 +758,17 @@ The set of all such vectors is the \textbf{probability simplex} \[
 \Delta^{K-1} = \Bigl\{ \boldsymbol{\mu} \in \mathbb{R}^K : \mu_i \ge 0, \sum_i \mu_i = 1 \Bigr\}.
 \]
 
-We measure distances on \(\Delta^{K-1}\) using norms:
+We measure distances on $\Delta^{K-1}$ using norms:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{\(\ell^1\) norm:}
-  \(\lVert \mu - \nu \rVert_1 = \sum_i |\mu_i - \nu_i|\) (twice the
+  \textbf{$\ell^1$ norm:}
+  $\lVert \mu - \nu \rVert_1 = \sum_i |\mu_i - \nu_i|$ (twice the
   total variation distance);
 \item
-  \textbf{\(\ell^2\) norm:}
-  \(\lVert \mu - \nu \rVert_2 = (\sum_i (\mu_i - \nu_i)^2)^{1/2}\).
+  \textbf{$\ell^2$ norm:}
+  $\lVert \mu - \nu \rVert_2 = (\sum_i (\mu_i - \nu_i)^2)^{1/2}$.
 \end{itemize}
 
 Both will appear in mixing-time and stability results for Markov chains
@@ -776,54 +776,54 @@ and filters.
 
 \subsection{0.2.2 Stochastic Matrices}\label{stochastic-matrices}
 
-A \textbf{row-stochastic matrix} is a \(K \times K\) matrix
-\(\boldsymbol{\Gamma} = (\gamma_{ij})\) with \[
+A \textbf{row-stochastic matrix} is a $K \times K$ matrix
+$\boldsymbol{\Gamma} = (\gamma_{ij})$ with \[
 \gamma_{ij} \ge 0, \quad \sum_{j=1}^K \gamma_{ij} = 1 \quad \text{for all } i.
 \]
 
 In finite-state HMMs (following Zucchini et al.),
-\(\boldsymbol{\Gamma}\) denotes the \textbf{transition matrix} of the
-hidden Markov chain \((S_t)\): \[
+$\boldsymbol{\Gamma}$ denotes the \textbf{transition matrix} of the
+hidden Markov chain $(S_t)$: \[
 \gamma_{ij} = \mathbb{P}(S_{t+1} = j \mid S_t = i).
 \]
 
-Given a probability vector \(\boldsymbol{\mu}\), the product
-\(\boldsymbol{\mu}^\top \boldsymbol{\Gamma}\) is again a probability
-vector, representing the distribution of \(S_{t+1}\) if
-\(\boldsymbol{\mu}\) is the distribution of \(S_t\).
+Given a probability vector $\boldsymbol{\mu}$, the product
+$\boldsymbol{\mu}^\top \boldsymbol{\Gamma}$ is again a probability
+vector, representing the distribution of $S_{t+1}$ if
+$\boldsymbol{\mu}$ is the distribution of $S_t$.
 
 \subsection{0.2.3 Perron--Frobenius
 Theory}\label{perronfrobenius-theory}
 
-For a \textbf{non-negative matrix} \(A \in \mathbb{R}^{K \times K}\)
-(i.e.~\(A_{ij} \ge 0\)), the Perron--Frobenius theorem gives powerful
-spectral properties. In particular, if \(A\) is \textbf{irreducible},
+For a \textbf{non-negative matrix} $A \in \mathbb{R}^{K \times K}$
+(i.e.~$A_{ij} \ge 0$), the Perron--Frobenius theorem gives powerful
+spectral properties. In particular, if $A$ is \textbf{irreducible},
 then
 
 \begin{itemize}
 \tightlist
 \item
-  There exists a \textbf{positive eigenvalue} \(\rho(A) > 0\) (the
+  There exists a \textbf{positive eigenvalue} $\rho(A) > 0$ (the
   spectral radius) with a corresponding \textbf{positive eigenvector}
-  \(v > 0\).
+  $v > 0$.
 \item
-  \(\rho(A)\) is \textbf{simple} (algebraic multiplicity 1), and no
+  $\rho(A)$ is \textbf{simple} (algebraic multiplicity 1), and no
   other eigenvector with non-negative entries exists for a different
   eigenvalue.
 \end{itemize}
 
-For a \textbf{stochastic matrix} \(\boldsymbol{\Gamma}\):
+For a \textbf{stochastic matrix} $\boldsymbol{\Gamma}$:
 
 \begin{itemize}
 \tightlist
 \item
-  Its spectral radius satisfies \(\rho(\boldsymbol{\Gamma}) = 1\), since
-  \(\boldsymbol{\Gamma}\mathbf{1} = \mathbf{1}\).
+  Its spectral radius satisfies $\rho(\boldsymbol{\Gamma}) = 1$, since
+  $\boldsymbol{\Gamma}\mathbf{1} = \mathbf{1}$.
 \item
-  If \(\boldsymbol{\Gamma}\) is irreducible and aperiodic, the
+  If $\boldsymbol{\Gamma}$ is irreducible and aperiodic, the
   \textbf{left eigenvector} corresponding to eigenvalue 1, normalized to
   sum to 1, is the \textbf{unique stationary distribution}
-  \(\boldsymbol{\pi}\): \[
+  $\boldsymbol{\pi}$: \[
   \boldsymbol{\pi}^\top \boldsymbol{\Gamma} = \boldsymbol{\pi}^\top.
   \]
 \end{itemize}
@@ -834,7 +834,7 @@ finite-state Markov chains, and later for stability of HMM filters.
 \subsection{0.2.4 Spectral Gap and Convergence
 Rates}\label{spectral-gap-and-convergence-rates}
 
-Let the eigenvalues of a stochastic matrix \(\boldsymbol{\Gamma}\) be
+Let the eigenvalues of a stochastic matrix $\boldsymbol{\Gamma}$ be
 ordered as \[
 1 = \lambda_1 > |\lambda_2| \ge \dots \ge |\lambda_K|.
 \]
@@ -844,15 +844,15 @@ The \textbf{spectral gap} is \[
 \]
 
 For many chains (especially reversible ones), the convergence of
-\(\boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t\) to the stationary
-distribution \(\boldsymbol{\pi}^\top\) in \(\ell^2\) or total variation
-can be bounded in terms of \(\gamma\). Roughly, \[
+$\boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t$ to the stationary
+distribution $\boldsymbol{\pi}^\top$ in $\ell^2$ or total variation
+can be bounded in terms of $\gamma$. Roughly, \[
 \lVert \boldsymbol{\mu}_0^\top \boldsymbol{\Gamma}^t - \boldsymbol{\pi}^\top \rVert_2 \le C (1-\gamma)^t.
 \]
 
 More precise inequalities follow from the spectral decomposition of
-\(\boldsymbol{\Gamma}\) and, in the reversible case, from its
-self-adjointness in \(L^2(\boldsymbol{\pi})\).
+$\boldsymbol{\Gamma}$ and, in the reversible case, from its
+self-adjointness in $L^2(\boldsymbol{\pi})$.
 
 These ideas will underpin \textbf{mixing-time} and \textbf{filter
 stability} results (Sections 1.2 and 4.1).
@@ -865,21 +865,21 @@ Geometry}\label{optimization-and-information-geometry}
 \subsection{0.3.1 Convexity on the Probability
 Simplex}\label{convexity-on-the-probability-simplex}
 
-A function \(f : \Delta^{K-1} \to \mathbb{R}\) is \textbf{convex} if \[
+A function $f : \Delta^{K-1} \to \mathbb{R}$ is \textbf{convex} if \[
 f(\theta \mu + (1-\theta)\nu) \le \theta f(\mu) + (1-\theta) f(\nu)
-\] for all \(\mu, \nu \in \Delta^{K-1}\) and \(\theta \in [0,1]\).
+\] for all $\mu, \nu \in \Delta^{K-1}$ and $\theta \in [0,1]$.
 
 Many information-theoretic functionals are convex or strictly convex on
-\(\Delta^{K-1}\). Examples:
+$\Delta^{K-1}$. Examples:
 
 \begin{itemize}
 \tightlist
 \item
-  Negative entropy \(H(\mu) = -\sum_i \mu_i \log \mu_i\) is
+  Negative entropy $H(\mu) = -\sum_i \mu_i \log \mu_i$ is
   \textbf{strictly concave};
 \item
   The \textbf{Kullback--Leibler divergence} (KL) is jointly convex in
-  \((p,q)\).
+  $(p,q)$.
 \end{itemize}
 
 Convexity is central in understanding \textbf{EM updates},
@@ -889,8 +889,8 @@ Convexity is central in understanding \textbf{EM updates},
 \subsection{0.3.2 Kullback--Leibler Divergence as a Bregman
 Divergence}\label{kullbackleibler-divergence-as-a-bregman-divergence}
 
-For two discrete distributions \(p,q \in \Delta^{K-1}\) with full
-support (\(p_i, q_i > 0\)), the \textbf{KL divergence} is \[
+For two discrete distributions $p,q \in \Delta^{K-1}$ with full
+support ($p_i, q_i > 0$), the \textbf{KL divergence} is \[
 \mathrm{KL}(p \Vert q) = \sum_{i=1}^K p_i \log\frac{p_i}{q_i}.
 \]
 
@@ -899,10 +899,10 @@ with the \textbf{negative entropy} function \[
 \phi(p) = \sum_i p_i \log p_i.
 \]
 
-The Bregman divergence generated by \(\phi\) is \[
+The Bregman divergence generated by $\phi$ is \[
 D_\phi(p,q) = \phi(p) - \phi(q) - \langle \nabla \phi(q), p - q \rangle,
-\] where \(\langle \cdot,\cdot \rangle\) is the usual inner product on
-\(\mathbb{R}^K\). A straightforward calculation shows \[
+\] where $\langle \cdot,\cdot \rangle$ is the usual inner product on
+$\mathbb{R}^K$. A straightforward calculation shows \[
 D_\phi(p,q) = \mathrm{KL}(p \Vert q).
 \]
 
@@ -911,8 +911,8 @@ This interpretation highlights several facts:
 \begin{itemize}
 \tightlist
 \item
-  \(\mathrm{KL}(p \Vert q) \ge 0\) with equality iff \(p=q\) (strict
-  convexity of \(\phi\));
+  $\mathrm{KL}(p \Vert q) \ge 0$ with equality iff $p=q$ (strict
+  convexity of $\phi$);
 \item
   KL is \textbf{asymmetric}, unlike a metric, which shapes the geometry
   of likelihood-based optimization.
@@ -926,12 +926,12 @@ involving KL terms.
 \subsection{0.3.3 Duality and Entropy-Regularized
 Problems}\label{duality-and-entropy-regularized-problems}
 
-Given a convex function \(\phi\), its \textbf{convex conjugate}
-\(\phi^*\) is \[
+Given a convex function $\phi$, its \textbf{convex conjugate}
+$\phi^*$ is \[
 \phi^*(y) = \sup_{x} \{ \langle x, y \rangle - \phi(x) \}.
 \]
 
-For \(\phi(p) = \sum_i p_i \log p_i\) (negative entropy), \(\phi^*\) is
+For $\phi(p) = \sum_i p_i \log p_i$ (negative entropy), $\phi^*$ is
 the log-partition function \[
 \phi^*(\eta) = \log \sum_i e^{\eta_i}.
 \]
@@ -945,7 +945,7 @@ formulations} of inference in HMMs:
 \item
   Entropy-regularized objectives of the form \[
   \max_{q} \Big\{ \mathbb{E}_q[\log p(Y,S)] + H(q) \Big\}
-  \] lead to exponential-family solutions for the optimal \(q\).
+  \] lead to exponential-family solutions for the optimal $q$.
 \end{itemize}
 
 In the context of Zucchini et al., this background explains why
@@ -1031,19 +1031,19 @@ Chains}\label{finite-state-markov-chains}
 \subsection{1.1.1 Definition and Transition
 Kernels}\label{definition-and-transition-kernels}
 
-Let the \textbf{state space} be \(E = \{1,\dots,K\}\). A stochastic
-process \((S_t)_{t \ge 1}\) with values in \(E\) is a (time-homogeneous)
+Let the \textbf{state space} be $E = \{1,\dots,K\}$. A stochastic
+process $(S_t)_{t \ge 1}$ with values in $E$ is a (time-homogeneous)
 \textbf{Markov chain} with transition matrix
-\(\boldsymbol{\Gamma} = (\gamma_{ij})\) if \[
+$\boldsymbol{\Gamma} = (\gamma_{ij})$ if \[
 \mathbb{P}(S_{t+1} = j \mid S_1, \dots, S_t) = \mathbb{P}(S_{t+1} = j \mid S_t) = \gamma_{S_t j}, \quad \forall t \ge 1.
 \]
 
-Equivalently, for any sequence \(i_1, \dots, i_T\) in \(E\), the joint
+Equivalently, for any sequence $i_1, \dots, i_T$ in $E$, the joint
 probability is \[
 \mathbb{P}(S_1 = i_1, \dots, S_T = i_T)
 = \delta_{i_1} \prod_{t=1}^{T-1} \gamma_{i_t i_{t+1}},
-\] where \(\boldsymbol{\delta} = (\delta_i)\) is the \textbf{initial
-distribution} \(\delta_i = \mathbb{P}(S_1 = i)\).
+\] where $\boldsymbol{\delta} = (\delta_i)$ is the \textbf{initial
+distribution} $\delta_i = \mathbb{P}(S_1 = i)$.
 
 This is exactly the hidden-state dynamics that Zucchini et al.~use to
 define finite-state HMMs; the HMM adds an \textbf{observation process}
@@ -1052,25 +1052,25 @@ on top of this chain.
 \subsection{1.1.2 Chapman--Kolmogorov
 Equations}\label{chapmankolmogorov-equations}
 
-Let \(\boldsymbol{\Gamma}^{(n)}\) denote the \(n\)-step transition
+Let $\boldsymbol{\Gamma}^{(n)}$ denote the $n$-step transition
 matrix, with entries \[
 \gamma^{(n)}_{ij} = \mathbb{P}(S_{t+n} = j \mid S_t = i).
 \]
 
 Then the \textbf{Chapman--Kolmogorov equations} state that for all
-\(m,n \ge 0\), \[
+$m,n \ge 0$, \[
 \boldsymbol{\Gamma}^{(m+n)} = \boldsymbol{\Gamma}^{(m)} \boldsymbol{\Gamma}^{(n)}.
 \]
 
-In particular, \(\boldsymbol{\Gamma}^{(n)} = \boldsymbol{\Gamma}^n\)
+In particular, $\boldsymbol{\Gamma}^{(n)} = \boldsymbol{\Gamma}^n$
 (the usual matrix power). This ties Markov chain evolution directly to
-the spectral properties of \(\boldsymbol{\Gamma}\).
+the spectral properties of $\boldsymbol{\Gamma}$.
 
 \subsection{1.1.3 Stationary and Invariant
 Distributions}\label{stationary-and-invariant-distributions}
 
-A probability vector \(\boldsymbol{\pi} \in \Delta^{K-1}\) is a
-\textbf{stationary distribution} for \(\boldsymbol{\Gamma}\) if \[
+A probability vector $\boldsymbol{\pi} \in \Delta^{K-1}$ is a
+\textbf{stationary distribution} for $\boldsymbol{\Gamma}$ if \[
 \boldsymbol{\pi}^\top \boldsymbol{\Gamma} = \boldsymbol{\pi}^\top.
 \]
 
@@ -1079,43 +1079,43 @@ Interpretation:
 \begin{itemize}
 \tightlist
 \item
-  If \(S_1 \sim \boldsymbol{\pi}\), then \(S_t \sim \boldsymbol{\pi}\)
-  for all \(t\); the chain is \textbf{in equilibrium}.
+  If $S_1 \sim \boldsymbol{\pi}$, then $S_t \sim \boldsymbol{\pi}$
+  for all $t$; the chain is \textbf{in equilibrium}.
 \item
   If the chain is \textbf{irreducible and aperiodic},
-  \(\boldsymbol{\pi}\) is \textbf{unique}, and the distribution of
-  \(S_t\) converges to \(\boldsymbol{\pi}\) for any initial distribution
-  \(\boldsymbol{\delta}\).
+  $\boldsymbol{\pi}$ is \textbf{unique}, and the distribution of
+  $S_t$ converges to $\boldsymbol{\pi}$ for any initial distribution
+  $\boldsymbol{\delta}$.
 \end{itemize}
 
-The existence and uniqueness of \(\boldsymbol{\pi}\) are guaranteed by
+The existence and uniqueness of $\boldsymbol{\pi}$ are guaranteed by
 \textbf{Perron--Frobenius theory} (Section 0.2) for irreducible,
 aperiodic stochastic matrices.
 
 \subsection{1.1.4 Reversibility and Detailed
 Balance}\label{reversibility-and-detailed-balance}
 
-A Markov chain with transition matrix \(\boldsymbol{\Gamma}\) and
-stationary distribution \(\boldsymbol{\pi}\) is \textbf{reversible} if
+A Markov chain with transition matrix $\boldsymbol{\Gamma}$ and
+stationary distribution $\boldsymbol{\pi}$ is \textbf{reversible} if
 it satisfies the \textbf{detailed balance equations} \[
 \pi_i \, \gamma_{ij} = \pi_j \, \gamma_{ji}, \quad \forall i,j.
 \]
 
-Intuitively, under stationarity, the probability flow from \(i\) to
-\(j\) equals that from \(j\) to \(i\).
+Intuitively, under stationarity, the probability flow from $i$ to
+$j$ equals that from $j$ to $i$.
 
 Consequences:
 
 \begin{itemize}
 \tightlist
 \item
-  In the inner product space \(L^2(\boldsymbol{\pi})\),
-  \(\boldsymbol{\Gamma}\) is \textbf{self-adjoint}: \[
+  In the inner product space $L^2(\boldsymbol{\pi})$,
+  $\boldsymbol{\Gamma}$ is \textbf{self-adjoint}: \[
   \langle f, \boldsymbol{\Gamma} g \rangle_\pi = \langle \boldsymbol{\Gamma} f, g \rangle_\pi
-  \] for functions \(f,g : E \to \mathbb{R}\), where
-  \(\langle f,g \rangle_\pi = \sum_i \pi_i f(i) g(i)\).
+  \] for functions $f,g : E \to \mathbb{R}$, where
+  $\langle f,g \rangle_\pi = \sum_i \pi_i f(i) g(i)$.
 \item
-  Hence, the spectrum of \(\boldsymbol{\Gamma}\) is \textbf{real}, and
+  Hence, the spectrum of $\boldsymbol{\Gamma}$ is \textbf{real}, and
   spectral analysis is particularly transparent.
 \end{itemize}
 
@@ -1131,13 +1131,13 @@ Chains}\label{ergodic-theory-of-markov-chains}
 \subsection{1.2.1 Irreducibility and Communication
 Classes}\label{irreducibility-and-communication-classes}
 
-For states \(i,j \in E\), write \(i \rightsquigarrow j\) if there exists
-\(n \ge 0\) such that \(\gamma^{(n)}_{ij} > 0\) (a path of positive
-probability from \(i\) to \(j\)). We say \textbf{\(i\) communicates with
-\(j\)}, written \(i \leftrightarrow j\), if both
-\(i \rightsquigarrow j\) and \(j \rightsquigarrow i\) hold.
+For states $i,j \in E$, write $i \rightsquigarrow j$ if there exists
+$n \ge 0$ such that $\gamma^{(n)}_{ij} > 0$ (a path of positive
+probability from $i$ to $j$). We say \textbf{$i$ communicates with
+$j$}, written $i \leftrightarrow j$, if both
+$i \rightsquigarrow j$ and $j \rightsquigarrow i$ hold.
 
-This is an equivalence relation, partitioning \(E\) into
+This is an equivalence relation, partitioning $E$ into
 \textbf{communicating classes}. A chain is \textbf{irreducible} if it
 has a single communicating class (every state communicates with every
 other).
@@ -1157,29 +1157,29 @@ eventually be reached from any other, which is important for:
 \subsection{1.2.2 Periodicity and
 Aperiodicity}\label{periodicity-and-aperiodicity}
 
-The \textbf{period} of a state \(i\) is \[
+The \textbf{period} of a state $i$ is \[
 \mathrm{per}(i) = \gcd\{ n \ge 1 : \gamma^{(n)}_{ii} > 0 \}.
 \]
 
 In an irreducible chain, all states share the same period, so we can
 speak of \textbf{the} period of the chain. A chain is \textbf{aperiodic}
-if \(\mathrm{per}(i) = 1\) for some (hence all) \(i\).
+if $\mathrm{per}(i) = 1$ for some (hence all) $i$.
 
 Aperiodicity rules out deterministic cycles and is necessary for
-convergence of \(\mathbb{P}(S_t = \cdot)\) to \(\boldsymbol{\pi}\) in
+convergence of $\mathbb{P}(S_t = \cdot)$ to $\boldsymbol{\pi}$ in
 total variation.
 
 \subsection{1.2.3 Ergodic Theorem for Finite-State Markov
 Chains}\label{ergodic-theorem-for-finite-state-markov-chains}
 
-Let \((S_t)\) be irreducible and aperiodic with stationary distribution
-\(\boldsymbol{\pi}\). Then for any bounded function
-\(f : E \to \mathbb{R}\), \[
+Let $(S_t)$ be irreducible and aperiodic with stationary distribution
+$\boldsymbol{\pi}$. Then for any bounded function
+$f : E \to \mathbb{R}$, \[
 \frac{1}{T} \sum_{t=1}^T f(S_t) \xrightarrow[T\to\infty]{\text{a.s.}} \sum_{i=1}^K \pi_i f(i) =: \mathbb{E}_\pi[f(S)].
 \]
 
 This is the \textbf{ergodic theorem}: time averages converge almost
-surely to space averages under \(\boldsymbol{\pi}\). It is a
+surely to space averages under $\boldsymbol{\pi}$. It is a
 Markov-chain version of the \textbf{strong law of large numbers}.
 
 In HMMs, ergodic theorems are used to prove \textbf{consistency of
@@ -1189,41 +1189,41 @@ time.
 \subsection{1.2.4 Mixing Times and Total Variation
 Distance}\label{mixing-times-and-total-variation-distance}
 
-For a probability vector \(\boldsymbol{\mu}\) on \(E\), the
-\textbf{total variation distance} to \(\boldsymbol{\pi}\) is \[
+For a probability vector $\boldsymbol{\mu}$ on $E$, the
+\textbf{total variation distance} to $\boldsymbol{\pi}$ is \[
 \lVert \boldsymbol{\mu} - \boldsymbol{\pi} \rVert_{\mathrm{TV}}
 = \frac{1}{2} \sum_{i=1}^K |\mu_i - \pi_i|.
 \]
 
 Let
-\(\boldsymbol{\mu}_t = \boldsymbol{\delta}^\top \boldsymbol{\Gamma}^t\)
-be the distribution of \(S_t\) starting from \(\boldsymbol{\delta}\).
-The \textbf{mixing time} \(t_{\mathrm{mix}}(\varepsilon)\) is \[
+$\boldsymbol{\mu}_t = \boldsymbol{\delta}^\top \boldsymbol{\Gamma}^t$
+be the distribution of $S_t$ starting from $\boldsymbol{\delta}$.
+The \textbf{mixing time} $t_{\mathrm{mix}}(\varepsilon)$ is \[
  t_{\mathrm{mix}}(\varepsilon) = \min\Bigl\{ t : \sup_{\boldsymbol{\delta}} \lVert \boldsymbol{\mu}_t - \boldsymbol{\pi} \rVert_{\mathrm{TV}} \le \varepsilon \Bigr\}.
 \]
 
 In finite-state irreducible aperiodic chains,
-\(t_{\mathrm{mix}}(\varepsilon) < \infty\) for all \(\varepsilon > 0\).
+$t_{\mathrm{mix}}(\varepsilon) < \infty$ for all $\varepsilon > 0$.
 Spectral methods and coupling (next subsection) give quantitative
 bounds.
 
 \subsection{1.2.5 Spectral Gap and Convergence
 Rates}\label{spectral-gap-and-convergence-rates-1}
 
-Suppose the chain is reversible with respect to \(\boldsymbol{\pi}\),
-with eigenvalues of \(\boldsymbol{\Gamma}\) ordered as \[
+Suppose the chain is reversible with respect to $\boldsymbol{\pi}$,
+with eigenvalues of $\boldsymbol{\Gamma}$ ordered as \[
 1 = \lambda_1 > \lambda_2 \ge \dots \ge \lambda_K > -1.
 \]
 
-The \textbf{spectral gap} is \(\gamma = 1 - \lambda_2\). One can show
+The \textbf{spectral gap} is $\gamma = 1 - \lambda_2$. One can show
 (see e.g.~books on Markov chain mixing) that \[
 \lVert \boldsymbol{\mu}_t - \boldsymbol{\pi} \rVert_{\mathrm{TV}}
 \le C \, (1-\gamma)^t
-\] for some constant \(C\) depending on \(\boldsymbol{\delta}\). Thus, a
+\] for some constant $C$ depending on $\boldsymbol{\delta}$. Thus, a
 larger spectral gap implies faster convergence to stationarity.
 
 In HMMs, these spectral-gap-based bounds transfer to \textbf{stability
-of the filtering distribution}: the distribution of \(S_t\) given
+of the filtering distribution}: the distribution of $S_t$ given
 observations becomes asymptotically independent of the initial
 distribution.
 
@@ -1231,16 +1231,16 @@ distribution.
 (Sketch)}\label{coupling-arguments-sketch}
 
 A powerful probabilistic technique for bounding mixing times is
-\textbf{coupling}: construct two copies of the chain, \((S_t)\) and
-\((S'_t)\), possibly dependent, such that
+\textbf{coupling}: construct two copies of the chain, $(S_t)$ and
+$(S'_t)$, possibly dependent, such that
 
 \begin{itemize}
 \tightlist
 \item
-  Marginally, each evolves according to \(\boldsymbol{\Gamma}\);
+  Marginally, each evolves according to $\boldsymbol{\Gamma}$;
 \item
-  They eventually \textbf{coalesce}: \(S_t = S'_t\) for all sufficiently
-  large \(t\).
+  They eventually \textbf{coalesce}: $S_t = S'_t$ for all sufficiently
+  large $t$.
 \end{itemize}
 
 Define the \textbf{coupling time} \[
@@ -1248,12 +1248,12 @@ T_c = \inf\{ t \ge 0 : S_t = S'_t \}.
 \]
 
 Then for any initial distributions
-\(\boldsymbol{\delta}, \boldsymbol{\delta}'\), \[
+$\boldsymbol{\delta}, \boldsymbol{\delta}'$, \[
 \lVert \boldsymbol{\mu}_t - \boldsymbol{\mu}'_t \rVert_{\mathrm{TV}}
 \le \mathbb{P}(T_c > t).
 \]
 
-Hence, controlling \(\mathbb{P}(T_c > t)\) yields mixing bounds. The
+Hence, controlling $\mathbb{P}(T_c > t)$ yields mixing bounds. The
 idea of coupling will reappear implicitly in \textbf{filter stability}
 results in HMMs.
 
@@ -1264,14 +1264,14 @@ Chains}\label{non-homogeneous-markov-chains}
 
 In some extensions of HMMs, the hidden state process may have
 \textbf{time-varying transitions}, represented by a sequence of
-stochastic matrices \((\boldsymbol{\Gamma}_t)\). Then \[
+stochastic matrices $(\boldsymbol{\Gamma}_t)$. Then \[
 \mathbb{P}(S_{t+1} = j \mid S_t = i) = (\boldsymbol{\Gamma}_t)_{ij}.
 \]
 
 \subsection{1.3.1 Product of Time-Varying
 Kernels}\label{product-of-time-varying-kernels}
 
-Define the \(n\)-step transition kernel from time \(t\) to \(t+n\) as \[
+Define the $n$-step transition kernel from time $t$ to $t+n$ as \[
 \boldsymbol{\Gamma}_{t, t+n} = \boldsymbol{\Gamma}_t \boldsymbol{\Gamma}_{t+1} \cdots \boldsymbol{\Gamma}_{t+n-1}.
 \]
 
@@ -1304,10 +1304,10 @@ Section 9).
 \section{1.4 Connection to HMMs and Zucchini et
 al.}\label{connection-to-hmms-and-zucchini-et-al.}
 
-In Zucchini et al., the hidden process \((S_t)\) of an HMM is always a
+In Zucchini et al., the hidden process $(S_t)$ of an HMM is always a
 \textbf{finite-state Markov chain} with transition matrix
-\(\boldsymbol{\Gamma}\) and initial distribution
-\(\boldsymbol{\delta}\). The properties introduced here feed directly
+$\boldsymbol{\Gamma}$ and initial distribution
+$\boldsymbol{\delta}$. The properties introduced here feed directly
 into later sections:
 
 \begin{itemize}
@@ -1317,9 +1317,9 @@ into later sections:
   HMM likelihood;
 \item
   \textbf{Section 4:} Forward--backward and Viterbi algorithms exploit
-  \(\boldsymbol{\Gamma}\) as the transition kernel;
+  $\boldsymbol{\Gamma}$ as the transition kernel;
 \item
-  \textbf{Section 6:} Ergodicity and mixing of \((S_t)\) underpin
+  \textbf{Section 6:} Ergodicity and mixing of $(S_t)$ underpin
   \textbf{consistency} and \textbf{CLTs} for estimators.
 \end{itemize}
 
@@ -1338,8 +1338,8 @@ For more detailed Markov chain theory in a measure-theoretic style, see:
 \chapter{Section 2 -- Observation Models and Emission
 Processes}\label{section-2-observation-models-and-emission-processes}
 
-In an HMM, the hidden Markov chain \((S_t)_{t\ge 1}\) is not observed
-directly. Instead, we observe a process \((Y_t)_{t\ge 1}\), whose
+In an HMM, the hidden Markov chain $(S_t)_{t\ge 1}$ is not observed
+directly. Instead, we observe a process $(Y_t)_{t\ge 1}$, whose
 distribution is conditionally independent \textbf{given the hidden
 states}.
 
@@ -1369,16 +1369,16 @@ Structure}\label{conditional-independence-structure}
 \subsection{2.1.1 Graphical Model
 Representation}\label{graphical-model-representation}
 
-An HMM with \(T\) time steps consists of:
+An HMM with $T$ time steps consists of:
 
 \begin{itemize}
 \tightlist
 \item
-  Hidden states \(S_1, \dots, S_T\) forming a Markov chain on
-  \(\{1,\dots,K\}\);
+  Hidden states $S_1, \dots, S_T$ forming a Markov chain on
+  $\{1,\dots,K\}$;
 \item
-  Observations \(Y_1, \dots, Y_T\) taking values in some space
-  \(\mathcal{Y}\).
+  Observations $Y_1, \dots, Y_T$ taking values in some space
+  $\mathcal{Y}$.
 \end{itemize}
 
 The \textbf{directed graphical model} has edges
@@ -1386,9 +1386,9 @@ The \textbf{directed graphical model} has edges
 \begin{itemize}
 \tightlist
 \item
-  \(S_t \to S_{t+1}\) (hidden Markov chain);
+  $S_t \to S_{t+1}$ (hidden Markov chain);
 \item
-  \(S_t \to Y_t\) (emission at each time).
+  $S_t \to Y_t$ (emission at each time).
 \end{itemize}
 
 The critical conditional independence assumptions are:
@@ -1397,7 +1397,7 @@ The critical conditional independence assumptions are:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Given \(S_t\), the observation \(Y_t\) is \textbf{independent of all
+  Given $S_t$, the observation $Y_t$ is \textbf{independent of all
   other states and observations}: \[
   Y_t \perp\!\!\perp \{S_s : s \ne t\}, \{Y_s : s \ne t\} \mid S_t.
   \]
@@ -1413,7 +1413,7 @@ distribution.
 \subsection{2.1.2 Factorization of the Joint
 Distribution}\label{factorization-of-the-joint-distribution}
 
-Let \(s_{1:T} = (s_1,\dots,s_T)\) and \(y_{1:T} = (y_1,\dots,y_T)\). The
+Let $s_{1:T} = (s_1,\dots,s_T)$ and $y_{1:T} = (y_1,\dots,y_T)$. The
 joint distribution of states and observations factorizes as \[
 \mathbb{P}(S_{1:T} = s_{1:T}, Y_{1:T} = y_{1:T})
 = \delta_{s_1} \, f_{s_1}(y_1) \prod_{t=2}^T \gamma_{s_{t-1}, s_t} \, f_{s_t}(y_t),
@@ -1422,14 +1422,14 @@ joint distribution of states and observations factorizes as \[
 \begin{itemize}
 \tightlist
 \item
-  \(\boldsymbol{\delta} = (\delta_i)\) is the initial distribution
-  \(\mathbb{P}(S_1 = i)\);
+  $\boldsymbol{\delta} = (\delta_i)$ is the initial distribution
+  $\mathbb{P}(S_1 = i)$;
 \item
-  \(\boldsymbol{\Gamma} = (\gamma_{ij})\) is the transition matrix
-  \(\mathbb{P}(S_t = j \mid S_{t-1} = i)\);
+  $\boldsymbol{\Gamma} = (\gamma_{ij})$ is the transition matrix
+  $\mathbb{P}(S_t = j \mid S_{t-1} = i)$;
 \item
-  \(f_i(\cdot)\) is the \textbf{emission density or mass function} for
-  state \(i\).
+  $f_i(\cdot)$ is the \textbf{emission density or mass function} for
+  state $i$.
 \end{itemize}
 
 This is the basic factorization that Zucchini et al.~use throughout
@@ -1445,17 +1445,17 @@ independences via \textbf{d-separation}:
 \begin{itemize}
 \tightlist
 \item
-  Given \(S_t\), the past and future observations are conditionally
+  Given $S_t$, the past and future observations are conditionally
   independent: \[
   Y_{1:t-1} \perp\!\!\perp Y_{t+1:T} \mid S_t.
   \]
 \item
-  Given the full state sequence \(S_{1:T}\), the observations are
+  Given the full state sequence $S_{1:T}$, the observations are
   conditionally independent across time: \[
   Y_t \perp\!\!\perp Y_s \mid S_{1:T}, \quad t \ne s.
   \]
 \item
-  Given \textbf{all observations} \(Y_{1:T}\), the hidden states form a
+  Given \textbf{all observations} $Y_{1:T}$, the hidden states form a
   \textbf{Markov random field} (an undirected chain), but conditional
   dependences become more complex.
 \end{itemize}
@@ -1469,14 +1469,14 @@ inference algorithms} and \textbf{variational factorizations}.
 
 \subsection{2.2.1 Discrete Emissions}\label{discrete-emissions}
 
-If \(Y_t\) takes values in a finite or countable set
-\(\mathcal{Y} = \{1,\dots,M\}\), each state \(i\) has a probability mass
+If $Y_t$ takes values in a finite or countable set
+$\mathcal{Y} = \{1,\dots,M\}$, each state $i$ has a probability mass
 function \[
 \mathbb{P}(Y_t = y \mid S_t = i) = b_i(y), \quad y \in \mathcal{Y},
-\] with \(b_i(y) \ge 0\) and \(\sum_y b_i(y) = 1\).
+\] with $b_i(y) \ge 0$ and $\sum_y b_i(y) = 1$.
 
-Collect \(b_i\) into an \textbf{emission matrix} \(\mathbf{B}\) of size
-\(K \times M\), where \(B_{iy} = b_i(y)\). Discrete-emission HMMs are
+Collect $b_i$ into an \textbf{emission matrix} $\mathbf{B}$ of size
+$K \times M$, where $B_{iy} = b_i(y)$. Discrete-emission HMMs are
 the classical setting in \textbf{speech recognition} and many
 applications in \textbf{bioinformatics}.
 
@@ -1485,9 +1485,9 @@ and in categorical time series modeling.
 
 \subsection{2.2.2 Continuous Emissions}\label{continuous-emissions}
 
-If \(Y_t\) takes values in \(\mathbb{R}^d\) (or a subset), each state
-\(i\) has a \textbf{density} (with respect to Lebesgue measure)
-\(f_i(y)\), so that \[
+If $Y_t$ takes values in $\mathbb{R}^d$ (or a subset), each state
+$i$ has a \textbf{density} (with respect to Lebesgue measure)
+$f_i(y)$, so that \[
 \mathbb{P}(Y_t \in A \mid S_t = i)
 = \int_A f_i(y) \, dy.
 \]
@@ -1498,7 +1498,7 @@ Common parametric choices:
 \tightlist
 \item
   \textbf{Gaussian emissions:}
-  \(f_i(y) = \mathcal{N}(y; \mu_i, \Sigma_i)\);
+  $f_i(y) = \mathcal{N}(y; \mu_i, \Sigma_i)$;
 \item
   \textbf{Mixtures of Gaussians:} to increase flexibility;
 \item
@@ -1513,7 +1513,7 @@ modeling \textbf{time series of real-valued measurements}
 Emissions}\label{exponential-family-emissions}
 
 Many emission models fall into the \textbf{exponential family}. A
-density (or mass function) \(f(y;\eta)\) is in an exponential family if
+density (or mass function) $f(y;\eta)$ is in an exponential family if
 it can be written as \[
 f(y; \eta) = h(y) \exp\{ \langle \eta, T(y) \rangle - A(\eta) \},
 \] where
@@ -1521,19 +1521,19 @@ f(y; \eta) = h(y) \exp\{ \langle \eta, T(y) \rangle - A(\eta) \},
 \begin{itemize}
 \tightlist
 \item
-  \(T(y)\) is the vector of \textbf{sufficient statistics};
+  $T(y)$ is the vector of \textbf{sufficient statistics};
 \item
-  \(\eta\) is the \textbf{natural parameter};
+  $\eta$ is the \textbf{natural parameter};
 \item
-  \(A(\eta)\) is the \textbf{log-partition function} ensuring
+  $A(\eta)$ is the \textbf{log-partition function} ensuring
   normalization;
 \item
-  \(h(y)\) is the base measure or carrier density.
+  $h(y)$ is the base measure or carrier density.
 \end{itemize}
 
-In an HMM with exponential-family emissions, each state \(i\) has its
-own natural parameter \(\eta_i\), and thus its own emission distribution
-\(f_i(y)\). This structure simplifies:
+In an HMM with exponential-family emissions, each state $i$ has its
+own natural parameter $\eta_i$, and thus its own emission distribution
+$f_i(y)$. This structure simplifies:
 
 \begin{itemize}
 \tightlist
@@ -1545,15 +1545,15 @@ own natural parameter \(\eta_i\), and thus its own emission distribution
 \end{itemize}
 
 The connection to \textbf{information geometry} (Section 0.3) arises
-because the log-partition function \(A(\eta)\) is the \textbf{convex
+because the log-partition function $A(\eta)$ is the \textbf{convex
 conjugate} of negative entropy, and KL divergence between two
 exponential-family members has a natural Bregman form.
 
 \subsection{2.2.4 Identifiability Issues}\label{identifiability-issues}
 
-\textbf{Identifiability} asks whether the parameter \(\theta\) of an HMM
+\textbf{Identifiability} asks whether the parameter $\theta$ of an HMM
 (transition matrix, emissions, etc.) is uniquely determined by the
-distribution of \(Y_{1:T}\) (for all \(T\) large enough), up to label
+distribution of $Y_{1:T}$ (for all $T$ large enough), up to label
 permutations of the hidden states.
 
 Even with rich emission families, several issues arise:
@@ -1563,12 +1563,12 @@ Even with rich emission families, several issues arise:
 \item
   \textbf{Label switching:} If we permute state indices, say swap states
   1 and 2, and correspondingly permute rows/columns of
-  \(\boldsymbol{\Gamma}\) and emission parameters, the distribution of
-  \(Y_{1:T}\) is unchanged. Thus, identifiability is at best \textbf{up
+  $\boldsymbol{\Gamma}$ and emission parameters, the distribution of
+  $Y_{1:T}$ is unchanged. Thus, identifiability is at best \textbf{up
   to permutation}.
 \item
   \textbf{Overlapping emissions:} If two states share identical emission
-  distributions (e.g.~\(f_1 = f_2\)) and transition rows, they may be
+  distributions (e.g.~$f_1 = f_2$) and transition rows, they may be
   \textbf{indistinguishable}.
 \item
   \textbf{Non-identifiability in mixtures:} In some cases, different
@@ -1603,11 +1603,11 @@ Zucchini et al.~provide many concrete observation models:
   constructions.
 \end{itemize}
 
-In each case, the key is to specify, for each state \(i\), a parametric
+In each case, the key is to specify, for each state $i$, a parametric
 family \[
 \{ f_i(\cdot; \phi_i) : \phi_i \in \Phi_i \}
-\] and then estimate \(\phi_i\) jointly with \(\boldsymbol{\delta}\) and
-\(\boldsymbol{\Gamma}\) (typically by maximum likelihood using EM).
+\] and then estimate $\phi_i$ jointly with $\boldsymbol{\delta}$ and
+$\boldsymbol{\Gamma}$ (typically by maximum likelihood using EM).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1680,55 +1680,55 @@ Fix:
 \begin{itemize}
 \tightlist
 \item
-  A finite \textbf{state space} \(E = \{1,\dots,K\}\);
+  A finite \textbf{state space} $E = \{1,\dots,K\}$;
 \item
   An \textbf{observation space}
-  \((\mathcal{Y}, \mathcal{B}_{\mathcal{Y}})\), e.g.~\(\mathbb{R}^d\)
-  with the Borel \(\sigma\)-algebra;
+  $(\mathcal{Y}, \mathcal{B}_{\mathcal{Y}})$, e.g.~$\mathbb{R}^d$
+  with the Borel $\sigma$-algebra;
 \item
   An \textbf{initial distribution}
-  \(\boldsymbol{\delta} = (\delta_i)_{i=1}^K\), a probability vector on
-  \(E\);
+  $\boldsymbol{\delta} = (\delta_i)_{i=1}^K$, a probability vector on
+  $E$;
 \item
   A \textbf{transition matrix}
-  \(\boldsymbol{\Gamma} = (\gamma_{ij})_{i,j=1}^K\) with \[
+  $\boldsymbol{\Gamma} = (\gamma_{ij})_{i,j=1}^K$ with \[
   \gamma_{ij} = \mathbb{P}(S_{t+1}=j \mid S_t=i), \quad \sum_j \gamma_{ij} = 1;
   \]
 \item
-  A collection of \textbf{emission distributions} \(\{F_i : i \in E\}\)
-  on \((\mathcal{Y}, \mathcal{B}_{\mathcal{Y}})\), with densities
-  \(f_i\) (with respect to a common dominating measure, often Lebesgue
+  A collection of \textbf{emission distributions} $\{F_i : i \in E\}$
+  on $(\mathcal{Y}, \mathcal{B}_{\mathcal{Y}})$, with densities
+  $f_i$ (with respect to a common dominating measure, often Lebesgue
   or counting measure).
 \end{itemize}
 
 \subsection{3.1.2 Hidden State Process}\label{hidden-state-process}
 
-On a probability space \((\Omega, \mathcal{F}, \mathbb{P})\), define a
-stochastic process \((S_t)_{t\ge1}\) with values in \(E\) such that
+On a probability space $(\Omega, \mathcal{F}, \mathbb{P})$, define a
+stochastic process $(S_t)_{t\ge1}$ with values in $E$ such that
 
 \begin{itemize}
 \tightlist
 \item
-  \(\mathbb{P}(S_1 = i) = \delta_i\);
+  $\mathbb{P}(S_1 = i) = \delta_i$;
 \item
-  For all \(t \ge 1\), \[
+  For all $t \ge 1$, \[
   \mathbb{P}(S_{t+1} = j \mid S_1,\dots,S_t) = \mathbb{P}(S_{t+1} = j \mid S_t) = \gamma_{S_t j}.
   \]
 \end{itemize}
 
-Thus, \((S_t)\) is a \textbf{time-homogeneous finite-state Markov chain}
+Thus, $(S_t)$ is a \textbf{time-homogeneous finite-state Markov chain}
 as in Section 1.
 
 \subsection{3.1.3 Observation Process}\label{observation-process}
 
-Given the hidden process \((S_t)\), define an observation process
-\((Y_t)_{t\ge1}\) taking values in \(\mathcal{Y}\) such that
+Given the hidden process $(S_t)$, define an observation process
+$(Y_t)_{t\ge1}$ taking values in $\mathcal{Y}$ such that
 
 \begin{itemize}
 \tightlist
 \item
-  Conditional on \(S_t = i\), \(Y_t\) is drawn from \(F_i\) with density
-  \(f_i\);
+  Conditional on $S_t = i$, $Y_t$ is drawn from $F_i$ with density
+  $f_i$;
 \item
   Conditional on \textbf{all states}, observations are independent
   across time: \[
@@ -1742,16 +1742,16 @@ Equivalently, with densities, \[
 = \prod_{t=1}^T f_{s_t}(y_t) \, dy_t.
 \]
 
-The pair \((S_t, Y_t)\) defines the \textbf{Hidden Markov Model}.
+The pair $(S_t, Y_t)$ defines the \textbf{Hidden Markov Model}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \section{3.2 Joint Likelihood
 Factorization}\label{joint-likelihood-factorization}
 
-Fix a time horizon \(T\). For a realizations \(s_{1:T} \in E^T\) and
-\(y_{1:T} \in \mathcal{Y}^T\), the joint density (or mass function) of
-\((S_{1:T}, Y_{1:T})\) is \[
+Fix a time horizon $T$. For a realizations $s_{1:T} \in E^T$ and
+$y_{1:T} \in \mathcal{Y}^T$, the joint density (or mass function) of
+$(S_{1:T}, Y_{1:T})$ is \[
 \begin{aligned}
 &\mathbb{P}(S_{1:T}=s_{1:T}, Y_{1:T}=y_{1:T}) \\
 &= \mathbb{P}(S_1=s_1) \, \mathbb{P}(Y_1=y_1 \mid S_1=s_1)
@@ -1777,7 +1777,7 @@ This form is crucial for the \textbf{EM/Baum--Welch algorithm} (Section
 \section{3.3 Marginal Likelihood of the
 Observations}\label{marginal-likelihood-of-the-observations}
 
-In practice, the states \(S_{1:T}\) are unobserved. The \textbf{observed
+In practice, the states $S_{1:T}$ are unobserved. The \textbf{observed
 data likelihood} is the marginal of the joint distribution over all
 possible state sequences: \[
 L(\boldsymbol{\delta}, \boldsymbol{\Gamma}, f; y_{1:T})
@@ -1789,22 +1789,22 @@ Substituting the joint factorization, \[
 L(\theta; y_{1:T})
 = \sum_{s_{1:T}} \delta_{s_1} f_{s_1}(y_1)
   \prod_{t=2}^T \gamma_{s_{t-1}, s_t} f_{s_t}(y_t),
-\] where \(\theta\) denotes the collection of all parameters.
+\] where $\theta$ denotes the collection of all parameters.
 
 \subsection{3.3.1 Naïve Computation is
 Exponential}\label{nauxefve-computation-is-exponential}
 
-There are \textbf{\(K^T\) terms} in the sum over state sequences. Direct
-evaluation is computationally infeasible even for moderate \(T\) and
-\(K\).
+There are \textbf{$K^T$ terms} in the sum over state sequences. Direct
+evaluation is computationally infeasible even for moderate $T$ and
+$K$.
 
-Example: with \(K=5\) states and \(T=100\), \(5^{100}\) is
+Example: with $K=5$ states and $T=100$, $5^{100}$ is
 astronomically large.
 
 Thus, we need to exploit the \textbf{Markov and conditional independence
 structure} to compute this marginal efficiently. This leads to the
 \textbf{forward algorithm} (Section 4.1), which runs in
-\(\mathcal{O}(K^2 T)\) time.
+$\mathcal{O}(K^2 T)$ time.
 
 \subsection{3.3.2 Matrix-Product Representation (Zucchini's
 Notation)}\label{matrix-product-representation-zucchinis-notation}
@@ -1815,7 +1815,7 @@ Define
 \begin{itemize}
 \tightlist
 \item
-  A diagonal matrix of emission densities at time \(t\): \[
+  A diagonal matrix of emission densities at time $t$: \[
   \mathbf{Q}(y_t) = \operatorname{diag}(f_1(y_t), \dots, f_K(y_t)).
   \]
 \end{itemize}
@@ -1823,12 +1823,12 @@ Define
 Then one can show that \[
 L(\theta; y_{1:T})
 = \boldsymbol{\delta}^\top \mathbf{Q}(y_1) \boldsymbol{\Gamma} \mathbf{Q}(y_2) \cdots \boldsymbol{\Gamma} \mathbf{Q}(y_T) \mathbf{1},
-\] where \(\mathbf{1}\) is the column vector of ones.
+\] where $\mathbf{1}$ is the column vector of ones.
 
 \textbf{Derivation (sketch):} each matrix multiplication corresponds to
 summing over an intermediate state index. The product
-\(\mathbf{Q}(y_t)\boldsymbol{\Gamma}\mathbf{Q}(y_{t+1})\) encodes the
-contribution of transitions from time \(t\) to \(t+1\) and emissions at
+$\mathbf{Q}(y_t)\boldsymbol{\Gamma}\mathbf{Q}(y_{t+1})$ encodes the
+contribution of transitions from time $t$ to $t+1$ and emissions at
 both times.
 
 This matrix formulation is central in Zucchini et al.~and will match the
@@ -1848,7 +1848,7 @@ Properties:
 \begin{itemize}
 \tightlist
 \item
-  \(\ell\) is typically \textbf{non-convex} in \(\theta\) due to hidden
+  $\ell$ is typically \textbf{non-convex} in $\theta$ due to hidden
   states and combinatorial symmetries (label switching);
 \item
   It is, however, \textbf{smooth} in the interior of the parameter space
@@ -1860,7 +1860,7 @@ Properties:
 \end{itemize}
 
 These observations motivate the \textbf{EM algorithm}: instead of
-maximizing \(\ell\) directly, one maximizes a \textbf{lower bound}
+maximizing $\ell$ directly, one maximizes a \textbf{lower bound}
 (Section 5.2), whose geometry is often easier.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1875,14 +1875,14 @@ The parameter space naturally decomposes as \[
 \begin{itemize}
 \tightlist
 \item
-  \(\Delta^{K-1}\) is the simplex for the initial distribution
-  \(\boldsymbol{\delta}\);
+  $\Delta^{K-1}$ is the simplex for the initial distribution
+  $\boldsymbol{\delta}$;
 \item
-  \(\mathcal{G}\) is the set of \(K\times K\) row-stochastic matrices
-  \(\boldsymbol{\Gamma}\);
+  $\mathcal{G}$ is the set of $K\times K$ row-stochastic matrices
+  $\boldsymbol{\Gamma}$;
 \item
-  \(\Phi\) is the product of emission parameter spaces
-  \(\Phi_1 \times \cdots \times \Phi_K\).
+  $\Phi$ is the product of emission parameter spaces
+  $\Phi_1 \times \cdots \times \Phi_K$.
 \end{itemize}
 
 Constraints:
@@ -1890,11 +1890,11 @@ Constraints:
 \begin{itemize}
 \tightlist
 \item
-  \(\delta_i \ge 0, \sum_i \delta_i = 1\);
+  $\delta_i \ge 0, \sum_i \delta_i = 1$;
 \item
-  \(\gamma_{ij} \ge 0, \sum_j \gamma_{ij} = 1\) for each \(i\);
+  $\gamma_{ij} \ge 0, \sum_j \gamma_{ij} = 1$ for each $i$;
 \item
-  Emission parameters must keep \(f_i\) valid probability distributions.
+  Emission parameters must keep $f_i$ valid probability distributions.
 \end{itemize}
 
 Optimization (MLE, EM) must respect these constraints; many algorithms
@@ -1911,12 +1911,12 @@ In this section we:
 \tightlist
 \item
   Formally defined a finite-state HMM as a pair of processes
-  \((S_t, Y_t)\) with a Markov hidden chain and conditionally
+  $(S_t, Y_t)$ with a Markov hidden chain and conditionally
   independent emissions;
 \item
   Derived the \textbf{joint} likelihood of states and observations;
 \item
-  Obtained the \textbf{marginal} likelihood as a sum over \(K^T\) state
+  Obtained the \textbf{marginal} likelihood as a sum over $K^T$ state
   sequences;
 \item
   Introduced the \textbf{matrix-product representation} of the
@@ -1930,7 +1930,7 @@ This sets the stage for:
 \item
   \textbf{Section 4:} Efficient inference algorithms (forward--backward,
   Viterbi) that compute various conditional probabilities and the
-  likelihood in \(\mathcal{O}(K^2 T)\);
+  likelihood in $\mathcal{O}(K^2 T)$;
 \item
   \textbf{Section 5:} Parameter estimation via maximum likelihood and
   EM/Baum--Welch.
@@ -1949,14 +1949,14 @@ finite-state HMMs:
 \tightlist
 \item
   \textbf{Filtering (forward algorithm)} -- computing
-  \(\mathbb{P}(S_t = i \mid Y_{1:t})\);
+  $\mathbb{P}(S_t = i \mid Y_{1:t})$;
 \item
   \textbf{Smoothing (forward--backward)} -- computing
-  \(\mathbb{P}(S_t = i \mid Y_{1:T})\);
+  $\mathbb{P}(S_t = i \mid Y_{1:T})$;
 \item
   \textbf{Decoding (Viterbi)} -- computing the most probable state
   sequence
-  \(\arg\max_{s_{1:T}} \mathbb{P}(S_{1:T}=s_{1:T} \mid Y_{1:T})\).
+  $\arg\max_{s_{1:T}} \mathbb{P}(S_{1:T}=s_{1:T} \mid Y_{1:T})$.
 \end{itemize}
 
 We emphasize \textbf{recursive structure}, \textbf{dynamic programming},
@@ -1967,8 +1967,8 @@ The treatment aligns with \textbf{Zucchini et al.}, Chapters 2--3, and
 underpinnings.
 
 Throughout,
-\(\theta = (\boldsymbol{\delta}, \boldsymbol{\Gamma}, f_1,\dots,f_K)\)
-denotes the HMM parameters, and we condition implicitly on \(\theta\)
+$\theta = (\boldsymbol{\delta}, \boldsymbol{\Gamma}, f_1,\dots,f_K)$
+denotes the HMM parameters, and we condition implicitly on $\theta$
 when unambiguous.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1979,7 +1979,7 @@ Algorithm}\label{filtering-the-forward-algorithm}
 \subsection{4.1.1 Filtering and Predictive
 Distributions}\label{filtering-and-predictive-distributions}
 
-Given observations \(Y_{1:t} = y_{1:t}\), define
+Given observations $Y_{1:t} = y_{1:t}$, define
 
 \begin{itemize}
 \tightlist
@@ -1995,8 +1995,8 @@ Given observations \(Y_{1:t} = y_{1:t}\), define
   \]
 \end{itemize}
 
-The forward algorithm computes all \(\alpha_t\) \textbf{recursively in
-\(t\)}, in \(\mathcal{O}(K^2 T)\) time.
+The forward algorithm computes all $\alpha_t$ \textbf{recursively in
+$t$}, in $\mathcal{O}(K^2 T)$ time.
 
 \subsection{4.1.2 Unnormalized Forward
 Variables}\label{unnormalized-forward-variables}
@@ -2010,7 +2010,7 @@ Then \[
 \]
 
 The forward recursion is most naturally stated for
-\(\tilde{\alpha}_t(i)\).
+$\tilde{\alpha}_t(i)$.
 
 \subsection{4.1.3 Derivation of the
 Recursion}\label{derivation-of-the-recursion}
@@ -2021,7 +2021,7 @@ Recursion}\label{derivation-of-the-recursion}
 = \delta_i f_i(y_1).
 \]
 
-\textbf{Induction step.} For \(t \ge 1\), \[
+\textbf{Induction step.} For $t \ge 1$, \[
 \begin{aligned}
 \tilde{\alpha}_{t+1}(j)
 &= \mathbb{P}(S_{t+1} = j, Y_{1:t+1} = y_{1:t+1}) \\
@@ -2038,10 +2038,10 @@ The key step uses:
 \begin{itemize}
 \tightlist
 \item
-  The \textbf{Markov property} for \(S_t\);
+  The \textbf{Markov property} for $S_t$;
 \item
-  Conditional independence of \(Y_{t+1}\) from the past given
-  \(S_{t+1}\).
+  Conditional independence of $Y_{t+1}$ from the past given
+  $S_{t+1}$.
 \end{itemize}
 
 Thus the recursion is \[
@@ -2056,10 +2056,10 @@ Let
 \begin{itemize}
 \tightlist
 \item
-  \(\boldsymbol{\tilde{\alpha}}_t\) be the row vector with entries
-  \(\tilde{\alpha}_t(i)\);
+  $\boldsymbol{\tilde{\alpha}}_t$ be the row vector with entries
+  $\tilde{\alpha}_t(i)$;
 \item
-  \(\mathbf{Q}(y_t) = \operatorname{diag}(f_1(y_t),\dots,f_K(y_t))\) as
+  $\mathbf{Q}(y_t) = \operatorname{diag}(f_1(y_t),\dots,f_K(y_t))$ as
   before.
 \end{itemize}
 
@@ -2082,30 +2082,30 @@ step.
 Induction}\label{proof-of-correctness-by-induction}
 
 We show that the recursion indeed computes
-\(\tilde{\alpha}_t(i) = \mathbb{P}(S_t=i, Y_{1:t}=y_{1:t})\) for all
-\(t\).
+$\tilde{\alpha}_t(i) = \mathbb{P}(S_t=i, Y_{1:t}=y_{1:t})$ for all
+$t$.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Base case:} Already verified for \(t=1\).
+  \textbf{Base case:} Already verified for $t=1$.
 \item
-  \textbf{Induction step:} Assume formula holds for \(t\). Then using
+  \textbf{Induction step:} Assume formula holds for $t$. Then using
   only the model assumptions (Markov property and conditional
   independence), we derived the recursion, which equals by definition \[
   \mathbb{P}(S_{t+1} = j, Y_{1:t+1} = y_{1:t+1}).
   \]
 \end{itemize}
 
-Hence, by induction, the recursion is correct for all \(t\). This is the
+Hence, by induction, the recursion is correct for all $t$. This is the
 standard argument also given in Zucchini et al.~(with lighter
 measure-theoretic detail).
 
 \subsection{4.1.6 Numerical Stability: Scaling and
 Log-Domain}\label{numerical-stability-scaling-and-log-domain}
 
-Direct computation of \(\tilde{\alpha}_t(i)\) leads to
-\textbf{underflow}, since they involve products of \(T\) probabilities.
+Direct computation of $\tilde{\alpha}_t(i)$ leads to
+\textbf{underflow}, since they involve products of $T$ probabilities.
 Two standard cures:
 
 \begin{enumerate}
@@ -2113,7 +2113,7 @@ Two standard cures:
 \item
   \textbf{Scaling:} At each step define a scaling constant \[
   c_t = \sum_{i=1}^K \tilde{\alpha}_t(i), \quad \hat{\alpha}_t(i) = \frac{\tilde{\alpha}_t(i)}{c_t}.
-  \] Then \(\hat{\alpha}_t\) is the normalized filtering distribution,
+  \] Then $\hat{\alpha}_t$ is the normalized filtering distribution,
   and \[
   L(\theta; y_{1:T}) = \prod_{t=1}^T c_t, \quad \ell(\theta; y_{1:T}) = \sum_{t=1}^T \log c_t.
   \] This is exactly the implementation recommended in Zucchini et al.
@@ -2132,14 +2132,14 @@ Two standard cures:
 \section{4.2 Smoothing -- Forward--Backward
 Algorithm}\label{smoothing-forwardbackward-algorithm}
 
-Filtering uses observations up to time \(t\). For many tasks (e.g.~EM,
+Filtering uses observations up to time $t$. For many tasks (e.g.~EM,
 state decoding), we need \textbf{smoothing distributions} that use the
-\textbf{entire sequence} \(Y_{1:T}\).
+\textbf{entire sequence} $Y_{1:T}$.
 
 \subsection{4.2.1 Smoothing Distributions and Backward
 Variables}\label{smoothing-distributions-and-backward-variables}
 
-Define the \textbf{smoothing distribution} at time \(t\): \[
+Define the \textbf{smoothing distribution} at time $t$: \[
 \gamma_t(i) := \mathbb{P}(S_t = i \mid Y_{1:T} = y_{1:T}).
 \]
 
@@ -2147,17 +2147,17 @@ Introduce \textbf{backward variables} \[
 \beta_t(i) := \mathbb{P}(Y_{t+1:T} = y_{t+1:T} \mid S_t = i).
 \]
 
-Intuitively, \(\beta_t(i)\) is the probability of observing the future
-\(y_{t+1:T}\) if we know the current state is \(i\).
+Intuitively, $\beta_t(i)$ is the probability of observing the future
+$y_{t+1:T}$ if we know the current state is $i$.
 
 \subsection{4.2.2 Backward Recursion}\label{backward-recursion}
 
-\textbf{Initialization:} At time \(T\), there are no future
+\textbf{Initialization:} At time $T$, there are no future
 observations, so by convention \[
 \beta_T(i) = 1, \quad i=1,\dots,K.
 \]
 
-\textbf{Induction step:} For \(t = T-1,\dots,1\), \[
+\textbf{Induction step:} For $t = T-1,\dots,1$, \[
 \begin{aligned}
 \beta_t(i)
 &= \mathbb{P}(Y_{t+1:T} = y_{t+1:T} \mid S_t = i) \\
@@ -2183,15 +2183,15 @@ We have \[
 \]
 
 since \textbf{future observations are conditionally independent of the
-past given \(S_t\)}.
+past given $S_t$}.
 
 Thus the smoothing distribution is \[
 \gamma_t(i) = \mathbb{P}(S_t = i \mid Y_{1:T} = y_{1:T})
 = \frac{\tilde{\alpha}_t(i) \, \beta_t(i)}{L(\theta; y_{1:T})}.
 \]
 
-In scaled form, using \(\hat{\alpha}_t(i)\) and scaled
-\(\hat{\beta}_t(i)\), the denominator cancels nicely (see Zucchini et
+In scaled form, using $\hat{\alpha}_t(i)$ and scaled
+$\hat{\beta}_t(i)$, the denominator cancels nicely (see Zucchini et
 al.~for implementation details): \[
 \gamma_t(i) \propto \hat{\alpha}_t(i) \, \hat{\beta}_t(i),
 \] with proportionality factors determined by normalization.
@@ -2207,7 +2207,7 @@ Using similar reasoning, \[
 \xi_t(i,j) = \frac{\tilde{\alpha}_t(i) \, \gamma_{ij} f_j(y_{t+1}) \beta_{t+1}(j)}{L(\theta; y_{1:T})}.
 \]
 
-The arrays \(\gamma_t(i)\) and \(\xi_t(i,j)\) are exactly what EM uses
+The arrays $\gamma_t(i)$ and $\xi_t(i,j)$ are exactly what EM uses
 as \textbf{expected sufficient statistics} for state occupancies and
 transitions.
 
@@ -2218,7 +2218,7 @@ Algorithm}\label{decoding-the-viterbi-algorithm}
 
 Filtering and smoothing give \textbf{marginal posterior distributions}
 over states at each time. In many applications, one wants a
-\textbf{single state sequence estimate} \(\hat{s}_{1:T}\).
+\textbf{single state sequence estimate} $\hat{s}_{1:T}$.
 
 The most common choice is the \textbf{maximum a posteriori (MAP) path}:
 \[
@@ -2227,8 +2227,8 @@ The most common choice is the \textbf{maximum a posteriori (MAP) path}:
 
 Equivalently, \[
 \hat{s}_{1:T}^{\text{MAP}} \in \arg\max_{s_{1:T}} \mathbb{P}(S_{1:T}=s_{1:T}, Y_{1:T}=y_{1:T}),
-\] since the denominator \(\mathbb{P}(Y_{1:T}=y_{1:T})\) does not depend
-on \(s_{1:T}\).
+\] since the denominator $\mathbb{P}(Y_{1:T}=y_{1:T})$ does not depend
+on $s_{1:T}$.
 
 \subsection{4.3.1 Dynamic Programming
 Formulation}\label{dynamic-programming-formulation}
@@ -2248,7 +2248,7 @@ Then the Viterbi recursion is:
   \delta_1(j) = \delta_j f_j(y_1), \quad \psi_1(j) \text{ arbitrary}.
   \]
 \item
-  \textbf{Recursion:} for \(t=2,\dots,T\), \[
+  \textbf{Recursion:} for $t=2,\dots,T$, \[
   \delta_t(j) = f_j(y_t) \max_{i} \delta_{t-1}(i) \gamma_{ij},
   \] \[
   \psi_t(j) \in \arg\max_{i} \delta_{t-1}(i) \gamma_{ij}.
@@ -2258,7 +2258,7 @@ Then the Viterbi recursion is:
   \hat{s}_T \in \arg\max_j \delta_T(j).
   \]
 \item
-  \textbf{Backtracking:} For \(t=T-1,\dots,1\), \[
+  \textbf{Backtracking:} For $t=T-1,\dots,1$, \[
   \hat{s}_t = \psi_{t+1}(\hat{s}_{t+1}).
   \]
 \end{itemize}
@@ -2271,12 +2271,12 @@ over a chain:
 \begin{itemize}
 \tightlist
 \item
-  For each \(t,j\), \(\delta_t(j)\) is the \textbf{maximum joint
-  probability} over all paths ending in state \(j\) at time \(t\);
+  For each $t,j$, $\delta_t(j)$ is the \textbf{maximum joint
+  probability} over all paths ending in state $j$ at time $t$;
 \item
-  The optimal path to \(j\) at time \(t\) must pass through some \(i\)
-  at time \(t-1\), and that prefix must be optimal for reaching \(i\) at
-  time \(t-1\).
+  The optimal path to $j$ at time $t$ must pass through some $i$
+  at time $t-1$, and that prefix must be optimal for reaching $i$ at
+  time $t-1$.
 \end{itemize}
 
 Formally, one proves by induction:
@@ -2285,10 +2285,10 @@ Formally, one proves by induction:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Optimal substructure:} if \(s_{1:T}^*\) maximizes
-  \(\mathbb{P}(S_{1:T},Y_{1:T})\), then for each \(t\), the prefix
-  \(s_{1:t}^*\) must maximize \(\mathbb{P}(S_{1:t},Y_{1:t})\) among all
-  paths ending in \(s_t^*\);
+  \textbf{Optimal substructure:} if $s_{1:T}^*$ maximizes
+  $\mathbb{P}(S_{1:T},Y_{1:T})$, then for each $t$, the prefix
+  $s_{1:t}^*$ must maximize $\mathbb{P}(S_{1:t},Y_{1:t})$ among all
+  paths ending in $s_t^*$;
 \item
   The recursion above computes exactly these maxima.
 \end{enumerate}
@@ -2323,15 +2323,15 @@ Properties}\label{complexity-and-path-properties}
 \begin{itemize}
 \tightlist
 \item
-  Time complexity is \(\mathcal{O}(K^2 T)\), same order as
+  Time complexity is $\mathcal{O}(K^2 T)$, same order as
   forward--backward;
 \item
-  Memory complexity is \(\mathcal{O}(K T)\) if all \(\psi_t(j)\) are
+  Memory complexity is $\mathcal{O}(K T)$ if all $\psi_t(j)$ are
   stored; can be reduced with more complex techniques.
 \end{itemize}
 
 Importantly, the \textbf{Viterbi path is not obtained by taking the most
-likely state at each time} (that would use \(\gamma_t(i)\)), because the
+likely state at each time} (that would use $\gamma_t(i)$), because the
 most likely joint path is not obtained by locally maximizing each
 marginal.
 
@@ -2352,10 +2352,10 @@ quantities:
   \]
 \item
   \textbf{State occupancy expectations:}
-  \(\mathbb{E}[\mathbf{1}_{\{S_t=i\}} \mid Y_{1:T}] = \gamma_t(i)\).
+  $\mathbb{E}[\mathbf{1}_{\{S_t=i\}} \mid Y_{1:T}] = \gamma_t(i)$.
 \item
   \textbf{Expected transition counts:}
-  \(\mathbb{E}[\mathbf{1}_{\{S_t=i,S_{t+1}=j\}} \mid Y_{1:T}] = \xi_t(i,j)\).
+  $\mathbb{E}[\mathbf{1}_{\{S_t=i,S_{t+1}=j\}} \mid Y_{1:T}] = \xi_t(i,j)$.
 \end{itemize}
 
 These are central to \textbf{parameter estimation} (Section 5) and to
@@ -2407,10 +2407,10 @@ We follow the structure of \textbf{Zucchini et al.}, Chapters 3--4, and
 the rigorous development in \textbf{Cappé, Moulines, Rydén (2005)}.
 
 Let
-\(\theta = (\boldsymbol{\delta}, \boldsymbol{\Gamma}, \phi_1,\dots,\phi_K)\)
+$\theta = (\boldsymbol{\delta}, \boldsymbol{\Gamma}, \phi_1,\dots,\phi_K)$
 collect all parameters (initial distribution, transition matrix,
-emission parameters). Given data \(y_{1:T}\), we aim to estimate
-\(\theta\).
+emission parameters). Given data $y_{1:T}$, we aim to estimate
+$\theta$.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2419,25 +2419,25 @@ Estimation}\label{maximum-likelihood-estimation}
 
 \subsection{5.1.1 Definition}\label{definition}
 
-Given observed data \(y_{1:T}\), the \textbf{likelihood function} is \[
+Given observed data $y_{1:T}$, the \textbf{likelihood function} is \[
 L_T(\theta) := L(\theta; y_{1:T}) = \mathbb{P}_\theta(Y_{1:T} = y_{1:T}),
 \] with log-likelihood \[
 \ell_T(\theta) = \log L_T(\theta).
 \]
 
-A \textbf{maximum likelihood estimator} (MLE) \(\hat{\theta}_T\) is any
+A \textbf{maximum likelihood estimator} (MLE) $\hat{\theta}_T$ is any
 point in \[
 \hat{\theta}_T \in \arg\max_{\theta \in \Theta} \ell_T(\theta).
 \]
 
-Because \(\Theta\) is constrained (simplices, stochastic matrices), many
+Because $\Theta$ is constrained (simplices, stochastic matrices), many
 implementations reparameterize (e.g.~via logits) to perform
 unconstrained optimization.
 
 \subsection{5.1.2 Non-Convexity and Local
 Maxima}\label{non-convexity-and-local-maxima}
 
-The log-likelihood \(\ell_T(\theta)\) for HMMs is typically
+The log-likelihood $\ell_T(\theta)$ for HMMs is typically
 \textbf{non-convex}:
 
 \begin{itemize}
@@ -2470,23 +2470,23 @@ Consequences:
 \subsection{5.1.3 Label Switching and Equivalence
 Classes}\label{label-switching-and-equivalence-classes}
 
-For any permutation \(\sigma\) of \(\{1,\dots,K\}\), define a
-\textbf{permuted parameter} \(\theta^{\sigma}\) by
+For any permutation $\sigma$ of $\{1,\dots,K\}$, define a
+\textbf{permuted parameter} $\theta^{\sigma}$ by
 
 \begin{itemize}
 \tightlist
 \item
-  \(\delta^{\sigma}_i = \delta_{\sigma^{-1}(i)}\);
+  $\delta^{\sigma}_i = \delta_{\sigma^{-1}(i)}$;
 \item
-  \(\gamma^{\sigma}_{ij} = \gamma_{\sigma^{-1}(i), \sigma^{-1}(j)}\);
+  $\gamma^{\sigma}_{ij} = \gamma_{\sigma^{-1}(i), \sigma^{-1}(j)}$;
 \item
   Emission parameters re-labeled:
-  \(\phi^{\sigma}_i = \phi_{\sigma^{-1}(i)}\).
+  $\phi^{\sigma}_i = \phi_{\sigma^{-1}(i)}$.
 \end{itemize}
 
 Then \[
 L_T(\theta^{\sigma}) = L_T(\theta)
-\] for all \(T\) and all data sequences. Thus, parameters are at best
+\] for all $T$ and all data sequences. Thus, parameters are at best
 \textbf{identifiable up to permutation} of hidden states.
 
 This \textbf{label switching} means:
@@ -2506,9 +2506,9 @@ This \textbf{label switching} means:
 
 \subsection{5.2.1 General EM Framework}\label{general-em-framework}
 
-Suppose \(Y\) is observed data and \(S\) is latent/hidden data. The EM
+Suppose $Y$ is observed data and $S$ is latent/hidden data. The EM
 algorithm iteratively maximizes the log-likelihood
-\(\ell(\theta) = \log p_\theta(Y)\) via:
+$\ell(\theta) = \log p_\theta(Y)$ via:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2525,9 +2525,9 @@ algorithm iteratively maximizes the log-likelihood
 \end{enumerate}
 
 EM guarantees \textbf{non-decreasing likelihood}:
-\(\ell(\theta^{(k+1)}) \ge \ell(\theta^{(k)})\).
+$\ell(\theta^{(k+1)}) \ge \ell(\theta^{(k)})$.
 
-In HMMs, \(S = S_{1:T}\) (hidden states) and \(Y = Y_{1:T}\)
+In HMMs, $S = S_{1:T}$ (hidden states) and $Y = Y_{1:T}$
 (observations).
 
 \subsection{5.2.2 Complete-Data Log-Likelihood for
@@ -2551,7 +2551,7 @@ Q(\theta \mid \theta^{(k)})
 \]
 
 Define the \textbf{expected sufficient statistics} under
-\(\theta^{(k)}\): \[
+$\theta^{(k)}$: \[
 \gamma_t^{(k)}(i) = \mathbb{P}_{\theta^{(k)}}(S_t=i \mid Y_{1:T}),
 \] \[
 \xi_t^{(k)}(i,j) = \mathbb{P}_{\theta^{(k)}}(S_{t-1}=i, S_t=j \mid Y_{1:T}).
@@ -2571,9 +2571,9 @@ Q(\theta \mid \theta^{(k)})
 
 \subsection{5.2.3 M-Step Updates}\label{m-step-updates}
 
-Maximizing \(Q\) over \(\theta\) subject to the usual constraints yields
-closed-form updates for \(\boldsymbol{\delta}\) and
-\(\boldsymbol{\Gamma}\), and often for \(\phi_i\) (for
+Maximizing $Q$ over $\theta$ subject to the usual constraints yields
+closed-form updates for $\boldsymbol{\delta}$ and
+$\boldsymbol{\Gamma}$, and often for $\phi_i$ (for
 exponential-family emissions).
 
 \begin{itemize}
@@ -2583,7 +2583,7 @@ exponential-family emissions).
   \delta_i^{(k+1)} = \gamma_1^{(k)}(i).
   \]
 \item
-  \textbf{Transition probabilities:} for each \(i\), \[
+  \textbf{Transition probabilities:} for each $i$, \[
   \gamma_{ij}^{(k+1)}
   = \frac{\sum_{t=2}^T \xi_t^{(k)}(i,j)}{\sum_{t=2}^T \sum_{j'} \xi_t^{(k)}(i,j')}.
   \]
@@ -2591,8 +2591,8 @@ exponential-family emissions).
 
 For \textbf{emission parameters} (e.g.~Gaussian), the M-step corresponds
 to a \textbf{weighted maximum likelihood} with weights
-\(\gamma_t^{(k)}(i)\). For instance, if \(f_i\) is normal
-\(\mathcal{N}(\mu_i,\sigma_i^2)\), \[
+$\gamma_t^{(k)}(i)$. For instance, if $f_i$ is normal
+$\mathcal{N}(\mu_i,\sigma_i^2)$, \[
 \mu_i^{(k+1)} = \frac{\sum_{t=1}^T \gamma_t^{(k)}(i) y_t}{\sum_{t=1}^T \gamma_t^{(k)}(i)},
 \] \[
 (\sigma_i^2)^{(k+1)} = \frac{\sum_{t=1}^T \gamma_t^{(k)}(i) (y_t - \mu_i^{(k+1)})^2}{\sum_{t=1}^T \gamma_t^{(k)}(i)}.
@@ -2604,39 +2604,39 @@ Zucchini et al.~work out these updates for many common emission families
 \subsection{5.2.4 EM as Coordinate Ascent on an Evidence Lower
 Bound}\label{em-as-coordinate-ascent-on-an-evidence-lower-bound}
 
-Define a distribution \(q(S_{1:T})\) over state sequences. Then \[
+Define a distribution $q(S_{1:T})$ over state sequences. Then \[
 \log p_\theta(Y)
 = \mathcal{F}(q,\theta) + \mathrm{KL}\bigl(q(S_{1:T}) \Vert p_\theta(S_{1:T} \mid Y)\bigr),
 \] where the \textbf{variational free energy} (or ELBO) is \[
 \mathcal{F}(q,\theta) = \mathbb{E}_q[\log p_\theta(S_{1:T},Y)] + H(q),
-\] with entropy \(H(q) = -\mathbb{E}_q[\log q(S_{1:T})]\).
+\] with entropy $H(q) = -\mathbb{E}_q[\log q(S_{1:T})]$.
 
 Since KL is non-negative, \[
 \mathcal{F}(q,\theta) \le \log p_\theta(Y),
-\] with equality iff \(q = p_\theta(S_{1:T} \mid Y)\).
+\] with equality iff $q = p_\theta(S_{1:T} \mid Y)$.
 
 EM alternates:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{E-step:} Set \(q^{(k)} = p_{\theta^{(k)}}(S_{1:T} \mid Y)\),
-  which maximizes \(\mathcal{F}(q, \theta^{(k)})\) over \(q\);
+  \textbf{E-step:} Set $q^{(k)} = p_{\theta^{(k)}}(S_{1:T} \mid Y)$,
+  which maximizes $\mathcal{F}(q, \theta^{(k)})$ over $q$;
 \item
-  \textbf{M-step:} Maximize \(\mathcal{F}(q^{(k)}, \theta)\) over
-  \(\theta\), which is equivalent to maximizing
-  \(Q(\theta \mid \theta^{(k)})\).
+  \textbf{M-step:} Maximize $\mathcal{F}(q^{(k)}, \theta)$ over
+  $\theta$, which is equivalent to maximizing
+  $Q(\theta \mid \theta^{(k)})$.
 \end{itemize}
 
-Thus EM is \textbf{coordinate ascent} on \(\mathcal{F}\), and therefore
+Thus EM is \textbf{coordinate ascent} on $\mathcal{F}$, and therefore
 \[
 \ell(\theta^{(k+1)}) \ge \ell(\theta^{(k)}).
 \]
 
 \subsection{5.2.5 Convergence Properties}\label{convergence-properties}
 
-Under mild conditions (continuity of \(\ell\), compactness of parameter
-space or coercivity), the EM sequence \(\{\theta^{(k)}\}\):
+Under mild conditions (continuity of $\ell$, compactness of parameter
+space or coercivity), the EM sequence $\{\theta^{(k)}\}$:
 
 \begin{itemize}
 \tightlist
@@ -2659,12 +2659,12 @@ HMM-EM; Zucchini et al.~emphasize practical convergence diagnostics.
 \subsection{5.3.1 Definition of
 Identifiability}\label{definition-of-identifiability}
 
-Let \(\mathcal{P}_\theta\) be the joint distribution of \(Y_{1:\infty}\)
-under parameter \(\theta\). The HMM is \textbf{(strictly) identifiable}
+Let $\mathcal{P}_\theta$ be the joint distribution of $Y_{1:\infty}$
+under parameter $\theta$. The HMM is \textbf{(strictly) identifiable}
 if \[
 \mathcal{P}_\theta = \mathcal{P}_{\theta'} \implies \theta' \in \mathcal{E}(\theta),
-\] where \(\mathcal{E}(\theta)\) is the \textbf{equivalence class} of
-\(\theta\) under state permutations (label switching).
+\] where $\mathcal{E}(\theta)$ is the \textbf{equivalence class} of
+$\theta$ under state permutations (label switching).
 
 Intuitively, \textbf{up to permutation of states}, the parameter is
 uniquely determined by the distribution of the observed process.
@@ -2675,7 +2675,7 @@ Examples}\label{simple-non-identifiability-examples}
 \begin{itemize}
 \tightlist
 \item
-  If two states have identical rows in \(\boldsymbol{\Gamma}\) and
+  If two states have identical rows in $\boldsymbol{\Gamma}$ and
   identical emission parameters, merging them yields another parameter
   with the same observed distribution.
 \item
@@ -2698,19 +2698,19 @@ identifiability of finite-state HMMs, typically requiring:
 \begin{itemize}
 \tightlist
 \item
-  The transition matrix \(\boldsymbol{\Gamma}\) to be of \textbf{full
+  The transition matrix $\boldsymbol{\Gamma}$ to be of \textbf{full
   rank} and ergodic;
 \item
-  Emission distributions \(f_i\) to be \textbf{distinct} and to span a
+  Emission distributions $f_i$ to be \textbf{distinct} and to span a
   sufficiently rich function space (e.g.~a linearly independent set in
-  \(L^2\));
+  $L^2$);
 \item
   Enough lags of the observed process to be considered.
 \end{itemize}
 
 Under such conditions, the joint distribution of
-\((Y_t, Y_{t+1}, Y_{t+2})\) (or higher blocks) contains enough
-information to recover \(\theta\) up to permutation.
+$(Y_t, Y_{t+1}, Y_{t+2})$ (or higher blocks) contains enough
+information to recover $\theta$ up to permutation.
 
 \subsection{5.3.4 Practical Implications (Zucchini et
 al.)}\label{practical-implications-zucchini-et-al.}
@@ -2722,7 +2722,7 @@ In practice, Zucchini et al.~stress that:
 \item
   One should avoid models where two states are effectively
   \textbf{indistinguishable} (same emissions, similar rows in
-  \(\boldsymbol{\Gamma}\));
+  $\boldsymbol{\Gamma}$);
 \item
   \textbf{Overly complex models} (too many states) can lead to weak
   identifiability and unstable estimates;
@@ -2780,37 +2780,37 @@ ergodic-theoretic foundation. Zucchini et al.~present the main ideas
 informally; here we state them more precisely.
 
 We mainly consider \textbf{finite-state HMMs} with emission densities
-\(f_i\) that are smooth in parameters.
+$f_i$ that are smooth in parameters.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \section{6.1 Setup and Regularity
 Conditions}\label{setup-and-regularity-conditions}
 
-Let \(\{(S_t,Y_t)\}_{t\ge1}\) be an HMM with true parameter
-\(\theta^*\). Assume:
+Let $\{(S_t,Y_t)\}_{t\ge1}$ be an HMM with true parameter
+$\theta^*$. Assume:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  The hidden chain \((S_t)\) is \textbf{irreducible and aperiodic}, with
-  unique stationary distribution \(\boldsymbol{\pi}^*\);
+  The hidden chain $(S_t)$ is \textbf{irreducible and aperiodic}, with
+  unique stationary distribution $\boldsymbol{\pi}^*$;
 \item
-  Under \(\theta^*\), the joint process \((S_t,Y_t)\) is
+  Under $\theta^*$, the joint process $(S_t,Y_t)$ is
   \textbf{stationary and ergodic} (true if we start from stationarity or
   after a transient);
 \item
-  The parameter space \(\Theta\) is compact or the log-likelihood is
+  The parameter space $\Theta$ is compact or the log-likelihood is
   \textbf{coercive};
 \item
-  The emission densities \(f_i(y;\phi_i)\) and transition probabilities
-  are \textbf{smooth} in \(\theta\);
+  The emission densities $f_i(y;\phi_i)$ and transition probabilities
+  are \textbf{smooth} in $\theta$;
 \item
   The model is \textbf{identifiable up to permutation} (Section 5.3).
 \end{enumerate}
 
-We observe \(Y_{1:T}\) and compute the MLE \(\hat{\theta}_T\).
+We observe $Y_{1:T}$ and compute the MLE $\hat{\theta}_T$.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2823,9 +2823,9 @@ Define the \textbf{average log-likelihood} \[
 \bar{\ell}_T(\theta) = \frac{1}{T} \ell_T(\theta) = \frac{1}{T} \log p_\theta(Y_{1:T}).
 \]
 
-A key result: for each fixed \(\theta\), the limit \[
+A key result: for each fixed $\theta$, the limit \[
 \ell_\infty(\theta) = \lim_{T\to\infty} \bar{\ell}_T(\theta)
-\] exists \textbf{almost surely} (and in \(L^1\)), and can be expressed
+\] exists \textbf{almost surely} (and in $L^1$), and can be expressed
 as an expectation under the stationary distribution of the hidden chain
 and emissions.
 
@@ -2838,12 +2838,12 @@ Limit}\label{identification-of-the-limit}
 Under stationarity, one can show that \[
 \ell_\infty(\theta)
 = \mathbb{E}_{\theta^*}\big[ \log p_\theta(Y_0 \mid Y_{-\infty:-1}) \big],
-\] where \(Y_{-\infty:0}\) denotes the infinite past.
+\] where $Y_{-\infty:0}$ denotes the infinite past.
 
-Intuitively, \(\ell_\infty(\theta)\) is the \textbf{expected log
-predictive likelihood} of \(Y_0\) given the entire past, under the true
-parameter \(\theta^*\), but evaluated at a candidate parameter
-\(\theta\).
+Intuitively, $\ell_\infty(\theta)$ is the \textbf{expected log
+predictive likelihood} of $Y_0$ given the entire past, under the true
+parameter $\theta^*$, but evaluated at a candidate parameter
+$\theta$.
 
 \subsection{6.2.3 Consistency under Correct
 Specification}\label{consistency-under-correct-specification}
@@ -2851,32 +2851,32 @@ Specification}\label{consistency-under-correct-specification}
 If the model is correctly specified and identifiable (up to
 permutation), then \[
 \ell_\infty(\theta) \le \ell_\infty(\theta^*)
-\] with equality \textbf{only} if \(\theta\) belongs to the
-permutation-equivalence class of \(\theta^*\).
+\] with equality \textbf{only} if $\theta$ belongs to the
+permutation-equivalence class of $\theta^*$.
 
 Under mild regularity conditions, we can show that \[
 \sup_{\theta \in \Theta} \bar{\ell}_T(\theta)
 \xrightarrow[T\to\infty]{\text{a.s.}} \sup_{\theta \in \Theta} \ell_\infty(\theta) = \ell_\infty(\theta^*).
 \]
 
-If the argmax of \(\ell_\infty\) is unique up to permutation, then
-\textbf{any sequence of MLEs} \(\hat{\theta}_T\) converges almost surely
-to the equivalence class of \(\theta^*\). This is \textbf{strong
+If the argmax of $\ell_\infty$ is unique up to permutation, then
+\textbf{any sequence of MLEs} $\hat{\theta}_T$ converges almost surely
+to the equivalence class of $\theta^*$. This is \textbf{strong
 consistency} (modulo label switching).
 
 \subsection{6.2.4 Misspecification and Pseudo-True
 Parameters}\label{misspecification-and-pseudo-true-parameters}
 
 If the true data-generating process is \textbf{not} in the model class,
-there is no \(\theta^*\) such that
-\(\mathcal{P}_\theta = \mathcal{P}_{\text{true}}\). Instead, we define a
+there is no $\theta^*$ such that
+$\mathcal{P}_\theta = \mathcal{P}_{\text{true}}$. Instead, we define a
 \textbf{pseudo-true parameter}: \[
 \theta^\circ \in \arg\min_{\theta \in \Theta} \mathrm{KL}(\mathcal{P}_{\text{true}} \Vert \mathcal{P}_\theta),
-\] where \(\mathcal{P}_\theta\) is the distribution of \(Y_{1:\infty}\)
-under \(\theta\).
+\] where $\mathcal{P}_\theta$ is the distribution of $Y_{1:\infty}$
+under $\theta$.
 
-Under general conditions, \(\hat{\theta}_T\) converges almost surely to
-\(\theta^\circ\). Thus, the MLE approximates the best-fitting model in
+Under general conditions, $\hat{\theta}_T$ converges almost surely to
+$\theta^\circ$. Thus, the MLE approximates the best-fitting model in
 the Kullback--Leibler sense.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -2891,12 +2891,12 @@ The \textbf{score function} is \[
 U_T(\theta) = \nabla_\theta \ell_T(\theta).
 \]
 
-The \textbf{Fisher information matrix} at \(\theta\) is \[
+The \textbf{Fisher information matrix} at $\theta$ is \[
 I_T(\theta) = -\mathbb{E}_\theta[ \nabla_\theta^2 \ell_T(\theta) ]
 = \mathbb{E}_\theta[ U_T(\theta) U_T(\theta)^\top ].
 \]
 
-For large \(T\), it is natural to study \textbf{per-observation}
+For large $T$, it is natural to study \textbf{per-observation}
 quantities: \[
 \bar{U}_T(\theta) = \frac{1}{\sqrt{T}} U_T(\theta), \quad
 \bar{I}_T(\theta) = \frac{1}{T} I_T(\theta).
@@ -2904,14 +2904,14 @@ quantities: \[
 
 Under stationarity and ergodicity, one can show that \[
 \bar{I}_T(\theta^*) \xrightarrow[T\to\infty]{} I(\theta^*),
-\] where \(I(\theta^*)\) is the \textbf{limiting Fisher information per
+\] where $I(\theta^*)$ is the \textbf{limiting Fisher information per
 time step}.
 
 \subsection{6.3.2 Central Limit Theorem for the
 Score}\label{central-limit-theorem-for-the-score}
 
 Under appropriate \textbf{mixing conditions} (e.g.~geometric
-\(\beta\)-mixing) for the observed process \((Y_t)\), the normalized
+$\beta$-mixing) for the observed process $(Y_t)$, the normalized
 score satisfies a \textbf{central limit theorem}: \[
 \bar{U}_T(\theta^*) = \frac{1}{\sqrt{T}} \nabla_\theta \ell_T(\theta^*)
 \xrightarrow{d} \mathcal{N}(0, I(\theta^*)).
@@ -2922,7 +2922,7 @@ The proof typically relies on:
 \begin{itemize}
 \tightlist
 \item
-  Writing \(U_T(\theta^*)\) as a sum of a \textbf{stationary, martingale
+  Writing $U_T(\theta^*)$ as a sum of a \textbf{stationary, martingale
   difference} sequence plus negligible terms;
 \item
   Applying a martingale CLT or a mixing CLT.
@@ -2936,26 +2936,26 @@ Assuming:
 \begin{itemize}
 \tightlist
 \item
-  \(\hat{\theta}_T \to \theta^*\) almost surely (consistency);
+  $\hat{\theta}_T \to \theta^*$ almost surely (consistency);
 \item
-  \(I(\theta^*)\) is \textbf{non-singular};
+  $I(\theta^*)$ is \textbf{non-singular};
 \item
   Regularity conditions for Taylor expansions;
 \end{itemize}
 
-we expand the score around \(\theta^*\): \[
+we expand the score around $\theta^*$: \[
 0 = U_T(\hat{\theta}_T)
 = U_T(\theta^*) + \nabla_\theta^2 \ell_T(\tilde{\theta}_T) (\hat{\theta}_T - \theta^*),
-\] for some \(\tilde{\theta}_T\) between \(\hat{\theta}_T\) and
-\(\theta^*\).
+\] for some $\tilde{\theta}_T$ between $\hat{\theta}_T$ and
+$\theta^*$.
 
-Divide by \(\sqrt{T}\): \[
+Divide by $\sqrt{T}$: \[
 0 = \bar{U}_T(\theta^*) + \Bigl( \frac{1}{T} \nabla_\theta^2 \ell_T(\tilde{\theta}_T) \Bigr) \sqrt{T} (\hat{\theta}_T - \theta^*).
 \]
 
-As \(T\to\infty\), the second factor converges to \(-I(\theta^*)\), and
-\(\bar{U}_T(\theta^*)\) converges in distribution to
-\(\mathcal{N}(0, I(\theta^*))\). Hence \[
+As $T\to\infty$, the second factor converges to $-I(\theta^*)$, and
+$\bar{U}_T(\theta^*)$ converges in distribution to
+$\mathcal{N}(0, I(\theta^*))$. Hence \[
 \sqrt{T}(\hat{\theta}_T - \theta^*)
 \xrightarrow{d} \mathcal{N}(0, I(\theta^*)^{-1}).
 \]
@@ -2965,7 +2965,7 @@ This is the \textbf{asymptotic normality} of the MLE.
 \subsection{6.3.4 Computing the Information in
 HMMs}\label{computing-the-information-in-hmms}
 
-In HMMs, \(I(\theta^*)\) can be computed using \textbf{forward--backward
+In HMMs, $I(\theta^*)$ can be computed using \textbf{forward--backward
 quantities} and expectations under the stationary distribution.
 
 One approach:
@@ -2975,10 +2975,10 @@ One approach:
 \item
   Express the score as \[
   U_T(\theta) = \sum_{t=1}^T u_t(\theta),
-  \] where \(u_t(\theta)\) depends on local conditional distributions
-  (e.g.~\(p_\theta(S_t,S_{t+1} \mid Y_{1:T})\));
+  \] where $u_t(\theta)$ depends on local conditional distributions
+  (e.g.~$p_\theta(S_t,S_{t+1} \mid Y_{1:T})$);
 \item
-  Compute \(\mathbb{E}_{\theta^*}[u_t(\theta^*) u_s(\theta^*)^\top]\)
+  Compute $\mathbb{E}_{\theta^*}[u_t(\theta^*) u_s(\theta^*)^\top]$
   and sum over lags.
 \end{itemize}
 
@@ -2990,14 +2990,14 @@ approximations.
 \section{6.4 Model Selection and Information
 Criteria}\label{model-selection-and-information-criteria}
 
-Given a family of HMMs with different numbers of states \(K\), we may
-select \(K\) using \textbf{information criteria} such as AIC or BIC.
+Given a family of HMMs with different numbers of states $K$, we may
+select $K$ using \textbf{information criteria} such as AIC or BIC.
 
 The \textbf{Bayesian Information Criterion (BIC)} is \[
 \mathrm{BIC} = -2 \ell_T(\hat{\theta}_T) + d \log T,
-\] where \(d\) is the number of free parameters in \(\theta\).
+\] where $d$ is the number of free parameters in $\theta$.
 
-Under regularity conditions, BIC is an approximation to \textbf{\(-2\)
+Under regularity conditions, BIC is an approximation to \textbf{$-2$
 times the log marginal likelihood} (integrated over a prior), and tends
 to favor the \textbf{true model order} when it is among the candidates.
 
@@ -3015,7 +3015,7 @@ HMMs:
 \begin{itemize}
 \tightlist
 \item
-  Existence of a limiting average log-likelihood \(\ell_\infty(\theta)\)
+  Existence of a limiting average log-likelihood $\ell_\infty(\theta)$
   under ergodicity;
 \item
   \textbf{Consistency} of MLEs under identifiability and regularity;
@@ -3062,17 +3062,17 @@ Models}\label{general-state-space-models}
 
 A \textbf{state-space model} (SSM) generalizes finite-state HMMs by
 allowing the hidden state to live in a \textbf{continuous space},
-typically \(\mathbb{R}^d\):
+typically $\mathbb{R}^d$:
 
 \begin{itemize}
 \tightlist
 \item
-  Hidden process \((X_t)\) on \(\mathbb{R}^d\) with transition density
+  Hidden process $(X_t)$ on $\mathbb{R}^d$ with transition density
   \[
   p_\theta(x_{t+1} \mid x_t);
   \]
 \item
-  Observation process \((Y_t)\) with conditional density \[
+  Observation process $(Y_t)$ with conditional density \[
   g_\theta(y_t \mid x_t).
   \]
 \end{itemize}
@@ -3083,12 +3083,12 @@ HMMs:
 \begin{itemize}
 \tightlist
 \item
-  \(X_{t+1} \perp\!\!\perp X_{1:t-1} \mid X_t\);
+  $X_{t+1} \perp\!\!\perp X_{1:t-1} \mid X_t$;
 \item
-  \(Y_t \perp\!\!\perp (X_{1:t-1}, X_{t+1:\infty}, Y_{1:t-1}, Y_{t+1:\infty}) \mid X_t\).
+  $Y_t \perp\!\!\perp (X_{1:t-1}, X_{t+1:\infty}, Y_{1:t-1}, Y_{t+1:\infty}) \mid X_t$.
 \end{itemize}
 
-The joint density over \(X_{1:T}, Y_{1:T}\) factorizes as \[
+The joint density over $X_{1:T}, Y_{1:T}$ factorizes as \[
 \mu(x_1) g(y_1 \mid x_1) \prod_{t=2}^T p(x_t \mid x_{t-1}) g(y_t \mid x_t),
 \] mirroring the finite-state HMM.
 
@@ -3100,14 +3100,14 @@ state-space model}: \[
 X_{t+1} = F X_t + W_t, \quad W_t \sim \mathcal{N}(0, Q),
 \] \[
 Y_t = H X_t + V_t, \quad V_t \sim \mathcal{N}(0, R),
-\] where \(F, H\) are matrices, and \(Q, R\) are covariance matrices.
+\] where $F, H$ are matrices, and $Q, R$ are covariance matrices.
 
-Here, \(X_t \in \mathbb{R}^d\) is a hidden \textbf{continuous state},
-and \(Y_t \in \mathbb{R}^m\) is observed. The model is Gaussian and
+Here, $X_t \in \mathbb{R}^d$ is a hidden \textbf{continuous state},
+and $Y_t \in \mathbb{R}^m$ is observed. The model is Gaussian and
 Markov; the \textbf{Kalman filter} provides exact filtering
 distributions \[
 \mathcal{L}(X_t \mid Y_{1:t}) = \mathcal{N}(m_t, P_t)
-\] via recursive updates of the mean \(m_t\) and covariance \(P_t\).
+\] via recursive updates of the mean $m_t$ and covariance $P_t$.
 
 This is the continuous analog of the forward algorithm; see Douc,
 Moulines, Stoffer for a rigorous treatment.
@@ -3139,8 +3139,8 @@ Models}\label{nonparametric-hmms-and-infinite-state-models}
 
 \subsection{7.2.1 Motivation}\label{motivation}
 
-Standard HMMs assume a \textbf{fixed number of states} \(K\). In some
-applications, choosing \(K\) is difficult or arbitrary.
+Standard HMMs assume a \textbf{fixed number of states} $K$. In some
+applications, choosing $K$ is difficult or arbitrary.
 \textbf{Nonparametric HMMs} aim to allow a \textbf{potentially infinite}
 number of states, with the data effectively using only finitely many.
 
@@ -3154,7 +3154,7 @@ measures. In an HMM context, one can place a DP prior on the
 \begin{itemize}
 \tightlist
 \item
-  Each row \(\boldsymbol{\Gamma}_{i,\cdot}\) is drawn from a DP centered
+  Each row $\boldsymbol{\Gamma}_{i,\cdot}$ is drawn from a DP centered
   on a base distribution over states;
 \item
   Posterior inference encourages \textbf{sparse} transition structures
@@ -3180,7 +3180,7 @@ Posterior inference in nonparametric HMMs typically requires:
   sampling);
 \item
   Or \textbf{variational inference} (truncating the infinite state space
-  at a large \(K_{\max}\)).
+  at a large $K_{\max}$).
 \end{itemize}
 
 While Zucchini et al.~focus on finite-state models, the same
@@ -3200,10 +3200,10 @@ continuous dynamics:
 \begin{itemize}
 \tightlist
 \item
-  Discrete hidden regime \(S_t \in \{1,\dots,K\}\) evolving as a Markov
-  chain with transition matrix \(\boldsymbol{\Gamma}\);
+  Discrete hidden regime $S_t \in \{1,\dots,K\}$ evolving as a Markov
+  chain with transition matrix $\boldsymbol{\Gamma}$;
 \item
-  Continuous hidden state \(X_t \in \mathbb{R}^d\) with
+  Continuous hidden state $X_t \in \mathbb{R}^d$ with
   \textbf{regime-dependent dynamics}: \[
   X_{t+1} = F_{S_t} X_t + W_t, \quad W_t \sim \mathcal{N}(0, Q_{S_t});
   \]
@@ -3308,13 +3308,13 @@ Recall the unnormalized forward variables \[
 \tilde{\alpha}_t(i) = \mathbb{P}(S_t=i, Y_{1:t}=y_{1:t}).
 \]
 
-For moderate \(T\), these values can be extremely small:
+For moderate $T$, these values can be extremely small:
 
 \begin{itemize}
 \tightlist
 \item
-  If typical emission probabilities are around \(10^{-2}\), then
-  \(\prod_{t=1}^T 10^{-2} = 10^{-2T}\) quickly underflows in double
+  If typical emission probabilities are around $10^{-2}$, then
+  $\prod_{t=1}^T 10^{-2} = 10^{-2T}$ quickly underflows in double
   precision.
 \end{itemize}
 
@@ -3357,12 +3357,12 @@ Then the recursion becomes \[
  a_{t+1}(j) = \log f_j(y_{t+1}) + \log \sum_{i=1}^K e^{a_t(i) + \log \gamma_{ij}}.
 \]
 
-To compute \(\log \sum_i e^{z_i}\) stably, use the \textbf{log-sum-exp}
+To compute $\log \sum_i e^{z_i}$ stably, use the \textbf{log-sum-exp}
 identity: \[
  \log \sum_i e^{z_i} = m + \log \sum_i e^{z_i - m}, \quad m = \max_i z_i.
 \]
 
-This avoids overflow/underflow as long as \(z_i\) are in representable
+This avoids overflow/underflow as long as $z_i$ are in representable
 range. Similar tricks apply in backward, Viterbi, and EM computations.
 
 \subsection{8.1.4 Backward and Viterbi
@@ -3388,20 +3388,20 @@ Stability}\label{backward-and-viterbi-stability}
 \subsection{8.2.1 Inference for a Single
 Sequence}\label{inference-for-a-single-sequence}
 
-Let \(K\) be the number of states and \(T\) the sequence length.
+Let $K$ be the number of states and $T$ the sequence length.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Forward algorithm:} For each \(t\), computing
-  \(\tilde{\alpha}_{t+1}(j)\) requires a sum over \(i=1,\dots,K\), so
-  the cost per time step is \(\mathcal{O}(K^2)\). Total cost is
-  \(\mathcal{O}(K^2 T)\).
+  \textbf{Forward algorithm:} For each $t$, computing
+  $\tilde{\alpha}_{t+1}(j)$ requires a sum over $i=1,\dots,K$, so
+  the cost per time step is $\mathcal{O}(K^2)$. Total cost is
+  $\mathcal{O}(K^2 T)$.
 \item
   \textbf{Backward algorithm:} Same complexity as forward.
 \item
-  \textbf{Viterbi algorithm:} Also \(\mathcal{O}(K^2 T)\) due to the max
-  over \(i\) for each \(j,t\).
+  \textbf{Viterbi algorithm:} Also $\mathcal{O}(K^2 T)$ due to the max
+  over $i$ for each $j,t$.
 \end{itemize}
 
 \textbf{Memory usage:}
@@ -3409,11 +3409,11 @@ Let \(K\) be the number of states and \(T\) the sequence length.
 \begin{itemize}
 \tightlist
 \item
-  Forward alone can be done with \(\mathcal{O}(K)\) memory if only the
+  Forward alone can be done with $\mathcal{O}(K)$ memory if only the
   likelihood is needed;
 \item
-  Forward--backward typically stores \(\mathcal{O}(K T)\) values
-  (e.g.~\(\hat{\alpha}_t\), \(\hat{\beta}_t\)) unless one uses streaming
+  Forward--backward typically stores $\mathcal{O}(K T)$ values
+  (e.g.~$\hat{\alpha}_t$, $\hat{\beta}_t$) unless one uses streaming
   or \textbf{checkpointing} strategies.
 \end{itemize}
 
@@ -3426,16 +3426,16 @@ Each EM iteration involves:
 \tightlist
 \item
   A full \textbf{forward--backward pass} per sequence:
-  \(\mathcal{O}(K^2 T)\);
+  $\mathcal{O}(K^2 T)$;
 \item
-  Simple \textbf{M-step updates} costing \(\mathcal{O}(K^2 T)\) for
-  transitions and \(\mathcal{O}(K T)\) for emissions.
+  Simple \textbf{M-step updates} costing $\mathcal{O}(K^2 T)$ for
+  transitions and $\mathcal{O}(K T)$ for emissions.
 \end{itemize}
 
-If there are \(N\) independent sequences of average length \(T\), the
-per-iteration cost is \(\mathcal{O}(N K^2 T)\).
+If there are $N$ independent sequences of average length $T$, the
+per-iteration cost is $\mathcal{O}(N K^2 T)$.
 
-Zucchini et al.~highlight that, for moderate \(K\) (say \(K \le 10\))
+Zucchini et al.~highlight that, for moderate $K$ (say $K \le 10$)
 and reasonably long time series, EM is typically very fast on modern
 hardware.
 
@@ -3448,7 +3448,7 @@ For large-scale problems:
 \tightlist
 \item
   Reducing \textbf{state space size} or enforcing \textbf{sparsity} in
-  \(\boldsymbol{\Gamma}\) (many zeros) can reduce the \(K^2\) factor;
+  $\boldsymbol{\Gamma}$ (many zeros) can reduce the $K^2$ factor;
 \item
   Parallelization over sequences is straightforward;
 \item
@@ -3461,21 +3461,21 @@ For large-scale problems:
 \section{8.3 Approximate Inference
 Methods}\label{approximate-inference-methods}
 
-When exact \(\mathcal{O}(K^2 T)\) inference is too costly or when the
+When exact $\mathcal{O}(K^2 T)$ inference is too costly or when the
 model is more complex (e.g.~continuous-state or nonparametric HMMs),
 \textbf{approximate methods} are used.
 
 \subsection{8.3.1 Truncated and Beam Search for
 Viterbi}\label{truncated-and-beam-search-for-viterbi}
 
-For very large \(K\) or long sequences, one can approximate Viterbi by:
+For very large $K$ or long sequences, one can approximate Viterbi by:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Beam search:} At each time step, keep only the top \(B\)
+  \textbf{Beam search:} At each time step, keep only the top $B$
   partial paths (states) according to their scores; complexity becomes
-  \(\mathcal{O}(B K T)\) with trade-off between accuracy and speed.
+  $\mathcal{O}(B K T)$ with trade-off between accuracy and speed.
 \end{itemize}
 
 \subsection{8.3.2 Particle Filters (Sequential Monte
@@ -3483,7 +3483,7 @@ Carlo)}\label{particle-filters-sequential-monte-carlo}
 
 For continuous-state models, \textbf{particle filters} approximate
 filtering distributions by a weighted set of particles
-\(\{(X_t^{(n)}, w_t^{(n)})\}\). For finite-state HMMs, particle filters
+$\{(X_t^{(n)}, w_t^{(n)})\}$. For finite-state HMMs, particle filters
 are not usually necessary, but similar ideas can be applied to
 \textbf{very large or structured state spaces}.
 
@@ -3516,7 +3516,7 @@ For streaming data, one can use:
   stochastic approximation to the E-step statistics;
 \item
   \textbf{Recursive maximum likelihood} methods (e.g.~gradient ascent
-  with step sizes \(\eta_t\)).
+  with step sizes $\eta_t$).
 \end{itemize}
 
 These algorithms rely heavily on \textbf{ergodic and mixing properties}
@@ -3595,25 +3595,25 @@ Regret}\label{online-prediction-and-regret}
 \subsection{9.1.1 Prediction Problem
 Setup}\label{prediction-problem-setup}
 
-Consider a sequence of observations \(Y_1, Y_2, \dots\) taking values in
-a measurable space \(\mathcal{Y}\). At each time \(t\):
+Consider a sequence of observations $Y_1, Y_2, \dots$ taking values in
+a measurable space $\mathcal{Y}$. At each time $t$:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  The forecaster outputs a predictive distribution \(q_t\) over \(Y_t\)
-  based on \(Y_{1:t-1}\);
+  The forecaster outputs a predictive distribution $q_t$ over $Y_t$
+  based on $Y_{1:t-1}$;
 \item
-  The true outcome \(Y_t\) is revealed;
+  The true outcome $Y_t$ is revealed;
 \item
-  The forecaster incurs a loss \(\ell(q_t, Y_t)\), often
+  The forecaster incurs a loss $\ell(q_t, Y_t)$, often
   \textbf{log-loss}: \[
   \ell(q_t, Y_t) = -\log q_t(Y_t).
   \]
 \end{enumerate}
 
-An HMM with parameter \(\theta\) induces a natural predictive
+An HMM with parameter $\theta$ induces a natural predictive
 distribution \[
  q_t^\theta(\cdot) = p_\theta(\cdot \mid Y_{1:t-1}).
 \]
@@ -3624,8 +3624,8 @@ The question: how do such predictors perform in an \textbf{online} or
 \subsection{9.1.2 Regret Against a Class of
 HMMs}\label{regret-against-a-class-of-hmms}
 
-Fix a class of HMMs \(\{p_\theta : \theta \in \Theta\}\). The
-\textbf{cumulative log-loss} of predictor \(q\) up to time \(T\) is \[
+Fix a class of HMMs $\{p_\theta : \theta \in \Theta\}$. The
+\textbf{cumulative log-loss} of predictor $q$ up to time $T$ is \[
 L_T(q) = \sum_{t=1}^T -\log q_t(Y_t).
 \]
 
@@ -3634,7 +3634,7 @@ R_T(q) = L_T(q) - \inf_{\theta \in \Theta} L_T(q^\theta).
 \]
 
 One can design online algorithms (e.g.~mixture-based or Bayesian) whose
-regret grows \textbf{sublinearly} in \(T\), ensuring that the average
+regret grows \textbf{sublinearly} in $T$, ensuring that the average
 additional loss \textbf{vanishes} asymptotically.
 
 This connects to the \textbf{universal prediction} literature, where
@@ -3643,16 +3643,16 @@ HMMs serve as a rich, structured class of experts.
 \subsection{9.1.3 Bayesian Mixture over
 HMMs}\label{bayesian-mixture-over-hmms}
 
-Consider a prior \(\Pi\) over \(\Theta\), and define the
+Consider a prior $\Pi$ over $\Theta$, and define the
 \textbf{Bayesian mixture predictor} \[
 q_t^{\text{mix}}(\cdot)
 = \int p_\theta(\cdot \mid Y_{1:t-1}) \, \Pi(d\theta \mid Y_{1:t-1}),
-\] where \(\Pi(\cdot \mid Y_{1:t-1})\) is the posterior over \(\theta\).
+\] where $\Pi(\cdot \mid Y_{1:t-1})$ is the posterior over $\theta$.
 
 Under log-loss, such mixture predictors achieve near-optimal regret
-bounds against the best \(\theta\) in \(\Theta\). This is an example of
+bounds against the best $\theta$ in $\Theta$. This is an example of
 \textbf{distribution-free performance guarantees} --- no assumptions are
-made on how \(Y_t\) are generated.
+made on how $Y_t$ are generated.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3668,17 +3668,17 @@ of:
 \begin{itemize}
 \tightlist
 \item
-  Hidden states \(S_t\) in a set \(E\);
+  Hidden states $S_t$ in a set $E$;
 \item
-  Actions \(A_t\) in an action set \(\mathcal{A}\);
+  Actions $A_t$ in an action set $\mathcal{A}$;
 \item
-  Observations \(Y_t\) in \(\mathcal{Y}\);
+  Observations $Y_t$ in $\mathcal{Y}$;
 \item
-  Transition probabilities \(p(s_{t+1} \mid s_t, a_t)\);
+  Transition probabilities $p(s_{t+1} \mid s_t, a_t)$;
 \item
-  Observation probabilities \(p(y_t \mid s_t)\);
+  Observation probabilities $p(y_t \mid s_t)$;
 \item
-  Reward (or cost) function \(r(s_t, a_t)\).
+  Reward (or cost) function $r(s_t, a_t)$.
 \end{itemize}
 
 An HMM is a \textbf{degenerate POMDP} with \textbf{no actions} (or a
@@ -3688,7 +3688,7 @@ HMMs as POMDPs is useful:
 \begin{itemize}
 \tightlist
 \item
-  The \textbf{belief state} \(b_t(i) = \mathbb{P}(S_t=i \mid Y_{1:t})\)
+  The \textbf{belief state} $b_t(i) = \mathbb{P}(S_t=i \mid Y_{1:t})$
   is a sufficient statistic for the history;
 \item
   Filtering (forward algorithm) is exactly the \textbf{belief update} in
@@ -3712,7 +3712,7 @@ states but also to perform \textbf{actions} based on our beliefs:
   \textbf{Medicine:} hidden disease states guide treatment decisions.
 \end{itemize}
 
-Formally, we want to choose policies \(\pi\) mapping belief states (or
+Formally, we want to choose policies $\pi$ mapping belief states (or
 observation histories) to actions, to maximize expected cumulative
 reward: \[
 \max_\pi \] \mathbb{E}\Bigg[ \sum_{t=1}^T r(S_t, A_t) \Bigg]. \$\$
@@ -3722,16 +3722,16 @@ Space}\label{dynamic-programming-in-belief-space}
 
 In a POMDP, the optimal policy can be obtained by dynamic programming on
 the space of \textbf{beliefs} (probability distributions over states).
-For finite-state HMMs, the belief space is the simplex \(\Delta^{K-1}\).
+For finite-state HMMs, the belief space is the simplex $\Delta^{K-1}$.
 
-The value function \(V_t(b)\) satisfies a \textbf{Bellman equation} of
+The value function $V_t(b)$ satisfies a \textbf{Bellman equation} of
 the form \[
 V_t(b) = \max_{a \in \mathcal{A}} \Big\{ r(b,a) + \mathbb{E}[ V_{t+1}(b') \mid b,a ] \Big\},
-\] where \(b'\) is the updated belief after taking action \(a\) and
-receiving observation \(Y_{t+1}\).
+\] where $b'$ is the updated belief after taking action $a$ and
+receiving observation $Y_{t+1}$.
 
 The belief update is exactly the \textbf{Bayesian filtering step}, which
-for HMM-like POMDPs is a linear-fractional map on \(\Delta^{K-1}\),
+for HMM-like POMDPs is a linear-fractional map on $\Delta^{K-1}$,
 followed by normalization.
 
 \subsection{9.2.4 Risk-Sensitive and Robust
@@ -3744,7 +3744,7 @@ Beyond expected reward, one can study \textbf{risk-sensitive} or
 \tightlist
 \item
   \textbf{Exponential utility:} maximize
-  \(-\frac{1}{\lambda} \log \mathbb{E}[ e^{-\lambda \sum r_t} ]\),
+  $-\frac{1}{\lambda} \log \mathbb{E}[ e^{-\lambda \sum r_t} ]$,
   linking to KL-regularized control;
 \item
   \textbf{Minimax regret:} choose policies that minimize the worst-case
@@ -3812,16 +3812,16 @@ mapping from hidden linguistic units to acoustic features:
 \begin{itemize}
 \tightlist
 \item
-  Hidden states \(S_t\): phonetic units (phones), context-dependent
+  Hidden states $S_t$: phonetic units (phones), context-dependent
   phones, or sub-phonetic states;
 \item
-  Observations \(Y_t\): short-time acoustic feature vectors (e.g.~MFCCs)
-  in \(\mathbb{R}^d\);
+  Observations $Y_t$: short-time acoustic feature vectors (e.g.~MFCCs)
+  in $\mathbb{R}^d$;
 \item
-  Transition matrix \(\boldsymbol{\Gamma}\): encodes allowed transitions
+  Transition matrix $\boldsymbol{\Gamma}$: encodes allowed transitions
   between phones (including self-transitions for duration modeling);
 \item
-  Emission distributions \(f_i(y)\): often Gaussian mixtures or more
+  Emission distributions $f_i(y)$: often Gaussian mixtures or more
   complex distributions over acoustic features.
 \end{itemize}
 
@@ -3830,7 +3830,7 @@ mapping from hidden linguistic units to acoustic features:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Likelihood computation:} \(p_\theta(Y_{1:T})\) for a given
+  \textbf{Likelihood computation:} $p_\theta(Y_{1:T})$ for a given
   sequence of acoustic features and a candidate word sequence;
 \item
   \textbf{Decoding:} find the most likely sequence of phones or words
@@ -3855,10 +3855,10 @@ composition}, such as \textbf{CpG islands}.
 \begin{itemize}
 \tightlist
 \item
-  Hidden states: \(S_t \in \{\text{island}, \text{non-island}\}\);
+  Hidden states: $S_t \in \{\text{island}, \text{non-island}\}$;
 \item
   Observations: nucleotides
-  \(Y_t \in \{\text{A},\text{C},\text{G},\text{T}\}\);
+  $Y_t \in \{\text{A},\text{C},\text{G},\text{T}\}$;
 \item
   Emissions: state-dependent multinomial distributions over nucleotides;
 \item
@@ -3910,21 +3910,21 @@ bear markets):
 \begin{itemize}
 \tightlist
 \item
-  Hidden states: \(S_t \in \{1,\dots,K\}\) representing regimes
+  Hidden states: $S_t \in \{1,\dots,K\}$ representing regimes
   (e.g.~low-volatility vs high-volatility);
 \item
-  Observations: asset returns \(Y_t \in \mathbb{R}\) or
-  \(\mathbb{R}^d\);
+  Observations: asset returns $Y_t \in \mathbb{R}$ or
+  $\mathbb{R}^d$;
 \item
   Emissions: state-dependent distributions, often Gaussian with mean
-  \(\mu_i\) and variance \(\sigma_i^2\) per state \(i\);
+  $\mu_i$ and variance $\sigma_i^2$ per state $i$;
 \item
   Transitions: Markov matrix encoding persistence of regimes.
 \end{itemize}
 
 The model is \[
 Y_t \mid S_t = i \sim \mathcal{N}(\mu_i, \sigma_i^2),
-\] with \((S_t)\) as in Section 1.
+\] with $(S_t)$ as in Section 1.
 
 Inference tasks:
 
@@ -3978,10 +3978,10 @@ The HMM structure is:
 \begin{itemize}
 \tightlist
 \item
-  \(S_t\) evolves as a Markov chain with transition matrix possibly
+  $S_t$ evolves as a Markov chain with transition matrix possibly
   depending on covariates;
 \item
-  \(Y_t\) arises from state-dependent emission distributions
+  $Y_t$ arises from state-dependent emission distributions
   (e.g.~logistic regression for test outcomes).
 \end{itemize}
 
@@ -4008,7 +4008,7 @@ Zucchini et al.~emphasize a common pattern across applications:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Choose a number of states} \(K\) and interpret them
+  \textbf{Choose a number of states} $K$ and interpret them
   substantively (e.g.~behavior modes, regimes);
 \item
   Specify a \textbf{state process} (transition matrix, possibly with
@@ -4034,7 +4034,7 @@ instantiated in:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Speech recognition} (linguistic units \(\to\) acoustic
+  \textbf{Speech recognition} (linguistic units $\to$ acoustic
   features);
 \item
   \textbf{Bioinformatics} (genomic regions, alignment profiles);
@@ -4072,24 +4072,24 @@ Chains}\label{probability-and-markov-chains}
 \def\labelenumi{\arabic{enumi}.}
 \item
   \textbf{Sigma-algebras and conditional expectations.}\\
-  Let \((\Omega,\mathcal{F},\mathbb{P})\) be a probability space and
-  \(X\) an integrable random variable. Show that the conditional
-  expectation \(\mathbb{E}[X\mid\mathcal{G}]\) with respect to a
-  sub-\(\sigma\)-algebra \(\mathcal{G}\subseteq\mathcal{F}\) is unique
+  Let $(\Omega,\mathcal{F},\mathbb{P})$ be a probability space and
+  $X$ an integrable random variable. Show that the conditional
+  expectation $\mathbb{E}[X\mid\mathcal{G}]$ with respect to a
+  sub-$\sigma$-algebra $\mathcal{G}\subseteq\mathcal{F}$ is unique
   up to almost sure equality. Prove the tower property.
 \item
   \textbf{Ergodic theorem for finite Markov chains.}\\
-  Let \((S_t)\) be an irreducible, aperiodic Markov chain on a finite
-  state space with stationary distribution \(\boldsymbol{\pi}\). Prove
-  that for any bounded function \(f\), \[
+  Let $(S_t)$ be an irreducible, aperiodic Markov chain on a finite
+  state space with stationary distribution $\boldsymbol{\pi}$. Prove
+  that for any bounded function $f$, \[
   \frac{1}{T} \sum_{t=1}^T f(S_t) \xrightarrow{\text{a.s.}} \sum_i \pi_i f(i).
   \] (Hint: use coupling or spectral methods.)
 \item
   \textbf{Spectral gap and mixing.}\\
   For a reversible Markov chain, prove that the total variation distance
-  between \(\mathbb{P}(S_t \in \cdot \mid S_0=i)\) and
-  \(\boldsymbol{\pi}\) decays at least geometrically with rate
-  determined by the spectral gap \(\gamma = 1-\lambda_2\).
+  between $\mathbb{P}(S_t \in \cdot \mid S_0=i)$ and
+  $\boldsymbol{\pi}$ decays at least geometrically with rate
+  determined by the spectral gap $\gamma = 1-\lambda_2$.
 \end{enumerate}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -4103,7 +4103,7 @@ Chains}\label{probability-and-markov-chains}
   \textbf{Forward algorithm correctness.}\\
   Starting from the HMM factorization, prove by induction that the
   forward recursion computes
-  \(\tilde{\alpha}_t(i) = \mathbb{P}(S_t=i,Y_{1:t}=y_{1:t})\).
+  $\tilde{\alpha}_t(i) = \mathbb{P}(S_t=i,Y_{1:t}=y_{1:t})$.
 \item
   \textbf{Forward--backward and smoothing.}\\
   Derive the backward recursion and show that the smoothing
@@ -4113,7 +4113,7 @@ Chains}\label{probability-and-markov-chains}
 \item
   \textbf{Viterbi optimality.}\\
   Prove rigorously that the Viterbi path is a maximizer of the joint
-  probability \(\mathbb{P}(S_{1:T},Y_{1:T})\) by showing that the
+  probability $\mathbb{P}(S_{1:T},Y_{1:T})$ by showing that the
   dynamic programming recursion satisfies the Bellman optimality
   principle.
 \item
@@ -4140,21 +4140,21 @@ Identifiability}\label{em-mle-and-identifiability}
 \item
   \textbf{Complete-data sufficient statistics.}\\
   For a finite-state HMM with discrete emissions, identify the
-  complete-data sufficient statistics for \(\boldsymbol{\delta}\),
-  \(\boldsymbol{\Gamma}\), and emission probabilities. Derive EM update
+  complete-data sufficient statistics for $\boldsymbol{\delta}$,
+  $\boldsymbol{\Gamma}$, and emission probabilities. Derive EM update
   formulas starting from the exponential-family structure.
 \item
   \textbf{Label switching.}\\
   Prove that permuting state labels in an HMM (and correspondingly
-  permuting rows/columns of \(\boldsymbol{\Gamma}\) and emission
-  parameters) yields the same distribution for \(Y_{1:T}\). Show that
+  permuting rows/columns of $\boldsymbol{\Gamma}$ and emission
+  parameters) yields the same distribution for $Y_{1:T}$. Show that
   this is the only symmetry for generic parameter values.
 \item
   \textbf{Non-identifiability example.}\\
   Construct a simple 2-state HMM with emission distributions and
   transition matrix such that two distinct parameter values (not related
-  by permutation) induce the same distribution over \(Y_{1:T}\) for all
-  \(T\).
+  by permutation) induce the same distribution over $Y_{1:T}$ for all
+  $T$.
 \end{enumerate}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -4168,20 +4168,20 @@ Information}\label{asymptotics-and-information}
 \item
   \textbf{Existence of limiting log-likelihood.}\\
   For a stationary ergodic HMM, show (under suitable conditions) that
-  \(\bar{\ell}_T(\theta) = T^{-1}\ell_T(\theta)\) converges almost
-  surely to a limit \(\ell_\infty(\theta)\) for each fixed \(\theta\).
+  $\bar{\ell}_T(\theta) = T^{-1}\ell_T(\theta)$ converges almost
+  surely to a limit $\ell_\infty(\theta)$ for each fixed $\theta$.
 \item
   \textbf{Consistency of MLE.}\\
-  Outline a proof that \(\hat{\theta}_T\) converges to the true
-  parameter (up to permutation) by showing that \(\ell_\infty(\theta)\)
-  is uniquely maximized at \(\theta^*\) and using uniform convergence of
-  \(\bar{\ell}_T\) to \(\ell_\infty\).
+  Outline a proof that $\hat{\theta}_T$ converges to the true
+  parameter (up to permutation) by showing that $\ell_\infty(\theta)$
+  is uniquely maximized at $\theta^*$ and using uniform convergence of
+  $\bar{\ell}_T$ to $\ell_\infty$.
 \item
   \textbf{Asymptotic normality.}\\
   Derive the asymptotic distribution of
-  \(\sqrt{T}(\hat{\theta}_T - \theta^*)\) by applying a Taylor expansion
+  $\sqrt{T}(\hat{\theta}_T - \theta^*)$ by applying a Taylor expansion
   to the score and invoking a central limit theorem for
-  \(U_T(\theta^*)\).
+  $U_T(\theta^*)$.
 \end{enumerate}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -4205,7 +4205,7 @@ Perspectives}\label{advanced-and-alternative-perspectives}
 \item
   \textbf{POMDP belief MDP.}\\
   For a finite-state POMDP, prove that the process of belief states
-  \(b_t\) forms a Markov decision process on the simplex, and write down
+  $b_t$ forms a Markov decision process on the simplex, and write down
   the Bellman equations.
 \item
   \textbf{Regret bounds for HMM predictors (conceptual).}\\
