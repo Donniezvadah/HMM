@@ -86,7 +86,7 @@ In many applications, we do not only wish to **infer** the hidden states but als
 
 Formally, we want to choose policies $\pi$ mapping belief states (or observation histories) to actions, to maximize expected cumulative reward:
 $$
-\max_\pi $$ \mathbb{E}\Bigg[ \sum_{t=1}^T r(S_t, A_t) \Bigg].
+\max_{\pi} \mathbb{E}\Bigg[ \sum_{t=1}^T r(S_t, A_t) \Bigg].
 $$
 
 ### 9.2.3 Dynamic Programming in Belief Space

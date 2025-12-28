@@ -92,3 +92,56 @@ Roughly:
 - **70%** of the course is probability and inference theory
 - **20%** is algorithms with correctness proofs
 - **10%** is applications and modeling case studies
+
+---
+
+## Deployment and Final Site Build
+
+To build and deploy the course website (a Quarto book with output in `_site/`):
+
+- **1. Render the full site locally**
+
+  ```bash
+  quarto render
+  ```
+
+  This generates the static HTML site into the `_site/` directory as configured in `_quarto.yml`.
+
+- **2. Preview locally (optional)**
+
+  ```bash
+  quarto preview
+  ```
+
+  This starts a local web server so you can inspect the site before publishing.
+
+- **3. Deploy to GitHub Pages (recommended if using GitHub)**
+
+  From the project root:
+
+  ```bash
+  quarto publish gh-pages
+  ```
+
+  This will:
+
+  - Build the site
+  - Push the rendered `_site/` contents to the `gh-pages` branch
+  - Configure it for GitHub Pages hosting
+
+- **4. Deploy to any static host (Netlify, Vercel, custom server)**
+
+  - Configure your host to use the project root as the build directory
+  - Set the **build command** to:
+
+    ```bash
+    quarto render
+    ```
+
+  - Set the **publish directory** (or equivalent) to:
+
+    ```
+    _site
+    ```
+
+  Any static host that can serve a folder of HTML/JS/CSS files can use the contents of `_site/` as the final deployed site.

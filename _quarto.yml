@@ -4,6 +4,7 @@ project:
 
 book:
   title: "Hidden Markov Models (HMMs)"
+  author: "Donald (Donnie)"
   description: "A rigorous, mathematically heavy course on Hidden Markov Models: probability foundations, inference algorithms, asymptotics, and advanced variants."
   chapters:
     - index.qmd
@@ -58,7 +59,7 @@ format:
       cache: false
     math: mathjax
   pdf:
-    documentclass: scrartcl
+    documentclass: scrbook
     toc: true
     number-sections: true
 

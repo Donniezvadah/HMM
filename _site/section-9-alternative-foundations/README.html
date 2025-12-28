@@ -437,7 +437,8 @@ q_t^{\text{mix}}(\cdot)
 <li><strong>Medicine:</strong> hidden disease states guide treatment decisions.</li>
 </ul>
 <p>Formally, we want to choose policies <span class="math inline">\(\pi\)</span> mapping belief states (or observation histories) to actions, to maximize expected cumulative reward: <span class="math display">\[
-\max_\pi \]</span> . $$</p>
+\max_{\pi} \mathbb{E}\Bigg[ \sum_{t=1}^T r(S_t, A_t) \Bigg].
+\]</span></p>
 </section>
 <section id="dynamic-programming-in-belief-space" class="level3">
 <h3 class="anchored" data-anchor-id="dynamic-programming-in-belief-space">9.2.3 Dynamic Programming in Belief Space</h3>
@@ -1030,7 +1031,7 @@ V_t(b) = \max_{a \in \mathcal{A}} \Big\{ r(b,a) + \mathbb{E}[ V_{t+1}(b') \mid b
 <span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>Formally, we want to choose policies $\pi$ mapping belief states (or observation histories) to actions, to maximize expected cumulative reward:</span>
 <span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>\max_\pi $$ \mathbb{E}\Bigg<span class="co">[</span><span class="ot"> \sum_{t=1}^T r(S_t, A_t) \Bigg</span><span class="co">]</span>.</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>\max_{\pi} \mathbb{E}\Bigg<span class="co">[</span><span class="ot"> \sum_{t=1}^T r(S_t, A_t) \Bigg</span><span class="co">]</span>.</span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9.2.3 Dynamic Programming in Belief Space</span></span>
